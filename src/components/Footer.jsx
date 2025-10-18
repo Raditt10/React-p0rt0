@@ -16,10 +16,9 @@ const Footer = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
 
-  // Ganti dengan data ASLI dari EmailJS dashboard Anda
   const EMAILJS_SERVICE_ID = "service_kkmzp89";
   const EMAILJS_TEMPLATE_ID = "template_gl1shr7"; 
-  const EMAILJS_PUBLIC_KEY = "-fGuY3Y4MtUYM_Dfc";
+  const EMAILJS_PUBLIC_KEY = "pk_EG9qC9jK6x6_x54cu";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +32,6 @@ const Footer = () => {
     setMessage("");
 
     try {
-      // TEMPLATE PARAMS DITEMPATKAN DI SINI
       const templateParams = {
         to_email: "iniakuraditt@gmail.com",
         from_email: email,
@@ -60,7 +58,6 @@ const Footer = () => {
       setMessage("Message sent successfully! I'll get back to you soon.");
       setEmail("");
       
-      // Reset message after 5 seconds
       setTimeout(() => {
         setMessage("");
       }, 5000);
