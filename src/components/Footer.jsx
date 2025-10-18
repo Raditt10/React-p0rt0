@@ -10,14 +10,14 @@ const Footer = () => {
   const footerRef = useRef(null);
   const [formData, setFormData] = useState({
     email: "",
-    message: "", // Tambah state untuk pesan
+    message: "", 
     isSubmitting: false
   });
   const [statusMessage, setStatusMessage] = useState("");
 
   const EMAILJS_SERVICE_ID = "service_kkmzp89";
   const EMAILJS_TEMPLATE_ID = "template_gl1shr7"; 
-  const EMAILJS_PUBLIC_KEY = "EG9qC9jkGx6_xS4cu"; // TAMBAH "pk_" di depan
+  const EMAILJS_PUBLIC_KEY = "EG9qC9jkGx6_xS4cu"; 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +42,7 @@ const Footer = () => {
       const templateParams = {
         to_email: "iniakuraditt@gmail.com",
         from_email: formData.email,
-        user_message: formData.message, // Kirim pesan user
+        user_message: formData.message, 
         subject: `Collaboration Request from ${formData.email}`,
         reply_to: formData.email,
         timestamp: new Date().toLocaleString('en-US', {
@@ -84,7 +84,6 @@ const Footer = () => {
     }
   };
   
-  // COMMENT SEMUA GSAP CODE UNTUK TESTING
   useEffect(() => {
     /*
     const footer = footerRef.current;
