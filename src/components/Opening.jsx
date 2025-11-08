@@ -125,36 +125,27 @@ const Opening = () => {
   const containerControls = useAnimation();
   const [showCount, setShowCount] = useState(true);
   const [isVisible, setIsVisible] = useState(true);
+  const [animationComplete, setAnimationComplete] = useState(false);
 
-  // FIXED: Enhanced scroll management
+  // FIX: Prevent scrolling and reset position on mount
   useLayoutEffect(() => {
-    // Save current scroll position
-    const scrollY = window.scrollY;
-    const body = document.body;
-    
-    // Immediately scroll to top
+    // Scroll to top immediately when component mounts
     window.scrollTo(0, 0);
     
-    // Prevent scrolling with multiple methods
-    body.style.overflow = 'hidden';
-    body.style.height = '100vh';
-    body.style.position = 'fixed';
-    body.style.top = `-${scrollY}px`;
-    body.style.width = '100%';
+    // Prevent scrolling
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.height = '100vh';
+    document.documentElement.style.height = '100vh';
 
     return () => {
-      // Restore all styles and scroll position
-      const scrollY = parseInt(body.style.top || '0') * -1;
-      body.style.overflow = '';
-      body.style.height = '';
-      body.style.position = '';
-      body.style.top = '';
-      body.style.width = '';
-      
-      // Force scroll to top after cleanup
-      requestAnimationFrame(() => {
-        window.scrollTo(0, 0);
-      });
+      // Restore scrolling
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.height = '';
+      document.documentElement.style.height = '';
+      // Ensure we're at the top after unmount
+      window.scrollTo(0, 0);
     };
   }, []);
 
@@ -235,27 +226,32 @@ const Opening = () => {
         transition: { duration: 1, ease: "easeInOut" },
       });
 
-      // FIXED: Enhanced unmount sequence with multiple scroll guarantees
+      setAnimationComplete(true);
+      
+      // FIX: Wait for exit animation then unmount and ensure scroll position
       setTimeout(() => {
-        // Force scroll to top multiple times to ensure it sticks
+        setIsVisible(false);
+        // Final scroll reset
         window.scrollTo(0, 0);
-        
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          setIsVisible(false);
-          
-          // Final guarantee after unmount
-          setTimeout(() => {
-            window.scrollTo(0, 0);
-            document.body.style.overflow = '';
-            document.documentElement.style.overflow = '';
-          }, 50);
-        }, 100);
       }, 300);
     };
 
     sequence();
   }, [controls1, controls2, controls3, controls4, containerControls]);
+
+  // FIX: Final cleanup effect
+  useEffect(() => {
+    if (animationComplete) {
+      // Final cleanup to ensure scroll position is correct
+      const cleanup = setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      }, 500);
+
+      return () => clearTimeout(cleanup);
+    }
+  }, [animationComplete]);
 
   if (!isVisible) return null;
 
@@ -561,7 +557,7 @@ const Opening = () => {
         />
       ))}
 
-      {/* Progress Bar */}
+      {/* Optional: Progress Bar */}
       <motion.div 
         className="absolute top-0 left-0 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 z-[600]"
         initial={{ width: "0%" }}
