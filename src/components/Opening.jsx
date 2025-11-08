@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 
 const FuturisticText = ({ children, className = "" }) => {
@@ -124,6 +124,25 @@ const Opening = () => {
   const controls4 = useAnimation();
   const containerControls = useAnimation();
   const [showCount, setShowCount] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);
+
+  // FIXED: Simple and effective scroll management
+  useLayoutEffect(() => {
+    // Scroll to top immediately
+    window.scrollTo(0, 0);
+    
+    // Prevent scrolling during animation
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    return () => {
+      // Restore scrolling after animation
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      // Final scroll to top
+      window.scrollTo(0, 0);
+    };
+  }, []);
 
   useEffect(() => {
     const style = document.createElement("style");
@@ -201,10 +220,21 @@ const Opening = () => {
         opacity: 0,
         transition: { duration: 1, ease: "easeInOut" },
       });
+
+      // Simple unmount sequence
+      setTimeout(() => {
+        setIsVisible(false);
+        // Restore scrolling and ensure top position
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+        window.scrollTo(0, 0);
+      }, 300);
     };
 
     sequence();
   }, [controls1, controls2, controls3, controls4, containerControls]);
+
+  if (!isVisible) return null;
 
   return (
     <motion.div
@@ -212,8 +242,9 @@ const Opening = () => {
       style={{
         fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
       }}
-      className="fixed bg-black h-screen w-screen flex flex-col items-center justify-center z-[500] overflow-hidden"
+      className="fixed bg-black h-screen w-screen flex flex-col items-center justify-center z-[500] overflow-hidden top-0 left-0"
     >
+      {/* Background Noise Texture */}
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
@@ -221,6 +252,7 @@ const Opening = () => {
         }}
       />
 
+      {/* Animated Radial Gradient */}
       <motion.div
         className="absolute inset-0"
         style={{
@@ -237,6 +269,7 @@ const Opening = () => {
         }}
       />
 
+      {/* Gradient Overlays */}
       <div
         className="absolute inset-0"
         style={{
@@ -251,6 +284,7 @@ const Opening = () => {
         }}
       />
 
+      {/* Animated Circles */}
       <motion.div
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full"
         style={{
@@ -305,6 +339,7 @@ const Opening = () => {
         }}
       />
 
+      {/* CountUp Animation */}
       {showCount && (
         <motion.div
           animate={controls1}
@@ -315,6 +350,7 @@ const Opening = () => {
         </motion.div>
       )}
 
+      {/* Text Animations */}
       <motion.div
         animate={controls2}
         initial={{ opacity: 0, y: 50, scale: 0.95, filter: "blur(20px)" }}
@@ -345,6 +381,7 @@ const Opening = () => {
         </FuturisticText>
       </motion.div>
 
+      {/* Corner Dots */}
       <motion.div
         className="absolute top-8 left-8"
         animate={{
@@ -400,6 +437,7 @@ const Opening = () => {
         <div className="w-2 h-2 bg-blue-400 rounded-full" style={{ boxShadow: "0 0 20px rgba(100, 200, 255, 0.8)" }} />
       </motion.div>
 
+      {/* Bottom Line */}
       <motion.div
         className="absolute bottom-16 left-1/2 transform -translate-x-1/2 h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent"
         style={{ width: "60%" }}
@@ -410,6 +448,102 @@ const Opening = () => {
           duration: 3,
           repeat: Infinity,
         }}
+      />
+
+      {/* Electric Effects */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
+        <defs>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        
+        {[...Array(8)].map((_, i) => (
+          <motion.path
+            key={i}
+            d={`M ${Math.random() * 100} ${Math.random() * 100} Q ${Math.random() * 100} ${Math.random() * 100} ${Math.random() * 100} ${Math.random() * 100}`}
+            stroke={`rgba(100, 200, 255, ${0.3 + Math.random() * 0.4})`}
+            strokeWidth="2"
+            fill="none"
+            filter="url(#glow)"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{
+              pathLength: [0, 1, 0],
+              opacity: [0, 1, 0],
+              d: [
+                `M ${Math.random() * 100}% ${Math.random() * 100}% Q ${50 + Math.random() * 20}% ${50 + Math.random() * 20}% ${Math.random() * 100}% ${Math.random() * 100}%`,
+                `M ${Math.random() * 100}% ${Math.random() * 100}% Q ${50 + Math.random() * 20}% ${50 + Math.random() * 20}% ${Math.random() * 100}% ${Math.random() * 100}%`,
+                `M ${Math.random() * 100}% ${Math.random() * 100}% Q ${50 + Math.random() * 20}% ${50 + Math.random() * 20}% ${Math.random() * 100}% ${Math.random() * 100}%`,
+              ]
+            }}
+            transition={{
+              duration: 2 + Math.random() * 2,
+              repeat: Infinity,
+              delay: i * 0.3,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+      </svg>
+
+      {/* Electric Sparks */}
+      {[...Array(15)].map((_, i) => (
+        <motion.div
+          key={`spark-${i}`}
+          className="absolute w-1 h-1 bg-cyan-400 rounded-full"
+          style={{
+            boxShadow: "0 0 10px rgba(100, 200, 255, 0.8), 0 0 20px rgba(100, 200, 255, 0.6)",
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            opacity: [0, 1, 0],
+            scale: [0, 1.5, 0],
+            x: [0, (Math.random() - 0.5) * 100],
+            y: [0, (Math.random() - 0.5) * 100],
+          }}
+          transition={{
+            duration: 1 + Math.random() * 1.5,
+            repeat: Infinity,
+            delay: Math.random() * 3,
+            ease: "easeOut"
+          }}
+        />
+      ))}
+
+      {/* Vertical Lightning Bolts */}
+      {[...Array(4)].map((_, i) => (
+        <motion.div
+          key={`lightning-${i}`}
+          className="absolute h-full w-px"
+          style={{
+            left: `${20 + i * 20}%`,
+            background: "linear-gradient(180deg, transparent 0%, rgba(100, 200, 255, 0.6) 50%, transparent 100%)",
+            boxShadow: "0 0 20px rgba(100, 200, 255, 0.8)",
+          }}
+          animate={{
+            opacity: [0, 0, 1, 0, 0],
+            scaleY: [0, 1, 1, 1, 0],
+          }}
+          transition={{
+            duration: 0.4,
+            repeat: Infinity,
+            delay: i * 1.2 + Math.random() * 2,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+
+      {/* Progress Bar */}
+      <motion.div 
+        className="absolute top-0 left-0 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 z-[600]"
+        initial={{ width: "0%" }}
+        animate={{ width: "100%" }}
+        transition={{ duration: 6.5, ease: "easeInOut" }}
       />
     </motion.div>
   );

@@ -87,55 +87,75 @@ const Projects = () => {
     <section 
       id="projects" 
       ref={sectionRef} 
-      className="relative min-h-screen py-20 px-4 md:px-8 overflow-hidden bg-black"
+      className="relative min-h-screen py-20 px-4 md:px-8 overflow-hidden bg-gradient-to-br from-black via-purple-900/20 to-cyan-900/10"
       style={{ fontFamily: "Sora Variable" }}
     >
-      {/* Animated Background Grid */}
-      <div className="absolute inset-0 opacity-5">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(139, 92, 246, 0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(139, 92, 246, 0.3) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px',
-            animation: 'gridMove 20s linear infinite'
-          }}
-        />
-      </div>
-
-      {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-purple-500 rounded-full animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${5 + Math.random() * 10}s`
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Mouse Glow Effect */}
+      {/* Enhanced Mouse Glow Effect */}
       <div 
         ref={glowRef}
-        className="absolute pointer-events-none z-10 transition-opacity duration-300"
+        className="absolute pointer-events-none z-5 transition-all duration-200"
         style={{
           left: mousePosition.x,
           top: mousePosition.y,
           width: '600px',
           height: '600px',
           transform: 'translate(-50%, -50%)',
-          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(59, 130, 246, 0.1) 30%, transparent 70%)',
-          filter: 'blur(40px)',
-          opacity: mousePosition.x > 0 ? 1 : 0
+          background: `
+            radial-gradient(
+              circle at center,
+              rgba(139, 92, 246, 0.4) 0%,
+              rgba(59, 130, 246, 0.25) 25%,
+              rgba(0, 255, 249, 0.15) 40%,
+              rgba(255, 0, 222, 0.1) 55%,
+              transparent 70%
+            )
+          `,
+          filter: 'blur(80px)',
+          opacity: mousePosition.x > 0 ? 0.8 : 0,
+          mixBlendMode: 'screen'
         }}
       />
+
+      {/* Animated Grid Background */}
+      <div className="absolute inset-0 opacity-[0.03] z-0">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px',
+          backgroundPosition: 'center center'
+        }} />
+      </div>
+
+      {/* Pulsing Orb Effect */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] z-0">
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/10 to-cyan-600/10 animate-pulse-slow" 
+             style={{ filter: 'blur(60px)' }} />
+      </div>
+
+      {/* Enhanced Floating Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-5">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="floating-particle absolute rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${Math.random() * 4 + 2}px`,
+              height: `${Math.random() * 4 + 2}px`,
+              background: Math.random() > 0.5 
+                ? 'linear-gradient(45deg, #8b5cf6, #00fff9)'
+                : 'linear-gradient(45deg, #ff00de, #8b5cf6)',
+              boxShadow: `0 0 ${Math.random() * 10 + 5}px ${
+                Math.random() > 0.5 ? 'rgba(139, 92, 246, 0.8)' : 'rgba(0, 255, 249, 0.8)'
+              }`,
+              filter: 'blur(1px)'
+            }}
+          />
+        ))}
+      </div>
 
       <motion.div 
         className="max-w-7xl mx-auto relative z-20"
@@ -147,7 +167,14 @@ const Projects = () => {
         <motion.h1 
           ref={titleRef}
           variants={titleVariants}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-white to-[#999999] bg-clip-text text-transparent font-semibold text-center relative z-30 overflow-hidden mb-12 md:mb-20"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-white via-cyan-200 to-purple-200 bg-clip-text text-transparent font-bold text-center relative z-30 overflow-hidden mb-12 md:mb-20"
+          style={{
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            textShadow: '0 0 80px rgba(139, 92, 246, 0.5)',
+            letterSpacing: '0.05em'
+          }}
         >
           My Projects
         </motion.h1>
@@ -231,16 +258,20 @@ const Projects = () => {
         
         @keyframes float {
           0%, 100% { 
-            transform: translateY(0) translateX(0); 
+            transform: translateY(0) translateX(0) rotate(0deg); 
             opacity: 0; 
           }
-          10% { opacity: 0.7; }
-          50% { opacity: 1; }
-          90% { opacity: 0.7; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
           100% { 
-            transform: translateY(-100vh) translateX(50px); 
+            transform: translateY(-100vh) translateX(100px) rotate(180deg); 
             opacity: 0; 
           }
+        }
+
+        @keyframes pulse-slow {
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 0.8; }
         }
 
         @keyframes scan {
@@ -252,8 +283,16 @@ const Projects = () => {
           animation: float 15s infinite linear;
         }
 
+        .animate-pulse-slow {
+          animation: pulse-slow 4s ease-in-out infinite;
+        }
+
         .animate-scan {
           animation: scan 3s linear infinite;
+        }
+
+        .floating-particle {
+          animation: float 15s infinite linear;
         }
       `}</style>
     </section>
