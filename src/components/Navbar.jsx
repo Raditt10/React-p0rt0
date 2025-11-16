@@ -161,35 +161,15 @@ const Navbar = () => {
         />
       )}
 
-      {/* Mobile Sidebar dengan efek cyberpunk */}
+      {/* Mobile Sidebar */}
       <aside
-        className={`md:hidden fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-black/95 backdrop-blur-xl border-l border-cyan-500/30 shadow-2xl shadow-cyan-500/20 z-50 transform transition-transform duration-500 ease-out ${
+        className={`md:hidden fixed top-0 right-0 h-full w-full max-w-[400px] sm:max-w-[450px] bg-black/95 backdrop-blur-xl border-l border-cyan-500/30 shadow-2xl shadow-cyan-500/20 z-50 transform transition-transform duration-500 ease-out ${
           isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        {/* Animated Border Effects */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-0 w-20 h-20 bg-cyan-400/10 blur-xl animate-pulse" />
-          <div className="absolute bottom-0 right-0 w-20 h-20 bg-purple-400/10 blur-xl animate-pulse" style={{animationDelay: '1s'}} />
-          {/* Grid Pattern */}
-          <div 
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: `
-                linear-gradient(90deg, transparent 95%, #06b6d4 100%),
-                linear-gradient(180deg, transparent 95%, #8b5cf6 100%)
-              `,
-              backgroundSize: '20px 20px'
-            }}
-          />
-        </div>
-
+        {/* Header */}
         <div className='flex justify-between items-center p-6 border-b border-cyan-500/30 relative z-10'>
-          <h1 className='text-xl font-sora font-semibold text-white glitch-text' data-text="Rafaditya .S">
-            Rafaditya .S
-            <span className="glitch-layer glitch-layer-1">Rafaditya .S</span>
-            <span className="glitch-layer glitch-layer-2">Rafaditya .S</span>
-          </h1>
+          <h1 className='text-xl font-bold text-white'>R'e</h1>
           <button
             onClick={closeSidebar}
             className='text-white p-2 hover:bg-cyan-500/20 rounded-lg transition-all duration-300 group border border-cyan-500/30'
@@ -199,39 +179,74 @@ const Navbar = () => {
               <span className="absolute left-0 top-3 w-6 h-0.5 bg-cyan-400 rotate-45" />
               <span className="absolute left-0 top-3 w-6 h-0.5 bg-cyan-400 -rotate-45" />
             </div>
-            <div className="absolute inset-0 bg-cyan-400/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
           </button>
         </div>
         
+        {/* Navigation with Desktop Style */}
         <nav className='p-6 relative z-10'>
-          <ul className='space-y-3'>
-            {navlinks.map((navlink) => (
-              <li key={navlink.id} className="group">
-                <a
-                  href={navlink.link}
-                  onClick={closeSidebar}
-                  className='block text-white font-sora font-semibold text-lg py-4 px-6 rounded-lg hover:bg-cyan-500/20 transition-all duration-300 relative overflow-hidden border border-transparent hover:border-cyan-500/30 glitch-link'
-                  data-text={navlink.text}
-                >
-                  {/* Background Glow */}
-                  <div className="absolute inset-0 bg-cyan-400/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
+          {/* Glassmorphism Container */}
+          <div className="relative px-4 py-4 rounded-2xl bg-gradient-to-r from-gray-900/50 via-gray-800/40 to-gray-900/50 backdrop-blur-lg border border-gray-700/50">
+            {/* Inner Glow Effect */}
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/5 via-purple-500/5 to-cyan-500/5 animate-pulse" />
+            
+            <ul className='relative flex flex-col gap-2'>
+              {navlinks.map((navlink, index) => (
+                <li key={navlink.id} className="relative group">
+                  <a
+                    href={navlink.link}
+                    onClick={closeSidebar}
+                    className='relative block text-base font-medium px-6 py-3 rounded-full transition-all duration-500 hover:text-white overflow-hidden'
+                  >
+                    {/* Orbital Ring Effect */}
+                    <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700">
+                      <span className="absolute inset-0 rounded-full border-2 border-cyan-400/30 animate-spin-slow" style={{animationDuration: '8s'}} />
+                      <span className="absolute inset-0 rounded-full border-2 border-purple-400/20 animate-spin-slow" style={{animationDuration: '12s', animationDirection: 'reverse'}} />
+                    </span>
+                    
+                    {/* Planet Core - Glowing Center */}
+                    <span className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/30 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-full blur-sm" />
+                    
+                    {/* Atmosphere Glow */}
+                    <span className="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-full blur-lg" />
+                    
+                    {/* Starfield Background */}
+                    <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 overflow-hidden rounded-full">
+                      <span className="absolute top-2 left-3 w-1 h-1 bg-white rounded-full animate-pulse" style={{animationDelay: '0s'}} />
+                      <span className="absolute top-4 right-5 w-0.5 h-0.5 bg-cyan-300 rounded-full animate-pulse" style={{animationDelay: '0.3s'}} />
+                      <span className="absolute bottom-3 left-6 w-0.5 h-0.5 bg-purple-300 rounded-full animate-pulse" style={{animationDelay: '0.6s'}} />
+                    </span>
+                    
+                    {/* Cosmic Shimmer */}
+                    <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
+                    
+                    {/* Text with Cosmic Glow */}
+                    <span className="relative text-gray-300 group-hover:text-white group-hover:drop-shadow-[0_0_10px_rgba(34,211,238,0.9)] transition-all duration-500 font-medium">
+                      {navlink.text}
+                    </span>
+                    
+                    {/* Orbiting Particles */}
+                    <span className="absolute top-0 left-1/2 w-1.5 h-1.5 bg-cyan-400 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 shadow-[0_0_10px_rgba(34,211,238,1)] animate-orbit" />
+                    <span className="absolute bottom-0 right-1/2 w-1 h-1 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 shadow-[0_0_8px_rgba(168,85,247,1)] animate-orbit-reverse" style={{animationDelay: '0.5s'}} />
+                    
+                    {/* Gravitational Pull Line */}
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent group-hover:w-4/5 transition-all duration-700 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
+                  </a>
                   
-                  {/* Content */}
-                  <span className="relative z-10">{navlink.text}</span>
-                  
-                  {/* Cyberpunk Corner Brackets */}
-                  <span className="absolute top-2 left-2 w-2 h-2 border-l border-t border-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <span className="absolute top-2 right-2 w-2 h-2 border-r border-t border-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <span className="absolute bottom-2 left-2 w-2 h-2 border-l border-b border-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <span className="absolute bottom-2 right-2 w-2 h-2 border-r border-b border-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  {/* Scanning Line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover:opacity-100 animate-scan" />
-                </a>
-              </li>
-            ))}
-          </ul>
+                  {/* Separator Line (except last item) */}
+                  {index < navlinks.length - 1 && (
+                    <div className="my-2 w-full h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent" />
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
         </nav>
+
+        {/* Background Effects */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 left-0 w-32 h-32 bg-cyan-400/10 blur-3xl animate-pulse" />
+          <div className="absolute bottom-0 right-0 w-32 h-32 bg-purple-400/10 blur-3xl animate-pulse" style={{animationDelay: '1s'}} />
+        </div>
 
         {/* Bottom Gradient */}
         <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black via-black/50 to-transparent pointer-events-none" />
