@@ -518,7 +518,7 @@ const Hero = () => {
 
       {/* Audio Element */}
       <audio ref={audioRef} loop>
-        <source src="/music/where have you been.m4a" type="audio/mp4" />
+        <source src="/music/where have you been.mp3" type="audio/mp3" />
       </audio>
 
       {/* Enhanced Floating Particles */}
