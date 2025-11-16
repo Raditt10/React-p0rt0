@@ -1,20 +1,32 @@
 @import "tailwindcss";
-
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
 
-@theme {
+:root {
   --font-sora: "Sora", sans-serif;
 }
 
-@utility cool-border-gradient {
-  @apply border-b-4 border-transparent bg-gradient-to-r from-[#280087] to-[#C00000] bg-clip-border relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#280087] after:to-[#C00000];
+.cool-border-gradient {
+  border-bottom: 4px solid transparent;
+  background: linear-gradient(to right, #280087, #C00000);
+  background-clip: border-box;
+  position: relative;
 }
 
-@utility masked-img {
-    mask-image: url("/img/Monogram_RS.png");
-    mask-repeat: no-repeat;
-    mask-position: center;
-    mask-size: 50%;
+.cool-border-gradient::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, #280087, #C00000);
+}
+
+.masked-img {
+  mask-image: url("/img/Monogram_RS.png");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 50%;
 }
 
 body {
@@ -34,23 +46,55 @@ body {
   border: 0;
 }
 
-@utility masked-container {
-            h2 {
-                @apply text-4xl md:text-5xl text-center mb-10 text-white mt-32;
-            }
+.masked-container h2 {
+  font-size: 2.25rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: white;
+  margin-top: 8rem;
+}
 
-            div {
-                @apply opacity-0 md:px-0 px-5 space-y-5 absolute md:bottom-5 bottom-52 left-1/2 -translate-x-1/2;
+@media (min-width: 768px) {
+  .masked-container h2 {
+    font-size: 3rem;
+  }
+}
 
-                h3 {
-                    @apply md:text-5xl text-2xl text-center md:w-full w-80 text-white;
-                }
+.masked-container div {
+  opacity: 0;
+  padding: 0 1.25rem;
+  gap: 1.25rem;
+  position: absolute;
+  bottom: 13rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-                p {
-                    @apply text-lg text-center;
-                }
-            }
-        }
+@media (min-width: 768px) {
+  .masked-container div {
+    padding: 0;
+    bottom: 1.25rem;
+  }
+}
+
+.masked-container div h3 {
+  font-size: 1.5rem;
+  text-align: center;
+  width: 20rem;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .masked-container div h3 {
+    font-size: 3rem;
+    width: 100%;
+  }
+}
+
+.masked-container div p {
+  font-size: 1.125rem;
+  text-align: center;
+}
 
 /* ===== CUSTOM SCROLLBAR - CYBERPUNK THEME ===== */
 ::-webkit-scrollbar {

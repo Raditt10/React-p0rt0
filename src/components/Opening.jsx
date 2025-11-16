@@ -127,15 +127,7 @@ const Opening = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    const style = document.createElement("style");
-    style.textContent = `
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&display=swap');
-    `;
-    document.head.appendChild(style);
-
-    return () => {
-      document.head.removeChild(style);
-    };
+    // Font is already loaded in index.css, no need for dynamic import
   }, []);
 
   useEffect(() => {

@@ -1,17 +1,41 @@
 import { Github } from 'lucide-react'
 import React from 'react'
 
-const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode }) => {
+const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingSoon = false }) => {
+  const borderClass = isComingSoon 
+    ? "border-2 border-dashed border-cyan-400/60 hover:border-cyan-400/80 shadow-cyan-400/10"
+    : "border-2 border-white shadow-2xl hover:shadow-blue-500/20";
+
   return (
-    <div className="flex flex-col items-center border-2 border-white rounded-2xl w-full max-w-[501px] min-h-[560px] md:min-h-[560px] sm:min-h-[520px] mx-auto">
-      {/* Image Container */}
-      <div className="w-full">
-        <img 
-          className="rounded-t-2xl w-full h-48 sm:h-52 md:h-56 object-cover" 
-          src={`/img/${gambar}`} 
-          alt="Projects Image"
-          loading="lazy"
-        />
+    <div className={`group flex flex-col items-center rounded-2xl w-full max-w-[501px] min-h-[600px] md:min-h-[640px] lg:min-h-[680px] mx-auto transition-all duration-500 hover:shadow-cyan-500/30 ${borderClass}`}>
+      {/* Image Container - Optimized for full page */}
+      <div className="w-full relative overflow-hidden">
+        {isComingSoon ? (
+          <div className="rounded-t-2xl w-full h-56 sm:h-64 md:h-72 lg:h-80 bg-gradient-to-br from-cyan-900/20 to-blue-900/30 flex items-center justify-center">
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl lg:text-6xl mb-4">🚀</div>
+              <div className="text-lg md:text-xl text-cyan-300 font-semibold">Coming Soon</div>
+              <div className="text-sm text-cyan-400/70 mt-2">New Project</div>
+            </div>
+          </div>
+        ) : (
+          <>
+            <img 
+              className="rounded-t-2xl w-full h-56 sm:h-64 md:h-72 lg:h-80 object-cover object-center transition-all duration-500" 
+              src={`/img/${gambar}`} 
+              alt="Projects Image"
+              loading="lazy"
+              style={{ minHeight: '100%', minWidth: '100%' }}
+            />
+            {/* Gradient overlay with hover effect */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-100 group-hover:from-cyan-900/60 group-hover:via-blue-900/30 transition-all duration-500 pointer-events-none" />
+            
+            {/* Shine effect on hover */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+            </div>
+          </>
+        )}
       </div>
       
       {/* Year Section */}
@@ -61,11 +85,11 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode }) => {
         <span className="opacity-0">.</span>
       </div>
       
-      {/* Action Buttons */}
-      <div className="flex items-center justify-between w-full mt-4 px-4 md:px-6 pb-4 md:pb-6">
-        <a href={linkDemo} target='_blank' rel="noopener noreferrer">
-          <button className="flex items-center gap-2 px-3 md:px-4 py-2 text-xs md:text-sm font-medium text-blue-400 hover:text-blue-300 hover:bg-blue-950/30 rounded-lg transition-all duration-200">
-            <div className="w-auto h-[10px] flex-shrink-0">
+      {/* Action Buttons - Mobile optimized */}
+      <div className="flex items-center justify-between w-full mt-4 px-4 md:px-6 pb-4 md:pb-6 gap-3">
+        <a href={linkDemo} target='_blank' rel="noopener noreferrer" className="flex-1">
+          <button className="flex items-center justify-center gap-2 w-full px-4 py-3 text-sm font-medium text-blue-400 hover:text-blue-300 hover:bg-blue-950/50 rounded-lg transition-all duration-300 border border-blue-500/30 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/50 min-h-[44px] touch-manipulation">
+            <div className="w-auto h-[12px] flex-shrink-0">
               <img src="/img/Demo.png" className="w-full h-full object-cover" alt="" />
             </div>
             <span className="font-light">
@@ -74,9 +98,9 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode }) => {
           </button>
         </a>
         
-        <a href={linkCode} target='_blank'>
-          <button className="flex cursor-pointer items-center gap-2 px-3 md:px-4 py-2 text-xs md:text-sm font-medium text-white hover:text-slate-300 rounded-lg backdrop-blur-sm transition-colors duration-200 transform">
-            <Github size={12} />
+        <a href={linkCode} target='_blank' className="flex-1">
+          <button className="flex cursor-pointer items-center justify-center gap-2 w-full px-4 py-3 text-sm font-medium text-white hover:text-cyan-300 rounded-lg backdrop-blur-sm transition-all duration-300 transform border border-gray-600/30 hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/30 min-h-[44px] touch-manipulation">
+            <Github size={14} />
             <span className="font-light">
               Code
             </span>

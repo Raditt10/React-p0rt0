@@ -358,11 +358,11 @@ const techstack = [
 const projectsData = [
   {
     id: 1,
-    gambar: "kultilas.png",
+    gambar: "Kultilas.png",
     judul: "Kultilas",
     parag: "Kultilas is a web-based application designed to facilitate the management of student extracurricular activities in schools.",
-    tech: ["Nextjs","Vuejs", "MySQL"],
-    linkDemo : "#",
+    tech: ["Laravel","Alpine.js", "MySQL", "Tailwind CSS"],
+    linkDemo : "https://kultilas.vercel.app/",
     linkCode : "https://github.com/Raditt10/Kultilas"
   },
 
@@ -373,6 +373,17 @@ const projectsData = [
     parag: "Kul-kul is an application for managing finances in schools, especially for extracurricular activities.",
     tech: ["Laravel", "MySQL", "Tailwind CSS"],
     linkCode : "https://github.com/Raditt10/kulkul"
+  },
+
+  {
+    id: 3,
+    gambar: "coming-soon.png",
+    judul: "Coming Soon",
+    parag: "Exciting new project in development! Stay tuned for more innovative web applications and creative solutions.",
+    tech: ["React", "Node.js", "MongoDB"],
+    linkDemo: "#",
+    linkCode: "#",
+    isComingSoon: true
   },
 
 ]

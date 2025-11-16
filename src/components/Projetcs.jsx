@@ -87,7 +87,7 @@ const Projects = () => {
     <section 
       id="projects" 
       ref={sectionRef} 
-      className="relative min-h-screen py-20 px-4 md:px-8 overflow-hidden bg-gradient-to-br from-black via-purple-900/20 to-cyan-900/10"
+      className="relative min-h-screen py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 lg:px-12 overflow-hidden bg-gradient-to-br from-black via-purple-900/20 to-cyan-900/10 touch-manipulation"
       style={{ fontFamily: "Sora Variable" }}
     >
       {/* Enhanced Mouse Glow Effect */}
@@ -167,20 +167,20 @@ const Projects = () => {
         <motion.h1 
           ref={titleRef}
           variants={titleVariants}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-white via-cyan-200 to-purple-200 bg-clip-text text-transparent font-bold text-center relative z-30 overflow-hidden mb-12 md:mb-20"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl bg-gradient-to-r from-white via-cyan-200 to-purple-200 bg-clip-text text-transparent font-bold text-center relative z-30 overflow-hidden mb-8 sm:mb-12 md:mb-16 lg:mb-20 px-4"
           style={{
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            textShadow: '0 0 80px rgba(139, 92, 246, 0.5)',
-            letterSpacing: '0.05em'
+            textShadow: '0 0 60px rgba(139, 92, 246, 0.5)',
+            letterSpacing: '0.02em'
           }}
         >
           My Projects
         </motion.h1>
         
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-15"
+          className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12"
           variants={gridVariants}
         >
           {projectsData.map((data, index) => (
@@ -236,7 +236,8 @@ const Projects = () => {
                   parag={data.parag} 
                   tech={data.tech} 
                   linkDemo={data.linkDemo} 
-                  linkCode={data.linkCode} 
+                  linkCode={data.linkCode}
+                  isComingSoon={data.isComingSoon || false}
                 />
                 
                 {/* Hover Shine Effect Overlay */}
