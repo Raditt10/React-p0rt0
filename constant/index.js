@@ -358,7 +358,7 @@ const techstack = [
 const projectsData = [
   {
     id: 1,
-    gambar: "Kultilas.png",
+    gambar: "kultilas.png",
     judul: "Kultilas",
     parag: "Kultilas is a web-based application designed to facilitate the management of student extracurricular activities in schools.",
     tech: ["Laravel","Alpine.js", "MySQL", "Tailwind CSS"],
