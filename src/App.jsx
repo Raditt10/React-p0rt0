@@ -2,6 +2,7 @@ import { gsap } from "gsap";
 import '@fontsource-variable/sora';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import { useState } from 'react';
 
 import Navbar from './components/Navbar'
 import Hero from './components/Hero';
@@ -16,9 +17,11 @@ import Opening from './components/Opening';
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 function App() {
+  const [showOpening, setShowOpening] = useState(true);
+
   return (
     <main className='bg-black overflow-x-hidden'>
-      <Opening />
+      {showOpening && <Opening onComplete={() => setShowOpening(false)} />}
       <Navbar />
       <Hero />
       <About />

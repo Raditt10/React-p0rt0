@@ -1,500 +1,304 @@
 import React, { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 
-const FuturisticText = ({ children, className = "" }) => {
-  return (
-    <motion.div
-      className={`relative ${className}`}
-      style={{
-        perspective: "1000px",
-      }}
-    >
-      <motion.span
-        className="relative z-10 block tracking-[0.3em]"
-        style={{
-          textShadow: "0 0 30px rgba(100, 200, 255, 0.8), 0 0 60px rgba(100, 200, 255, 0.4)",
-          fontWeight: 100,
-          letterSpacing: "0.3em"
-        }}
-        animate={{
-          x: [0, -2, 2, -1, 1, 0],
-          y: [0, 1, -1, 2, -2, 0],
-          opacity: [1, 0.98, 1, 0.99, 1, 1],
-          textShadow: [
-            "0 0 30px rgba(100, 200, 255, 0.8), 0 0 60px rgba(100, 200, 255, 0.4)",
-            "0 0 40px rgba(100, 200, 255, 1), 0 0 80px rgba(100, 200, 255, 0.6)",
-            "0 0 30px rgba(100, 200, 255, 0.8), 0 0 60px rgba(100, 200, 255, 0.4)",
-            "0 0 35px rgba(100, 200, 255, 0.9), 0 0 70px rgba(100, 200, 255, 0.5)",
-            "0 0 30px rgba(100, 200, 255, 0.8), 0 0 60px rgba(100, 200, 255, 0.4)",
-            "0 0 30px rgba(100, 200, 255, 0.8), 0 0 60px rgba(100, 200, 255, 0.4)",
-          ]
-        }}
-        transition={{
-          duration: 0.15,
-          repeat: Infinity,
-          repeatType: "loop",
-          ease: "easeInOut"
-        }}
-      >
-        {children}
-      </motion.span>
-
-      <motion.span
-        className="absolute z-0 tracking-[0.3em] text-blue-300"
-        style={{
-          top: "2px",
-          left: "3px",
-          fontWeight: 100,
-          letterSpacing: "0.3em",
-          opacity: 0.6,
-        }}
-        animate={{
-          x: [3, 1, -2, 2, -1, 3],
-          y: [-2, -1, 1, -2, 1, -2],
-          opacity: [0.4, 0.5, 0.3, 0.5, 0.4, 0.4],
-        }}
-        transition={{
-          duration: 0.15,
-          repeat: Infinity,
-          repeatType: "loop",
-          ease: "easeInOut"
-        }}
-      >
-        {children}
-      </motion.span>
-
-      <motion.span
-        className="absolute z-0 tracking-[0.3em] text-cyan-400"
-        style={{
-          top: "-2px",
-          left: "-3px",
-          fontWeight: 100,
-          letterSpacing: "0.3em",
-          opacity: 0.5,
-        }}
-        animate={{
-          x: [-2, 2, 1, -1, 2, -2],
-          y: [1, 2, -1, 1, -2, 1],
-          opacity: [0.3, 0.4, 0.2, 0.4, 0.3, 0.3],
-        }}
-        transition={{
-          duration: 0.15,
-          repeat: Infinity,
-          repeatType: "loop",
-          ease: "easeInOut"
-        }}
-      >
-        {children}
-      </motion.span>
-    </motion.div>
-  );
-};
-
-const CountUp = ({ from, to, duration = 1000, onComplete }) => {
-  const [count, setCount] = useState(from);
+const Opening = ({ onComplete }) => {
+  const [progress, setProgress] = useState(0);
+  const [stage, setStage] = useState('loading'); // loading, entering, complete
+  const [typedText, setTypedText] = useState('');
+  
+  const fullText = "Welcome to My Portfolio";
 
   useEffect(() => {
-    const startTime = Date.now();
-    const timer = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-
-      setCount(Math.floor(from + (to - from) * progress));
-
-      if (progress >= 1) {
-        clearInterval(timer);
-        onComplete?.();
+    // Typing animation
+    let currentIndex = 0;
+    const typingTimer = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setTypedText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingTimer);
       }
-    }, 16);
+    }, 100);
 
-    return () => clearInterval(timer);
-  }, [from, to, duration, onComplete]);
-
-  return (
-    <FuturisticText className="text-white text-8xl md:text-9xl lg:text-[12rem]">
-      {count.toLocaleString()}
-    </FuturisticText>
-  );
-};
-
-const Opening = () => {
-  const controls1 = useAnimation();
-  const controls2 = useAnimation();
-  const controls3 = useAnimation();
-  const controls4 = useAnimation();
-  const containerControls = useAnimation();
-  const [showCount, setShowCount] = useState(true);
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    // Font is already loaded in index.css, no need for dynamic import
+    return () => clearInterval(typingTimer);
   }, []);
 
   useEffect(() => {
-    const sequence = async () => {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      await controls1.start({
-        y: -100,
-        opacity: 0,
-        scale: 0.9,
-        filter: "blur(20px)",
-        transition: { duration: 0.5, ease: "easeInOut" },
+    // Progress animation
+    const progressTimer = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(progressTimer);
+          setStage('entering');
+          setTimeout(() => {
+            setStage('complete');
+            setTimeout(() => {
+              if (onComplete) onComplete();
+            }, 800);
+          }, 1000);
+          return 100;
+        }
+        return prev + 2;
       });
-      setShowCount(false);
+    }, 40);
 
-      await controls2.start({
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        filter: "blur(0px)",
-        transition: { duration: 0.6, ease: "easeOut" },
-      });
-
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      await controls2.start({
-        y: -100,
-        opacity: 0,
-        scale: 0.9,
-        filter: "blur(20px)",
-        transition: { duration: 0.5, ease: "easeInOut" },
-      });
-
-      await controls3.start({
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        filter: "blur(0px)",
-        transition: { duration: 0.6, ease: "easeOut" },
-      });
-
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      await controls3.start({
-        y: -100,
-        opacity: 0,
-        scale: 0.9,
-        filter: "blur(20px)",
-        transition: { duration: 0.5, ease: "easeInOut" },
-      });
-
-      await controls4.start({
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        filter: "blur(0px)",
-        transition: { duration: 0.6, ease: "easeOut" },
-      });
-
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      await containerControls.start({
-        y: "-100%",
-        opacity: 0,
-        transition: { duration: 1, ease: "easeInOut" },
-      });
-
-      // Unmount component setelah animasi selesai
-      setTimeout(() => setIsVisible(false), 100);
-    };
-
-    sequence();
-  }, [controls1, controls2, controls3, controls4, containerControls]);
-
-  if (!isVisible) return null;
+    return () => clearInterval(progressTimer);
+  }, [onComplete]);
 
   return (
     <motion.div
-      animate={containerControls}
-      style={{
-        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-      }}
-      className="fixed bg-black h-screen w-screen flex flex-col items-center justify-center z-[500] overflow-hidden top-0 left-0"
+      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-black pointer-events-auto"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: stage === 'complete' ? 0 : 1 }}
+      transition={{ duration: 0.8 }}
+      style={{ pointerEvents: stage === 'complete' ? 'none' : 'auto' }}
     >
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
-        }}
-      />
-
-      <motion.div
-        className="absolute inset-0"
-        style={{
-          background: "radial-gradient(ellipse at center, rgba(0, 150, 255, 0.08) 0%, rgba(0, 100, 200, 0.04) 40%, transparent 70%)",
-        }}
-        animate={{
-          scale: [1, 1.15, 1],
-          opacity: [0.4, 0.7, 0.4],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-
-      <div
-        className="absolute inset-0"
-        style={{
-          background: "linear-gradient(180deg, transparent 0%, rgba(0, 100, 200, 0.05) 50%, transparent 100%)",
-        }}
-      />
-
-      <div
-        className="absolute inset-0"
-        style={{
-          background: "linear-gradient(90deg, transparent 0%, rgba(0, 150, 255, 0.03) 50%, transparent 100%)",
-        }}
-      />
-
-      <motion.div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full"
-        style={{
-          border: "1px solid rgba(0, 150, 255, 0.15)",
-          boxShadow: "0 0 150px rgba(0, 150, 255, 0.15), inset 0 0 150px rgba(0, 150, 255, 0.08)",
-        }}
-        animate={{
-          scale: [1, 1.25, 1],
-          opacity: [0.25, 0.5, 0.25],
-          rotate: [0, 180, 360],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      />
-
-      <motion.div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] rounded-full"
-        style={{
-          border: "2px solid rgba(0, 150, 255, 0.2)",
-          boxShadow: "0 0 120px rgba(0, 150, 255, 0.2), inset 0 0 120px rgba(0, 150, 255, 0.12)",
-        }}
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.35, 0.65, 0.35],
-          rotate: [360, 180, 0],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      />
-
-      <motion.div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] rounded-full"
-        style={{
-          border: "1px solid rgba(0, 200, 255, 0.25)",
-          boxShadow: "0 0 80px rgba(0, 200, 255, 0.25)",
-        }}
-        animate={{
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-
-      {showCount && (
-        <motion.div
-          animate={controls1}
-          initial={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-          className="absolute"
-        >
-          <CountUp from={0} to={100} duration={1200} />
-        </motion.div>
-      )}
-
-      <motion.div
-        animate={controls2}
-        initial={{ opacity: 0, y: 50, scale: 0.95, filter: "blur(20px)" }}
-        className="absolute"
-      >
-        <FuturisticText className="text-white text-7xl md:text-8xl lg:text-9xl">
-          HELLO WORLD
-        </FuturisticText>
-      </motion.div>
-
-      <motion.div
-        animate={controls3}
-        initial={{ opacity: 0, y: 50, scale: 0.95, filter: "blur(20px)" }}
-        className="absolute"
-      >
-        <FuturisticText className="text-white text-7xl md:text-8xl lg:text-9xl">
-          WE'RE
-        </FuturisticText>
-      </motion.div>
-
-      <motion.div
-        animate={controls4}
-        initial={{ opacity: 0, y: 50, scale: 0.95, filter: "blur(20px)" }}
-        className="absolute"
-      >
-        <FuturisticText className="text-white text-7xl md:text-8xl lg:text-9xl">
-          PRESENT
-        </FuturisticText>
-      </motion.div>
-
-      <motion.div
-        className="absolute top-8 left-8"
-        animate={{
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-        }}
-      >
-        <div className="w-2 h-2 bg-blue-400 rounded-full" style={{ boxShadow: "0 0 20px rgba(100, 200, 255, 0.8)" }} />
-      </motion.div>
-
-      <motion.div
-        className="absolute top-8 right-8"
-        animate={{
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          delay: 0.5,
-        }}
-      >
-        <div className="w-2 h-2 bg-blue-400 rounded-full" style={{ boxShadow: "0 0 20px rgba(100, 200, 255, 0.8)" }} />
-      </motion.div>
-
-      <motion.div
-        className="absolute bottom-8 left-8"
-        animate={{
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          delay: 1,
-        }}
-      >
-        <div className="w-2 h-2 bg-blue-400 rounded-full" style={{ boxShadow: "0 0 20px rgba(100, 200, 255, 0.8)" }} />
-      </motion.div>
-
-      <motion.div
-        className="absolute bottom-8 right-8"
-        animate={{
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          delay: 1.5,
-        }}
-      >
-        <div className="w-2 h-2 bg-blue-400 rounded-full" style={{ boxShadow: "0 0 20px rgba(100, 200, 255, 0.8)" }} />
-      </motion.div>
-
-      <motion.div
-        className="absolute bottom-16 left-1/2 transform -translate-x-1/2 h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent"
-        style={{ width: "60%" }}
-        animate={{
-          opacity: [0, 0.5, 0],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-        }}
-      />
-
-      {/* Electric Effects */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
-        <defs>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-            <feMerge>
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-        </defs>
-        
-        {[...Array(8)].map((_, i) => (
-          <motion.path
+      {/* Animated Space Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Starfield */}
+        {[...Array(50)].map((_, i) => (
+          <motion.div
             key={i}
-            d={`M ${Math.random() * 100} ${Math.random() * 100} Q ${Math.random() * 100} ${Math.random() * 100} ${Math.random() * 100} ${Math.random() * 100}`}
-            stroke={`rgba(100, 200, 255, ${0.3 + Math.random() * 0.4})`}
-            strokeWidth="2"
-            fill="none"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
+            className="absolute w-1 h-1 bg-white rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
             animate={{
-              pathLength: [0, 1, 0],
-              opacity: [0, 1, 0],
-              d: [
-                `M ${Math.random() * 100}% ${Math.random() * 100}% Q ${50 + Math.random() * 20}% ${50 + Math.random() * 20}% ${Math.random() * 100}% ${Math.random() * 100}%`,
-                `M ${Math.random() * 100}% ${Math.random() * 100}% Q ${50 + Math.random() * 20}% ${50 + Math.random() * 20}% ${Math.random() * 100}% ${Math.random() * 100}%`,
-                `M ${Math.random() * 100}% ${Math.random() * 100}% Q ${50 + Math.random() * 20}% ${50 + Math.random() * 20}% ${Math.random() * 100}% ${Math.random() * 100}%`,
-              ]
+              opacity: [0, 1, 0.5, 1, 0],
+              scale: [0, 1, 0.8, 1, 0],
             }}
             transition={{
-              duration: 2 + Math.random() * 2,
+              duration: 3 + Math.random() * 2,
               repeat: Infinity,
-              delay: i * 0.3,
-              ease: "easeInOut"
+              delay: Math.random() * 2,
             }}
           />
         ))}
-      </svg>
 
-      {/* Electric Sparks */}
-      {[...Array(15)].map((_, i) => (
+        {/* Nebula Effect */}
         <motion.div
-          key={`spark-${i}`}
-          className="absolute w-1 h-1 bg-cyan-400 rounded-full"
-          style={{
-            boxShadow: "0 0 10px rgba(100, 200, 255, 0.8), 0 0 20px rgba(100, 200, 255, 0.6)",
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
+          className="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-purple-900/20 to-blue-900/20"
           animate={{
-            opacity: [0, 1, 0],
-            scale: [0, 1.5, 0],
-            x: [0, (Math.random() - 0.5) * 100],
-            y: [0, (Math.random() - 0.5) * 100],
+            opacity: [0.3, 0.5, 0.3],
           }}
           transition={{
-            duration: 1 + Math.random() * 1.5,
+            duration: 4,
             repeat: Infinity,
-            delay: Math.random() * 3,
-            ease: "easeOut"
           }}
         />
-      ))}
 
-      {/* Vertical Lightning Bolts */}
-      {[...Array(4)].map((_, i) => (
+        {/* Multiple Orbiting Rings */}
         <motion.div
-          key={`lightning-${i}`}
-          className="absolute h-full w-px"
-          style={{
-            left: `${20 + i * 20}%`,
-            background: "linear-gradient(180deg, transparent 0%, rgba(100, 200, 255, 0.6) 50%, transparent 100%)",
-            boxShadow: "0 0 20px rgba(100, 200, 255, 0.8)",
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        >
+          <div className="w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[600px] md:h-[600px] border border-cyan-500/20 rounded-full" />
+          {/* Orbiting particle 1 */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-cyan-400 rounded-full shadow-[0_0_10px_rgba(34,211,238,1)]" />
+        </motion.div>
+        
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        >
+          <div className="w-[400px] h-[400px] sm:w-[550px] sm:h-[550px] md:w-[800px] md:h-[800px] border border-purple-500/15 rounded-full" />
+          {/* Orbiting particle 2 */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-purple-400 rounded-full shadow-[0_0_10px_rgba(168,85,247,1)]" />
+        </motion.div>
+
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        >
+          <div className="w-[350px] h-[350px] sm:w-[480px] sm:h-[480px] md:w-[700px] md:h-[700px] border border-dashed border-blue-500/15 rounded-full" />
+          {/* Orbiting particle 3 */}
+          <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-400 rounded-full shadow-[0_0_10px_rgba(59,130,246,1)]" />
+        </motion.div>
+
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+        >
+          <div className="w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] md:w-[500px] md:h-[500px] border border-dotted border-cyan-500/10 rounded-full" />
+        </motion.div>
+
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+        >
+          <div className="w-[450px] h-[450px] sm:w-[650px] sm:h-[650px] md:w-[900px] md:h-[900px] border border-purple-500/10 rounded-full" />
+          {/* Orbiting particle 4 */}
+          <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-1 h-1 sm:w-1.5 sm:h-1.5 bg-pink-400 rounded-full shadow-[0_0_8px_rgba(236,72,153,1)]" />
+        </motion.div>
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-10 flex flex-col items-center gap-12">
+        {/* Planet Logo */}
+        <motion.div
+          className="relative"
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ 
+            scale: stage === 'entering' ? 1.2 : 1,
+            rotate: stage === 'entering' ? 360 : 0,
           }}
-          animate={{
-            opacity: [0, 0, 1, 0, 0],
-            scaleY: [0, 1, 1, 1, 0],
-          }}
-          transition={{
-            duration: 0.4,
-            repeat: Infinity,
-            delay: i * 1.2 + Math.random() * 2,
-            ease: "easeInOut"
-          }}
-        />
-      ))}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
+          {/* Planet Core */}
+          <div className="relative w-32 h-32 md:w-40 md:h-40">
+            {/* Glow Effect */}
+            <motion.div
+              className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-purple-600 blur-2xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.8, 0.5],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+              }}
+            />
+            
+            {/* Planet Surface with Image */}
+            <div className="relative w-full h-full rounded-full shadow-2xl overflow-hidden border-4 border-cyan-400/50">
+              {/* Image */}
+              <img 
+                src="/img/meow.jpg" 
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
+              
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/30 via-transparent to-purple-700/30" />
+              
+              {/* Surface Pattern */}
+              <motion.div
+                className="absolute inset-0 opacity-20"
+                style={{
+                  backgroundImage: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4) 0%, transparent 50%),
+                                   radial-gradient(circle at 70% 70%, rgba(0,0,0,0.3) 0%, transparent 50%)`
+                }}
+                animate={{
+                  rotate: 360,
+                }}
+                transition={{
+                  duration: 40,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+            </div>
+
+            {/* Orbital Ring */}
+            <motion.div
+              className="absolute inset-0 -m-8"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            >
+              <div className="w-full h-full border-2 border-dashed border-cyan-400/30 rounded-full" />
+              {/* Orbiting Dot */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_10px_rgba(34,211,238,1)]" />
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Welcome Text */}
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+        >
+          <h1 className="text-3xl md:text-4xl font-light text-white mb-2 tracking-wider">
+            Hi! 
+          </h1>
+          <div className="text-cyan-400/80 text-sm md:text-base tracking-widest h-6">
+            <span>{typedText}</span>
+            <motion.span
+              className="inline-block w-0.5 h-5 bg-cyan-400 ml-1"
+              animate={{ opacity: [1, 0, 1] }}
+              transition={{ duration: 0.8, repeat: Infinity }}
+            />
+          </div>
+        </motion.div>
+
+        {/* Progress Bar Container */}
+        <motion.div
+          className="w-72 md:w-96"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+        >
+          {/* Progress Label */}
+          <div className="flex justify-between items-center mb-3 text-sm">
+            <span className="text-cyan-400/70">Tunggu bentar yaa..</span>
+            <span className="text-cyan-400 font-mono font-bold">
+              {progress}%
+            </span>
+          </div>
+
+          {/* Progress Bar Track */}
+          <div className="relative h-2 bg-gray-800/50 rounded-full overflow-hidden backdrop-blur-sm border border-cyan-500/20">
+            {/* Progress Fill */}
+            <motion.div
+              className="absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 rounded-full"
+              style={{ width: `${progress}%` }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Shimmer Effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                animate={{
+                  x: ['-100%', '200%'],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+            </motion.div>
+
+            {/* Progress Glow */}
+            <motion.div
+              className="absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-400/50 to-purple-600/50 blur-md"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+
+          {/* Loading Dots */}
+          <div className="flex justify-center items-center gap-2 mt-6">
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                className="w-2 h-2 bg-cyan-400 rounded-full"
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [0.3, 1, 0.3],
+                }}
+                transition={{
+                  duration: 1,
+                  repeat: Infinity,
+                  delay: i * 0.2,
+                }}
+              />
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Scan Lines Effect */}
+      <div className="absolute inset-0 pointer-events-none opacity-10">
+        <div className="w-full h-full" style={{
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(34, 211, 238, 0.1) 2px, rgba(34, 211, 238, 0.1) 4px)'
+        }} />
+      </div>
     </motion.div>
   );
 };

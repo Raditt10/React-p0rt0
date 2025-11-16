@@ -21,6 +21,7 @@ const Footer = () => {
     isSubmitting: false
   });
   const [statusMessage, setStatusMessage] = useState("");
+  const [toast, setToast] = useState({ show: false, message: '', type: '' });
 
   const EMAILJS_SERVICE_ID = "service_kkmzp89";
   const EMAILJS_TEMPLATE_ID = "template_gl1shr7"; 
@@ -152,7 +153,7 @@ const Footer = () => {
 
       console.log("Email sent successfully:", result);
 
-      setStatusMessage("✅ Message sent successfully! I'll get back to you soon.");
+      setToast({ show: true, message: "Message sent successfully! I'll get back to you soon.", type: 'success' });
       setFormData({
         email: "",
         message: "",
@@ -160,23 +161,98 @@ const Footer = () => {
       });
       
       setTimeout(() => {
-        setStatusMessage("");
+        setToast({ show: false, message: '', type: '' });
       }, 5000);
 
     } catch (error) {
       console.error("Error sending email:", error);
-      setStatusMessage("❌ Failed to send message. Please try again.");
+      setToast({ show: true, message: 'Failed to send message. Please try again.', type: 'error' });
       setFormData(prev => ({ ...prev, isSubmitting: false }));
+      
+      setTimeout(() => {
+        setToast({ show: false, message: '', type: '' });
+      }, 5000);
     }
   };
 
   return (
-    <footer
-      id="contact"
-      ref={footerRef}
-      className="relative min-h-screen overflow-hidden py-20 px-4 sm:px-6 md:px-8 lg:px-12 bg-black"
-      style={{ fontFamily: "Sora Variable" }}
-    >
+    <>
+      {/* Toast Notification */}
+      {toast.show && (
+        <div className="fixed top-6 right-6 z-[10000] animate-slideInRight">
+          <div className={`relative px-6 py-4 rounded-xl backdrop-blur-xl border shadow-2xl min-w-[320px] max-w-md ${
+            toast.type === 'success' 
+              ? 'bg-gradient-to-r from-emerald-900/90 to-green-900/90 border-emerald-500/50 shadow-emerald-500/20' 
+              : 'bg-gradient-to-r from-red-900/90 to-rose-900/90 border-red-500/50 shadow-red-500/20'
+          }`}>
+            {/* Glow Effect */}
+            <div className={`absolute inset-0 rounded-xl blur-xl opacity-50 ${
+              toast.type === 'success' ? 'bg-emerald-500/30' : 'bg-red-500/30'
+            }`} />
+            
+            {/* Content */}
+            <div className="relative flex items-start gap-4">
+              {/* Icon */}
+              <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center ${
+                toast.type === 'success' ? 'bg-emerald-500/20' : 'bg-red-500/20'
+              }`}>
+                {toast.type === 'success' ? (
+                  <svg className="w-4 h-4 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4 text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                )}
+              </div>
+              
+              {/* Message */}
+              <div className="flex-1">
+                <h4 className={`font-semibold text-sm mb-1 ${
+                  toast.type === 'success' ? 'text-emerald-100' : 'text-red-100'
+                }`}>
+                  {toast.type === 'success' ? 'Success!' : 'Error'}
+                </h4>
+                <p className={`text-sm ${
+                  toast.type === 'success' ? 'text-emerald-200/90' : 'text-red-200/90'
+                }`}>
+                  {toast.message}
+                </p>
+              </div>
+              
+              {/* Close Button */}
+              <button
+                onClick={() => setToast({ show: false, message: '', type: '' })}
+                className={`flex-shrink-0 p-1 rounded-lg transition-colors ${
+                  toast.type === 'success' 
+                    ? 'hover:bg-emerald-500/20 text-emerald-300' 
+                    : 'hover:bg-red-500/20 text-red-300'
+                }`}
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            
+            {/* Progress Bar */}
+            <div className={`absolute bottom-0 left-0 h-1 rounded-b-xl ${
+              toast.type === 'success' ? 'bg-emerald-500' : 'bg-red-500'
+            }`} style={{
+              width: '100%',
+              animation: 'progressBar 5s linear forwards'
+            }} />
+          </div>
+        </div>
+      )}
+
+      <footer
+        id="contact"
+        ref={footerRef}
+        className="relative min-h-screen overflow-hidden py-20 px-4 sm:px-6 md:px-8 lg:px-12 bg-black"
+        style={{ fontFamily: "Sora Variable" }}
+      >
       {/* Animated Background Grid */}
       <div className="absolute inset-0 opacity-5">
         <div 
@@ -646,11 +722,36 @@ const Footer = () => {
           }
         }
 
+        @keyframes slideInRight {
+          from {
+            transform: translateX(400px);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+
+        @keyframes progressBar {
+          from {
+            width: 100%;
+          }
+          to {
+            width: 0%;
+          }
+        }
+
         .animate-float {
           animation: float 15s infinite linear;
         }
+
+        .animate-slideInRight {
+          animation: slideInRight 0.5s ease-out forwards;
+        }
       `}</style>
     </footer>
+    </>
   );
 };
 

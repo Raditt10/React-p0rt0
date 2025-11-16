@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
     <>
       {/* Desktop Navbar dengan efek cyberpunk */}
-      <nav className={`hidden md:flex justify-around font-sora font-semibold text-white items-center h-20 transition-all duration-500 fixed z-50 w-full px-8 ${
+      <nav className={`hidden md:flex justify-center font-sora font-semibold text-white items-center h-20 transition-all duration-500 fixed z-50 w-full px-8 ${
         scrolled 
           ? 'bg-black/80 backdrop-blur-xl border-b border-cyan-500/30 shadow-2xl shadow-cyan-500/20' 
           : 'bg-transparent'
@@ -37,58 +37,91 @@ const Navbar = () => {
           {/* Scanning Line */}
           <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-scan" />
         </div>
-
-        <div className="relative z-10">
-          <h1 className='text-2xl glitch-text' data-text="R'e">
-            R'e
-            {/* Glitch Effect Layers */}
-            <span className="glitch-layer glitch-layer-1">R'e</span>
-            <span className="glitch-layer glitch-layer-2">R'e</span>
-          </h1>
-        </div>
         
         <div className="relative z-10">
-          <ul className='flex gap-12'>
-            {navlinks.map((navlink) => (
-              <li key={navlink.id} className="relative group">
-                <a 
-                  href={navlink.link}
-                  className='relative text-lg hover:text-cyan-400 transition-all duration-300 glitch-link py-2 px-4'
-                  data-text={navlink.text}
-                >
-                  {navlink.text}
-                  {/* Hover Border Effect */}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 group-hover:w-full transition-all duration-500"></span>
-                  {/* Cyberpunk Corner Brackets */}
-                  <span className="absolute -top-1 -left-1 w-2 h-2 border-l border-t border-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  <span className="absolute -top-1 -right-1 w-2 h-2 border-r border-t border-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  <span className="absolute -bottom-1 -left-1 w-2 h-2 border-l border-b border-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  <span className="absolute -bottom-1 -right-1 w-2 h-2 border-r border-b border-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* RGB Split Effect on Hover */}
-        <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-          <div className="absolute top-0 left-0 w-20 h-20 bg-cyan-400/10 blur-xl" />
-          <div className="absolute bottom-0 right-0 w-20 h-20 bg-purple-400/10 blur-xl" />
+          {/* Modern Glassmorphism Container */}
+          <div className="relative px-6 py-3 rounded-full bg-gradient-to-r from-gray-900/50 via-gray-800/40 to-gray-900/50 backdrop-blur-lg border border-gray-700/50 shadow-2xl shadow-cyan-500/10">
+            {/* Inner Glow Effect */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/5 via-purple-500/5 to-cyan-500/5 animate-pulse" />
+            
+            {/* Animated Border Glow */}
+            <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 blur transition-opacity duration-500" />
+            
+            <div className="flex items-center gap-8">
+              {/* Logo */}
+              <div className="relative px-4 py-2">
+                <h1 className='text-2xl glitch-text' data-text="R'e">
+                  R'e
+                  {/* Glitch Effect Layers */}
+                  <span className="glitch-layer glitch-layer-1">R'e</span>
+                  <span className="glitch-layer glitch-layer-2">R'e</span>
+                </h1>
+                {/* Logo Separator */}
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-8 bg-gradient-to-b from-transparent via-gray-600 to-transparent" />
+              </div>
+            
+              {/* Navigation Links */}
+              <ul className='relative flex gap-1'>
+                {navlinks.map((navlink, index) => (
+                <li key={navlink.id} className="relative group">
+                  <a 
+                    href={navlink.link}
+                    className='relative block text-base font-medium px-6 py-2.5 rounded-full transition-all duration-500 hover:text-white overflow-hidden'
+                  >
+                    {/* Orbital Ring Effect */}
+                    <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700">
+                      <span className="absolute inset-0 rounded-full border-2 border-cyan-400/30 animate-spin-slow" style={{animationDuration: '8s'}} />
+                      <span className="absolute inset-0 rounded-full border-2 border-purple-400/20 animate-spin-slow" style={{animationDuration: '12s', animationDirection: 'reverse'}} />
+                    </span>
+                    
+                    {/* Planet Core - Glowing Center */}
+                    <span className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/30 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-full blur-sm" />
+                    
+                    {/* Atmosphere Glow */}
+                    <span className="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-full blur-lg" />
+                    
+                    {/* Starfield Background */}
+                    <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 overflow-hidden rounded-full">
+                      <span className="absolute top-2 left-3 w-1 h-1 bg-white rounded-full animate-pulse" style={{animationDelay: '0s'}} />
+                      <span className="absolute top-4 right-5 w-0.5 h-0.5 bg-cyan-300 rounded-full animate-pulse" style={{animationDelay: '0.3s'}} />
+                      <span className="absolute bottom-3 left-6 w-0.5 h-0.5 bg-purple-300 rounded-full animate-pulse" style={{animationDelay: '0.6s'}} />
+                      <span className="absolute top-5 left-10 w-1 h-1 bg-blue-200 rounded-full animate-pulse" style={{animationDelay: '0.9s'}} />
+                    </span>
+                    
+                    {/* Cosmic Shimmer - Light Speed Effect */}
+                    <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
+                    
+                    {/* Text with Cosmic Glow */}
+                    <span className="relative text-gray-300 group-hover:text-white group-hover:drop-shadow-[0_0_10px_rgba(34,211,238,0.9)] transition-all duration-500 font-medium">
+                      {navlink.text}
+                    </span>
+                    
+                    {/* Orbiting Particles */}
+                    <span className="absolute top-0 left-1/2 w-1.5 h-1.5 bg-cyan-400 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 shadow-[0_0_10px_rgba(34,211,238,1)] animate-orbit" />
+                    <span className="absolute bottom-0 right-1/2 w-1 h-1 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 shadow-[0_0_8px_rgba(168,85,247,1)] animate-orbit-reverse" style={{animationDelay: '0.5s'}} />
+                    
+                    {/* Gravitational Pull Line */}
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent group-hover:w-4/5 transition-all duration-700 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
+                  </a>
+                  
+                  {/* Separator Line (except last item) */}
+                  {index < navlinks.length - 1 && (
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-4 bg-gradient-to-b from-transparent via-gray-600 to-transparent" />
+                  )}
+                </li>
+              ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </nav>
 
-      {/* Mobile Header dengan efek cyberpunk */}
+      {/* Mobile Header */}
       <header className={`md:hidden flex justify-between items-center h-20 transition-all duration-500 fixed z-50 w-full px-6 ${
         scrolled 
           ? 'bg-black/80 backdrop-blur-xl border-b border-cyan-500/30 shadow-2xl shadow-cyan-500/20' 
           : 'bg-transparent'
       }`}>
-        {/* Animated Border Effect */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent animate-pulse" />
-          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-scan" />
-        </div>
-
         <div className="relative z-10">
           <h1 className='text-xl font-sora font-semibold text-white glitch-text' data-text="Rafaditya .S">
             Rafaditya .S
@@ -388,6 +421,52 @@ const Navbar = () => {
 
         .animate-scan {
           animation: scan 3s linear infinite;
+        }
+
+        /* Planet-themed animations */
+        @keyframes orbit {
+          0% { 
+            transform: rotate(0deg) translateX(20px) rotate(0deg);
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.5;
+          }
+          100% { 
+            transform: rotate(360deg) translateX(20px) rotate(-360deg);
+            opacity: 1;
+          }
+        }
+
+        @keyframes orbit-reverse {
+          0% { 
+            transform: rotate(360deg) translateX(18px) rotate(-360deg);
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.6;
+          }
+          100% { 
+            transform: rotate(0deg) translateX(18px) rotate(0deg);
+            opacity: 1;
+          }
+        }
+
+        .animate-orbit {
+          animation: orbit 3s linear infinite;
+        }
+
+        .animate-orbit-reverse {
+          animation: orbit-reverse 4s linear infinite;
+        }
+
+        .animate-spin-slow {
+          animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
       `}</style>
     </>
