@@ -132,24 +132,66 @@ const Navbar = () => {
         
         <button
           onClick={toggleSidebar}
-          className='relative z-10 text-white p-3 hover:bg-cyan-500/20 rounded-lg transition-all duration-300 group border border-cyan-500/30'
+          className='relative z-10 text-white p-3 rounded-xl transition-all duration-300 group overflow-hidden active:scale-95'
           aria-label='Toggle menu'
         >
-          {/* Animated Hamburger Icon */}
-          <div className="relative w-6 h-6">
-            <span className={`absolute left-0 w-6 h-0.5 bg-cyan-400 transition-all duration-300 ${
-              isSidebarOpen ? 'rotate-45 top-3' : 'top-1'
-            }`} />
-            <span className={`absolute left-0 w-6 h-0.5 bg-cyan-400 transition-all duration-300 ${
-              isSidebarOpen ? 'opacity-0' : 'top-3'
-            }`} />
-            <span className={`absolute left-0 w-6 h-0.5 bg-cyan-400 transition-all duration-300 ${
-              isSidebarOpen ? '-rotate-45 top-3' : 'top-5'
-            }`} />
+          {/* Cosmic Background Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/80 via-gray-800/60 to-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-xl transition-all duration-300 group-hover:border-cyan-500/50" />
+          
+          {/* Orbital Ring on Hover */}
+          <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500">
+            <div className="absolute inset-0 rounded-xl border-2 border-cyan-400/20 animate-spin-slow" style={{animationDuration: '8s'}} />
+            <div className="absolute inset-0 rounded-xl border-2 border-purple-400/15 animate-spin-slow" style={{animationDuration: '12s', animationDirection: 'reverse'}} />
           </div>
           
-          {/* Button Glow Effect */}
-          <div className="absolute inset-0 bg-cyan-400/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
+          {/* Glow Effect */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-xl blur-lg" />
+          
+          {/* Shimmer Effect */}
+          <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12" />
+          
+          {/* Animated Hamburger Icon */}
+          <div className="relative w-7 h-7 flex flex-col items-center justify-center">
+            {/* Top Line */}
+            <span className={`absolute w-7 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full transition-all duration-300 shadow-[0_0_8px_rgba(34,211,238,0.8)] ${
+              isSidebarOpen ? 'rotate-45 top-3.5' : 'top-1.5'
+            }`}>
+              <span className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full animate-pulse" />
+            </span>
+            
+            {/* Middle Line with Particles */}
+            <span className={`absolute w-7 h-0.5 transition-all duration-300 ${
+              isSidebarOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100 top-3.5'
+            }`}>
+              <span className="block w-full h-full bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 rounded-full shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
+              {/* Orbiting Particles */}
+              {!isSidebarOpen && (
+                <>
+                  <span className="absolute -left-1 top-0 w-1 h-1 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_6px_rgba(34,211,238,1)]" />
+                  <span className="absolute -right-1 top-0 w-1 h-1 bg-purple-400 rounded-full animate-pulse shadow-[0_0_6px_rgba(168,85,247,1)]" style={{animationDelay: '0.5s'}} />
+                </>
+              )}
+            </span>
+            
+            {/* Bottom Line */}
+            <span className={`absolute w-7 h-0.5 bg-gradient-to-r from-purple-400 to-cyan-400 rounded-full transition-all duration-300 shadow-[0_0_8px_rgba(168,85,247,0.8)] ${
+              isSidebarOpen ? '-rotate-45 top-3.5' : 'top-5.5'
+            }`}>
+              <span className="absolute inset-0 bg-gradient-to-r from-purple-400 to-cyan-400 rounded-full animate-pulse" />
+            </span>
+            
+            {/* Center Dot when Closed */}
+            {!isSidebarOpen && (
+              <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,1)] animate-pulse" />
+            )}
+            
+            {/* Starfield Effect */}
+            <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden rounded-xl">
+              <span className="absolute top-1 left-1 w-0.5 h-0.5 bg-cyan-300 rounded-full animate-pulse" style={{animationDelay: '0s'}} />
+              <span className="absolute top-2 right-2 w-0.5 h-0.5 bg-purple-300 rounded-full animate-pulse" style={{animationDelay: '0.3s'}} />
+              <span className="absolute bottom-1 left-2 w-0.5 h-0.5 bg-blue-200 rounded-full animate-pulse" style={{animationDelay: '0.6s'}} />
+            </span>
+          </div>
         </button>
       </header>
 

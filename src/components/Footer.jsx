@@ -444,7 +444,7 @@ const Footer = () => {
           {/* Collaboration Form */}
           <div className="flex flex-col items-center text-center w-full">
             <h2 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold mb-4 sm:mb-6 lg:mb-7 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              Want To Collab?
+              Get in Touch
             </h2>
             
             {/* Status Message */}
