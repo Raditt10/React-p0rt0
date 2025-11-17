@@ -430,34 +430,41 @@ const dataCerti = [
 
   {
     id: 3,
+    gambar: "jhic.png",
+    judul : "Participation in Competitonn and Bootcamp JHIC",
+    link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
+  },
+
+  {
+    id: 4,
     gambar: "samsung.jpg",
     judul : "Participation in Bootcamp digital marketing Samsung Indonesia Tech Institute",
     link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
   },
 
   {
-    id: 4,
+    id: 5,
     gambar: "dicoding.png",
     judul : "Participation in Basic AI in Bootcamp Dicoding",
     link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
   },
 
     {
-    id: 5,
+    id: 6,
     gambar: "indo.png",
     judul : "1st Place ISSC (Indonesian Student Science Competition)",
     link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
   },
   
    {
-    id: 6,
+    id: 7,
     gambar: "sejarah.png",
     judul : "2nd Place OSNK in History Subject 2025",
     link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
   },
 
     {
-    id: 7,
+    id: 8,
     gambar: "aws.png",
     judul : "AWS Cloud Practitioner Essentials (Fundamental Level)",
     link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
