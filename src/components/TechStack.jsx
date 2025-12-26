@@ -148,49 +148,20 @@ const TechStack = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative min-h-screen px-3 sm:px-4 md:px-6 lg:px-12 xl:px-16 py-16 sm:py-20 md:py-24 lg:py-28 overflow-hidden bg-gradient-to-br from-black via-purple-900/20 to-cyan-900/10" 
+      className="relative min-h-screen px-3 sm:px-4 md:px-6 lg:px-12 xl:px-16 py-16 sm:py-20 md:py-24 lg:py-28 overflow-hidden bg-gradient-to-br from-[#040507] via-[#0a0d12] to-[#050608]"
       style={{ fontFamily: "Sora Variable" }}
     >
-      {/* Animated Grid Background */}
-      <div className="absolute inset-0 opacity-[0.03] z-0">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `
-            linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px',
-          backgroundPosition: 'center center'
-        }} />
-      </div>
+      {/* Elegant Static Background */}
+      <div className="absolute inset-0 z-0">
+        {/* Central light bloom with soft amber halo */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_32%_24%,rgba(255,255,255,0.26)_0%,rgba(255,255,255,0.12)_16%,rgba(255,255,255,0)_42%),radial-gradient(circle_at_68%_66%,rgba(255,214,170,0.12)_0%,rgba(255,214,170,0)_55%)]" />
 
-      {/* Pulsing Orb Effect - SAMA dengan Hero */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] z-0">
-        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/10 to-cyan-600/10 animate-pulse-slow" 
-             style={{ filter: 'blur(60px)' }} />
+        {/* Luxe vignette to deepen blacks */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_35%,rgba(0,0,0,0.6)_100%)]" />
       </div>
 
       {/* Enhanced Floating Particles - SAMA dengan Hero */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-5">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="floating-particle absolute rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${Math.random() * 4 + 2}px`,
-              height: `${Math.random() * 4 + 2}px`,
-              background: Math.random() > 0.5 
-                ? 'linear-gradient(45deg, #8b5cf6, #00fff9)'
-                : 'linear-gradient(45deg, #ff00de, #8b5cf6)',
-              boxShadow: `0 0 ${Math.random() * 10 + 5}px ${
-                Math.random() > 0.5 ? 'rgba(139, 92, 246, 0.8)' : 'rgba(0, 255, 249, 0.8)'
-              }`,
-              filter: 'blur(1px)'
-            }}
-          />
-        ))}
-      </div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-5"></div>
 
       {/* Title Section */}
       <div className="relative z-20 px-4">
