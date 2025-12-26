@@ -22,21 +22,16 @@ const TechStack = () => {
     // Set initial states
     gsap.set(title, { 
       opacity: 0, 
-      y: 100,
-      scale: 0.8,
-      rotationX: 45
+      y: 20
     });
     
     gsap.set(grid, { 
-      opacity: 0, 
-      y: 50 
+      opacity: 0
     });
 
     gsap.set(items, { 
-      opacity: 0, 
-      scale: 0,
-      y: 50,
-      rotation: 180
+      opacity: 0,
+      y: 8
     });
 
     // Create timeline
@@ -53,32 +48,23 @@ const TechStack = () => {
     tl.to(title, {
       opacity: 1,
       y: 0,
-      scale: 1,
-      rotationX: 0,
-      duration: 1.2,
-      ease: "power4.out"
+      duration: 0.6,
+      ease: "power2.out"
     })
     // Grid animation
     .to(grid, {
       opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power2.out"
-    }, "-=0.6")
+      duration: 0.4,
+      ease: "power1.out"
+    }, "-=0.2")
     // Items animation
     .to(items, {
       opacity: 1,
-      scale: 1,
       y: 0,
-      rotation: 0,
-      duration: 0.8,
-      stagger: {
-        amount: 1.2,
-        from: "random",
-        grid: "auto"
-      },
-      ease: "elastic.out(1, 0.5)"
-    }, "-=0.4");
+      duration: 0.4,
+      stagger: 0.01,
+      ease: "power1.out"
+    }, "-=0.2");
 
     // Parallax effect (disabled for performance)
     // gsap.to(items, {
@@ -101,47 +87,6 @@ const TechStack = () => {
   const addToRefs = (el) => {
     if (el && !itemsRef.current.includes(el)) {
       itemsRef.current.push(el);
-    }
-  };
-
-  // Improved hover effect dengan glow yang konsisten
-  const handleTechHover = (tech, e, index) => {
-    setHoveredTech(tech);
-    
-    const item = itemsRef.current[index];
-    if (item && window.innerWidth >= 768) {
-      gsap.to(item, {
-        scale: 1.08,
-        duration: 0.25,
-        ease: "power1.out"
-      });
-
-      gsap.to(item.querySelector('.tech-glow'), {
-        opacity: 1,
-        scale: 1.1,
-        duration: 0.25,
-        ease: "power1.out"
-      });
-    }
-  };
-
-  const handleTechLeave = (index) => {
-    setHoveredTech(null);
-    
-    const item = itemsRef.current[index];
-    if (item && window.innerWidth >= 768) {
-      gsap.to(item, {
-        scale: 1,
-        duration: 0.3,
-        ease: "power1.out"
-      });
-
-      gsap.to(item.querySelector('.tech-glow'), {
-        opacity: 0,
-        scale: 1,
-        duration: 0.25,
-        ease: "power1.out"
-      });
     }
   };
 
@@ -189,20 +134,8 @@ const TechStack = () => {
           <div
             key={tech.id}
             ref={addToRefs}
-            onMouseEnter={(e) => handleTechHover(tech, e, index)}
-            onMouseLeave={() => handleTechLeave(index)}
             className="relative group cursor-pointer w-full"
           >
-            {/* Glow Background */}
-            <div 
-              className="absolute inset-0 tech-glow opacity-0 transition-all duration-300 rounded-2xl"
-              style={{
-                background: 'radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, transparent 70%)',
-                filter: 'blur(10px)',
-                transform: 'scale(1)'
-              }}
-            />
-            
             {/* Card Container - Mobile Optimized */}
             <div className="relative flex items-center justify-center aspect-square p-2.5 sm:p-3 md:p-4 lg:p-5 bg-gradient-to-br from-gray-900/80 to-gray-800/50 backdrop-blur-sm rounded-lg sm:rounded-xl border border-gray-700/50 transition-all duration-200 overflow-hidden touch-manipulation active:scale-95">
               
