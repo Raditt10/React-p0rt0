@@ -27,15 +27,14 @@ const Gallery = () => {
 
     gsap.set(title, {
       opacity: 0,
-      y: -50,
-      scale: 0.8
+      y: -30,
+      scale: 0.9
     });
 
     gsap.set(gridItems, {
       opacity: 0,
-      scale: 0.8,
-      y: 100,
-      rotation: 5
+      scale: 0.9,
+      y: 40
     });
 
     const tl = gsap.timeline({
@@ -51,21 +50,20 @@ const Gallery = () => {
       opacity: 1,
       y: 0,
       scale: 1,
-      duration: 1,
-      ease: "back.out(1.7)"
+      duration: 0.6,
+      ease: "power2.out"
     })
     .to(gridItems, {
       opacity: 1,
       scale: 1,
       y: 0,
-      rotation: 0,
-      duration: 0.8,
-      ease: "power3.out",
+      duration: 0.6,
+      ease: "power2.out",
       stagger: {
-        amount: 1.2,
-        from: "random"
+        amount: 0.4,
+        from: "start"
       }
-    }, "-=0.5");
+    }, "-=0.3");
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
@@ -116,9 +114,9 @@ const Gallery = () => {
     >
       <div className="relative flex items-center justify-center h-full bg-gradient-to-br from-gray-900/80 to-gray-800/50 rounded-xl border border-gray-700/50 md:group-hover:border-white/30 transition-all duration-200 overflow-hidden">
 
-        {/* Subtle glow on hover */}
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10" />
+        {/* Subtle glow on hover - Desktop Only */}
+        <div className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/5" />
         </div>
 
         <img
@@ -130,14 +128,14 @@ const Gallery = () => {
           }}
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 z-20">
-          <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+        <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 z-20">
+          <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-200">
             <h3 className="text-white font-bold text-lg mb-1">{image.title}</h3>
-            <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
+            <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
               {image.description}
             </p>
 
-            <div className="mt-2 flex items-center gap-2 text-cyan-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100">
+            <div className="mt-2 flex items-center gap-2 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-all duration-200">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -157,8 +155,8 @@ const Gallery = () => {
       className="relative min-h-screen mt-12 px-4 md:px-8 overflow-hidden bg-gradient-to-br from-black via-purple-900/20 to-cyan-900/10" 
       style={{ fontFamily: "Sora Variable" }} 
     >
-      {/* Animated Grid Background */}
-      <div className="absolute inset-0 opacity-[0.03] z-0">
+      {/* Animated Grid Background - Desktop Only */}
+      <div className="hidden md:block absolute inset-0 opacity-[0.015] z-0">
         <div className="absolute inset-0" style={{
           backgroundImage: `
             linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
@@ -231,9 +229,9 @@ const Gallery = () => {
               >
                 <div
                   ref={addToRefs}
-                  className="h-full bg-gradient-to-br from-gray-900/80 to-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 hover:border-purple-500/70 transition-all duration-300 overflow-hidden relative flex flex-col justify-between p-3 hover:bg-gray-50/10 group hover:scale-105 transform"
+                  className="h-full bg-gradient-to-br from-gray-900/80 to-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 md:hover:border-white/50 transition-all duration-200 overflow-hidden relative flex flex-col justify-between p-3 md:hover:bg-white/5 md:group hover:scale-[1.02] transform active:scale-95"
                 >
-                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-600 overflow-hidden">
+                  <div className="hidden md:block absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
                     <div
                       className="absolute inset-[-2px] rounded-xl opacity-50"
                       style={{
