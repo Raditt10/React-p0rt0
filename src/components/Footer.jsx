@@ -47,8 +47,7 @@ const Footer = () => {
 
     // Set initial states
     gsap.set([line, logoSection, contactSection, socialSection, form], {
-      opacity: 0,
-      y: 50
+      y: 40
     });
 
     // Create timeline
@@ -57,38 +56,33 @@ const Footer = () => {
         trigger: footer,
         start: "top 80%",
         end: "bottom 20%",
-        toggleActions: "play none none reverse"
+        toggleActions: "play none none none"
       }
     });
 
     tl.to(line, {
-      opacity: 1,
       y: 0,
-      duration: 0.8,
+      duration: 0.6,
       ease: "power2.out"
     })
     .to(logoSection, {
-      opacity: 1,
       y: 0,
-      duration: 0.8,
+      duration: 0.6,
       ease: "back.out(1.2)"
-    }, "-=0.4")
+    }, "-=0.3")
     .to(contactSection, {
-      opacity: 1,
       y: 0,
-      duration: 0.8,
+      duration: 0.6,
       ease: "power2.out"
-    }, "-=0.6")
-    .to(socialSection, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "back.out(1.2)"
     }, "-=0.4")
-    .to(form, {
-      opacity: 1,
+    .to(socialSection, {
       y: 0,
-      duration: 0.8,
+      duration: 0.6,
+      ease: "back.out(1.2)"
+    }, "-=0.3")
+    .to(form, {
+      y: 0,
+      duration: 0.6,
       ease: "power2.out"
     }, "-=0.6");
 

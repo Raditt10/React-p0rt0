@@ -50,34 +50,29 @@
         const isMobile = window.innerWidth < 768;
 
         gsap.set(mainTitle, { 
-          opacity: 0, 
-          y: isMobile ? 40 : 80,
-          scale: isMobile ? 0.95 : 0.8,
+          y: isMobile ? 30 : 50,
+          scale: isMobile ? 0.95 : 0.9,
           rotateX: 0
         });
         
         gsap.set(competitionTitle, { 
-          opacity: 0, 
-          x: isMobile ? -40 : -80,
+          x: isMobile ? -30 : -50,
           rotateY: 0
         });
 
         gsap.set(competitionCard, { 
-          opacity: 0, 
-          y: isMobile ? 30 : 60,
-          scale: isMobile ? 0.98 : 0.9,
+          y: isMobile ? 20 : 40,
+          scale: isMobile ? 0.98 : 0.95,
           rotateX: 0
         });
 
         gsap.set(certificationTitle, { 
-          opacity: 0, 
-          x: isMobile ? -40 : -80,
+          x: isMobile ? -30 : -50,
           rotateY: 0
         });
 
         gsap.set(swiper, { 
-          opacity: 0, 
-          y: isMobile ? 30 : 70,
+          y: isMobile ? 20 : 40,
           scale: isMobile ? 0.98 : 0.95
         });
 
@@ -86,41 +81,36 @@
             trigger: section,
             start: "top 70%",
             end: "bottom 30%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
           }
         });
 
         tl.to(mainTitle, {
-          opacity: 1,
           y: 0,
           scale: 1,
-          duration: isMobile ? 0.6 : 1.2,
+          duration: isMobile ? 0.5 : 0.8,
           ease: "power2.out"
         })
         .to(competitionTitle, {
-          opacity: 1,
           x: 0,
-          duration: isMobile ? 0.5 : 1,
+          duration: isMobile ? 0.4 : 0.7,
           ease: "power2.out"
         }, "-=0.2")
         .to(competitionCard, {
-          opacity: 1,
           y: 0,
           scale: 1,
-          duration: isMobile ? 0.5 : 1,
+          duration: isMobile ? 0.4 : 0.7,
           ease: "power2.out"
         }, "-=0.2")
         .to(certificationTitle, {
-          opacity: 1,
           x: 0,
-          duration: isMobile ? 0.5 : 1,
+          duration: isMobile ? 0.4 : 0.7,
           ease: "power2.out"
         }, "-=0.2")
         .to(swiper, {
-          opacity: 1,
           y: 0,
           scale: 1,
-          duration: isMobile ? 0.5 : 1,
+          duration: isMobile ? 0.4 : 0.7,
           ease: "power2.out"
         }, "-=0.2");
 
