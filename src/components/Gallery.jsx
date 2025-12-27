@@ -333,10 +333,10 @@ const Gallery = () => {
               }}
             />
 
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white/96 via-white/90 to-transparent p-6 rounded-b-lg border-t border-white/50">
-              <h3 className="text-slate-800 text-2xl font-semibold mb-2">{imageInfo.title}</h3>
-              <p className="text-slate-700 text-base">{imageInfo.description}</p>
-              <div className="mt-3 text-slate-600 text-sm font-medium flex items-center gap-2">
+            <div className="absolute bottom-0 left-0 right-0 bg-black/65 backdrop-blur-sm p-6 rounded-b-lg border-t border-white/10">
+              <h3 className="text-white text-2xl font-semibold mb-2 drop-shadow-sm">{imageInfo.title}</h3>
+              <p className="text-gray-200 text-base drop-shadow-sm">{imageInfo.description}</p>
+              <div className="mt-3 text-gray-200 text-sm font-medium flex items-center gap-2">
                 <div className="w-2 h-2 bg-amber-300 rounded-full" />
                 {selectedImage + 1} / {images.length}
               </div>
