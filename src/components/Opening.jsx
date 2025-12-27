@@ -42,36 +42,12 @@ const Opening = ({ onComplete }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-transparent pointer-events-auto text-white"
+      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-black/85 backdrop-blur-sm pointer-events-auto text-white"
       initial={{ opacity: 1 }}
       animate={{ opacity: stage === "complete" ? 0 : 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       style={{ pointerEvents: stage === "complete" ? "none" : "auto" }}
     >
-      <motion.div
-        className="absolute inset-0 flex items-center justify-center pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      >
-        <div className="relative w-[95%] sm:w-[90%] max-w-2xl h-[70vh] sm:h-[80vh] max-h-[600px]">
-          <div className="absolute inset-0 rounded-lg sm:rounded-xl shadow-2xl border border-gray-800/30 overflow-hidden bg-[#2d2d2d]">
-            <div className="absolute top-0 left-0 right-0 h-9 sm:h-11 bg-[#2a2a2a] border-b border-black/30 flex items-center px-2 sm:px-3">
-              <div className="flex items-center gap-1.5 sm:gap-2.5">
-                <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-[#ee6a5f]" />
-                <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-[#f5bd4f]" />
-                <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-[#61c454]" />
-              </div>
-              <div className="flex-1 flex items-center justify-center">
-                <span className="text-gray-300 text-xs sm:text-sm font-semibold">portfolio.app</span>
-              </div>
-              <div className="w-16 sm:w-24" />
-            </div>
-            <div className="absolute top-9 sm:top-11 left-0 right-0 bottom-0 bg-gradient-to-br from-[#fef3e2] to-[#fdefd4]" />
-          </div>
-        </div>
-      </motion.div>
-
       <div className="relative z-10 flex flex-col items-center gap-8 sm:gap-12 px-4">
         <motion.div
           className="relative"
@@ -94,18 +70,18 @@ const Opening = ({ onComplete }) => {
           transition={{ delay: 0.5, duration: 0.8 }}
         >
           <h1
-            className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-900 via-orange-800 to-amber-900 mb-3 tracking-tight drop-shadow-sm"
+            className="text-4xl md:text-5xl font-black text-white mb-3 tracking-tight drop-shadow-sm"
             style={{ fontFamily: '"Space Grotesk", "Inter", system-ui, sans-serif', fontWeight: 800 }}
           >
             Hao!
           </h1>
           <div
-            className="text-amber-800/90 text-lg sm:text-xl md:text-2xl font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase h-9 sm:h-10 flex items-center justify-center"
+            className="text-white/90 text-lg sm:text-xl md:text-2xl font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase h-9 sm:h-10 flex items-center justify-center"
             style={{ fontFamily: "monospace" }}
           >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-700 via-amber-800 to-orange-700">{typedText}</span>
+            <span className="text-white">{typedText}</span>
             <motion.span
-              className="inline-block w-1 h-6 bg-amber-800 ml-1.5 rounded-sm"
+              className="inline-block w-1 h-6 bg-white ml-1.5 rounded-sm"
               animate={{ opacity: [1, 0, 1] }}
               transition={{ duration: 0.8, repeat: Infinity }}
             />
@@ -118,23 +94,23 @@ const Opening = ({ onComplete }) => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
         >
-          <div className="flex justify-between items-center mb-4 text-base">
-            <span className="text-amber-800/80 text-sm sm:text-base font-semibold">Tunggu bentar yaa..</span>
+          <div className="flex items-center justify-between gap-4 mb-4 text-base w-full">
+            <span className="flex-1 text-left text-white/80 text-sm sm:text-base font-semibold">Tunggu bentar yaa..</span>
             <span
-              className="text-amber-900 font-black text-2xl sm:text-3xl tracking-tighter tabular-nums"
+              className="min-w-[64px] text-right text-white font-black text-2xl sm:text-3xl tracking-tighter tabular-nums"
               style={{ fontWeight: 900 }}
             >
               {progress}%
             </span>
           </div>
 
-          <div className="relative h-5 sm:h-6 bg-gradient-to-r from-amber-100/80 to-amber-100/80 rounded-full overflow-hidden border-2 border-amber-300/40 shadow-md">
+          <div className="relative h-5 sm:h-6 bg-white/15 rounded-full overflow-hidden border border-white/25 shadow-md">
             <motion.div
-              className="absolute inset-y-0 left-0 bg-gradient-to-r from-amber-500 to-orange-400 rounded-full"
+              className="absolute inset-y-0 left-0 bg-white rounded-full"
               style={{ width: `${progress}%` }}
               transition={{ duration: 0.2, ease: "linear" }}
             >
-              <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-transparent rounded-full" />
+              <div className="absolute inset-0 bg-white/60" />
             </motion.div>
           </div>
         </motion.div>
