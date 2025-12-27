@@ -457,11 +457,11 @@ const Footer = () => {
           gradient: "from-red-500 via-red-600 to-pink-600"
         },
         { 
-          href: "https://github.com/Raditt10", 
-          src: "/img/github.png", 
-          alt: "GitHub", 
+          href: "https://www.linkedin.com/in/rafaditya-syahputra-789809399/", 
+          src: "/img/linkedin.png", 
+          alt: "LinkedIn", 
           glow: "blue",
-          gradient: "from-blue-500 via-cyan-500 to-teal-500"
+          gradient: "from-blue-500 via-blue-600 to-cyan-500"
         },
       ].map((social, index) => (
         <a
