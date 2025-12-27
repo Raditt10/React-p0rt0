@@ -105,6 +105,37 @@ const Footer = () => {
     }));
   };
 
+  const playSuccessSound = () => {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.value = 800;
+    oscillator.type = 'sine';
+    
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.5);
+    
+    setTimeout(() => {
+      const oscillator2 = audioContext.createOscillator();
+      const gainNode2 = audioContext.createGain();
+      oscillator2.connect(gainNode2);
+      gainNode2.connect(audioContext.destination);
+      oscillator2.frequency.value = 1000;
+      oscillator2.type = 'sine';
+      gainNode2.gain.setValueAtTime(0.2, audioContext.currentTime);
+      gainNode2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+      oscillator2.start(audioContext.currentTime);
+      oscillator2.stop(audioContext.currentTime + 0.4);
+    }, 150);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -144,6 +175,7 @@ const Footer = () => {
 
       console.log("Email sent successfully:", result);
 
+      playSuccessSound();
       setToast({ show: true, message: "Message sent successfully! I'll get back to you soon.", type: 'success' });
       setFormData({
         email: "",
@@ -170,29 +202,29 @@ const Footer = () => {
     <>
       {/* Toast Notification */}
       {toast.show && (
-        <div className="fixed top-6 right-6 z-[10000] animate-slideInRight">
+        <div className="fixed top-6 right-6 z-[10000] animate-[slideInRight_0.5s_cubic-bezier(0.34,1.56,0.64,1)]">
           <div className={`relative px-6 py-4 rounded-xl backdrop-blur-xl border shadow-2xl min-w-[320px] max-w-md ${
             toast.type === 'success' 
-              ? 'bg-gradient-to-r from-emerald-900/90 to-green-900/90 border-emerald-500/50 shadow-emerald-500/20' 
+              ? 'bg-gradient-to-br from-white/95 to-amber-50/95 border-white/50 shadow-amber-200/40' 
               : 'bg-gradient-to-r from-red-900/90 to-rose-900/90 border-red-500/50 shadow-red-500/20'
           }`}>
             {/* Glow Effect */}
-            <div className={`absolute inset-0 rounded-xl blur-xl opacity-50 ${
-              toast.type === 'success' ? 'bg-emerald-500/30' : 'bg-red-500/30'
+            <div className={`absolute inset-0 rounded-xl blur-xl opacity-30 ${
+              toast.type === 'success' ? 'bg-amber-300/40' : 'bg-red-500/30'
             }`} />
             
             {/* Content */}
             <div className="relative flex items-start gap-4">
               {/* Icon */}
-              <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center ${
-                toast.type === 'success' ? 'bg-emerald-500/20' : 'bg-red-500/20'
+              <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+                toast.type === 'success' ? 'bg-amber-400/20 border border-amber-400/30' : 'bg-red-500/20'
               }`}>
                 {toast.type === 'success' ? (
-                  <svg className="w-4 h-4 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  <svg className="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                   </svg>
                 ) : (
-                  <svg className="w-4 h-4 text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 )}
@@ -200,13 +232,13 @@ const Footer = () => {
               
               {/* Message */}
               <div className="flex-1">
-                <h4 className={`font-semibold text-sm mb-1 ${
-                  toast.type === 'success' ? 'text-emerald-100' : 'text-red-100'
+                <h4 className={`font-bold text-base mb-1 ${
+                  toast.type === 'success' ? 'text-gray-800' : 'text-red-100'
                 }`}>
                   {toast.type === 'success' ? 'Success!' : 'Error'}
                 </h4>
-                <p className={`text-sm ${
-                  toast.type === 'success' ? 'text-emerald-200/90' : 'text-red-200/90'
+                <p className={`text-sm leading-relaxed ${
+                  toast.type === 'success' ? 'text-gray-700' : 'text-red-200/90'
                 }`}>
                   {toast.message}
                 </p>
@@ -215,9 +247,9 @@ const Footer = () => {
               {/* Close Button */}
               <button
                 onClick={() => setToast({ show: false, message: '', type: '' })}
-                className={`flex-shrink-0 p-1 rounded-lg transition-colors ${
+                className={`flex-shrink-0 p-1.5 rounded-lg transition-all duration-300 ${
                   toast.type === 'success' 
-                    ? 'hover:bg-emerald-500/20 text-emerald-300' 
+                    ? 'hover:bg-amber-400/20 text-gray-600 hover:text-gray-800' 
                     : 'hover:bg-red-500/20 text-red-300'
                 }`}
               >
@@ -229,7 +261,7 @@ const Footer = () => {
             
             {/* Progress Bar */}
             <div className={`absolute bottom-0 left-0 h-1 rounded-b-xl ${
-              toast.type === 'success' ? 'bg-emerald-500' : 'bg-red-500'
+              toast.type === 'success' ? 'bg-gradient-to-r from-amber-400 to-amber-500' : 'bg-red-500'
             }`} style={{
               width: '100%',
               animation: 'progressBar 5s linear forwards'
@@ -483,18 +515,18 @@ const Footer = () => {
     </div>
   </div>
     </div>
+    </div>
 
       {/* Bottom section dengan copyright */}
-      <div className="flex relative justify-center items-center mt-20">
+      <div className="flex relative justify-center items-center mt-20 pb-8 z-20">
         <div className="absolute -top-10 left-1/2 w-10/12 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
         <h1 className="font-bold text-sm md:text-base tracking-wide bg-gradient-to-r from-gray-400 to-gray-600 bg-clip-text text-transparent">
           R'e • 2025
         </h1>
       </div>
-      </div>
 
       {/* Bottom Gradient - Simplified */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#040507] via-[#040507]/50 to-transparent pointer-events-none z-10"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#040507] via-[#040507]/50 to-transparent pointer-events-none z-0"></div>
 
       <style jsx>{`
         @keyframes gridMove {
