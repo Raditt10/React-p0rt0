@@ -167,10 +167,10 @@ const Gallery = () => {
   );
 
   return (
-   <section 
-      id="gallery" 
-      ref={sectionRef} 
-      className="relative min-h-screen mt-12 px-4 md:px-8 overflow-hidden bg-[#050607]"
+  <section 
+    id="gallery" 
+    ref={sectionRef} 
+    className="relative min-h-screen mt-16 md:mt-24 px-4 md:px-8 pt-16 md:pt-20 pb-24 md:pb-28 scroll-mt-28"
       style={{ fontFamily: "Sora Variable" }} 
     >
       {/* Static luxe vignette background */}
