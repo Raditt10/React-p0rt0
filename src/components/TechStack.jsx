@@ -50,10 +50,10 @@ const TechStack = () => {
     // Cancel animations jika sudah ada
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
-    // Set initial states lebih minimal
-    gsap.set(title, { opacity: 0 });
-    gsap.set(grid, { opacity: 0 });
-    gsap.set(items, { opacity: 0 });
+    // Set initial states tanpa opacity 0 untuk mobile compatibility
+    gsap.set(title, { y: -15 });
+    gsap.set(grid, { y: 15 });
+    gsap.set(items, { scale: 0.9 });
 
     // Timeline lebih sederhana
     const tl = gsap.timeline({
@@ -61,7 +61,7 @@ const TechStack = () => {
         trigger: section,
         start: "top 80%",
         end: "bottom 20%",
-        toggleActions: "play none none reverse",
+        toggleActions: "play none none none",
         markers: false // Nonaktifkan markers di production
       },
       defaults: {
@@ -71,10 +71,10 @@ const TechStack = () => {
     });
 
     // Animasi sederhana
-    tl.to(title, { opacity: 1 })
-      .to(grid, { opacity: 1 }, "-=0.2")
+    tl.to(title, { y: 0 })
+      .to(grid, { y: 0 }, "-=0.2")
       .to(items, {
-        opacity: 1,
+        scale: 1,
         stagger: isMobile ? 0.02 : 0.03,
         duration: 0.3
       }, "-=0.1");

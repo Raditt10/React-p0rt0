@@ -25,16 +25,15 @@ const Gallery = () => {
     const title = titleRef.current;
     const gridItems = itemsRef.current;
 
+    // Set initial state tanpa opacity 0 untuk menghindari konten hilang
     gsap.set(title, {
-      opacity: 0,
-      y: -30,
-      scale: 0.9
+      y: -20,
+      scale: 0.95
     });
 
     gsap.set(gridItems, {
-      opacity: 0,
-      scale: 0.9,
-      y: 40
+      scale: 0.95,
+      y: 20
     });
 
     const tl = gsap.timeline({
@@ -42,28 +41,26 @@ const Gallery = () => {
         trigger: section,
         start: "top 80%",
         end: "bottom 20%",
-        toggleActions: "play none none reverse" 
+        toggleActions: "play none none none" 
       }
     });
 
     tl.to(title, {
-      opacity: 1,
       y: 0,
       scale: 1,
-      duration: 0.6,
+      duration: 0.5,
       ease: "power2.out"
     })
     .to(gridItems, {
-      opacity: 1,
       scale: 1,
       y: 0,
-      duration: 0.6,
+      duration: 0.5,
       ease: "power2.out",
       stagger: {
-        amount: 0.4,
+        amount: 0.3,
         from: "start"
       }
-    }, "-=0.3");
+    }, "-=0.2");
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
@@ -173,7 +170,7 @@ const Gallery = () => {
    <section 
       id="gallery" 
       ref={sectionRef} 
-      className="relative min-h-screen py-8 sm:py-12 px-4 md:px-8 overflow-hidden bg-[#050607]"
+      className="relative min-h-screen mt-12 px-4 md:px-8 overflow-hidden bg-[#050607]"
       style={{ fontFamily: "Sora Variable" }} 
     >
       {/* Static luxe vignette background */}
