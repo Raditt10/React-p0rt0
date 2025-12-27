@@ -21,28 +21,28 @@ const CertificationCard = ({ gambar, judul, link }) => {
           }}
         >
           {/* Front */}
-          <div className='absolute inset-0 flex flex-col items-center justify-between rounded-2xl p-6'
-               style={{ backfaceVisibility: 'hidden', gap: '16px' }}>
-            <div className='w-full rounded-2xl p-4 bg-gradient-to-r from-[#280087] to-[#C00000] flex items-center justify-center'>
+          <div className='absolute inset-0 flex flex-col items-center justify-between rounded-2xl p-6 border border-white/20'
+               style={{ backfaceVisibility: 'hidden', gap: '16px', background: 'linear-gradient(135deg, rgba(30,30,35,0.98) 0%, rgba(15,15,20,0.98) 100%)' }}>
+            <div className='w-full rounded-2xl p-4 bg-black/40 border border-white/10 flex items-center justify-center'>
               <img src={`/img/${gambar}`} className='max-h-[220px] w-auto object-contain' alt="" />
             </div>
             <div className='w-full flex flex-col items-center gap-4'>
               <h1 className='text-white font-semibold text-lg md:text-2xl text-center leading-snug'>{judul}</h1>
               <div className="mt-2">
-                <button className="text-white font-semibold bg-gradient-to-tr from-[#280087] to-[#C00000] cursor-pointer px-6 py-2 rounded-xl">See More</button>
+                <button className="text-white font-semibold bg-white/10 hover:bg-white/20 border border-white/20 cursor-pointer px-6 py-2 rounded-xl transition-all duration-200">See More</button>
               </div>
             </div>
           </div>
 
           {/* Back */}
-          <div className='absolute inset-0 flex flex-col items-center justify-between rounded-2xl p-6 text-center'
-               style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden', background: 'linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4))' }}>
+          <div className='absolute inset-0 flex flex-col items-center justify-between rounded-2xl p-6 text-center border border-white/20'
+               style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden', background: 'linear-gradient(135deg, rgba(15,15,20,0.98) 0%, rgba(30,30,35,0.98) 100%)' }}>
             <div />
             <div>
               <h2 className='text-white font-bold text-xl mb-2'>Certificate Detail</h2>
               <p className='text-sm text-gray-300 px-4 mb-4'>{judul}</p>
               <a href={link} target='_blank' rel='noopener noreferrer'>
-                <button className='mt-3 px-4 py-2 bg-cyan-500 text-black rounded-md font-semibold'>Open</button>
+                <button className='mt-3 px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-md font-semibold transition-all duration-200'>Open</button>
               </a>
             </div>
             <div className='w-full flex justify-center'>

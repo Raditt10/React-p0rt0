@@ -220,7 +220,7 @@ const Projects = () => {
         >
           My Projects
         </motion.h1>
-
+          
         {/* Projects Container */}
         <div className="relative">
           {/* Navigation Buttons */}

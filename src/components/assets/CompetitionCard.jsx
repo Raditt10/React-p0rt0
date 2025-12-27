@@ -15,9 +15,10 @@ function CompetitionCard() {
       >
         {/* Front Side */}
         <div 
-          className='absolute inset-0 flex flex-col justify-center items-center rounded-xl p-6 bg-gradient-to-br from-blue-600 to-purple-700 border-2 border-gray-300 shadow-lg'
+          className='absolute inset-0 flex flex-col justify-center items-center rounded-xl p-6 border border-white/20 shadow-2xl'
           style={{ 
-            backfaceVisibility: 'hidden'
+            backfaceVisibility: 'hidden',
+            background: 'linear-gradient(135deg, rgba(30,30,35,0.98) 0%, rgba(15,15,20,0.98) 100%)'
           }}
         >
           {/* Certificate Image */}
@@ -35,7 +36,7 @@ function CompetitionCard() {
             <h1 className='text-white font-bold text-xl'>
               ISSC Competition
             </h1>
-            <h2 className='text-yellow-200 font-semibold text-lg'>
+            <h2 className='bg-gradient-to-r from-amber-200 to-amber-100 bg-clip-text text-transparent font-semibold text-lg'>
                1ST PLACE
             </h2>
             
@@ -45,7 +46,7 @@ function CompetitionCard() {
               rel='noopener noreferrer'
               onClick={(e) => e.stopPropagation()}
             >
-              <button className="bg-white text-blue-600 font-semibold px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+              <button className="bg-white/10 text-white font-semibold px-4 py-2 rounded-lg hover:bg-white/20 border border-white/20 transition-all duration-200">
                 View Certificate
               </button>
             </a>
@@ -54,10 +55,11 @@ function CompetitionCard() {
 
         {/* Back Side */}
         <div 
-          className='absolute inset-0 flex flex-col justify-center items-center rounded-xl p-6 bg-gradient-to-br from-purple-700 to-blue-600 border-2 border-gray-300 shadow-lg'
+          className='absolute inset-0 flex flex-col justify-center items-center rounded-xl p-6 border border-white/20 shadow-2xl'
           style={{ 
             transform: 'rotateY(180deg)', 
-            backfaceVisibility: 'hidden'
+            backfaceVisibility: 'hidden',
+            background: 'linear-gradient(135deg, rgba(15,15,20,0.98) 0%, rgba(30,30,35,0.98) 100%)'
           }}
         >
           <div className='bg-white rounded-lg p-4 w-full max-w-xs text-center'>
@@ -79,7 +81,7 @@ function CompetitionCard() {
                 rel='noopener noreferrer'
                 onClick={(e) => e.stopPropagation()}
               >
-                <button className='bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm'>
+                <button className='bg-white/10 text-white font-semibold px-4 py-2 rounded-lg hover:bg-white/20 border border-white/20 transition-all duration-200 text-sm'>
                   View Documents
                 </button>
               </a>
