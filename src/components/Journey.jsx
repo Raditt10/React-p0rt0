@@ -115,63 +115,9 @@ const Journey = () => {
 
         {/* Timeline Container */}
         <div className="relative">
-          {/* Progress Percentage - responsive positioning */}
-          {Math.round(((activeIndex + 1) / timelineData.length) * 100) < 100 && (
-            <motion.div
-              className="absolute z-20 transition-all duration-500 ease-out md:hidden"
-              style={{
-                left: 'calc(1.25rem - 2px)',
-                top: `${(activeIndex + 1) / timelineData.length * 100}%`,
-              }}
-            >
-              <span className="bg-black/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold text-white shadow-lg border border-white/20 block">
-                {Math.round(((activeIndex + 1) / timelineData.length) * 100)}%
-              </span>
-            </motion.div>
-          )}
+          {/* Progress fills the line - no percentage text */}
 
-          {/* Progress Percentage Desktop */}
-          {Math.round(((activeIndex + 1) / timelineData.length) * 100) < 100 && (
-            <motion.div
-              className="hidden md:block absolute z-20 transition-all duration-500 ease-out"
-              style={{
-                left: 'calc(50% + 12px)',
-                top: `${(activeIndex + 1) / timelineData.length * 100}%`,
-                transform: 'translateY(-50%)'
-              }}
-            >
-              <span className="bg-black/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold text-white shadow-lg border border-white/20 block whitespace-nowrap">
-                {Math.round(((activeIndex + 1) / timelineData.length) * 100)}%
-              </span>
-            </motion.div>
-          )}
-
-          {/* Finish Label - Mobile */}
-          <motion.div
-            className="absolute z-20 md:hidden"
-            style={{
-              left: 'calc(1.25rem - 2px)',
-              bottom: '-2rem',
-            }}
-          >
-            <span className="bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-lg border border-white/20 block">
-              Finish
-            </span>
-          </motion.div>
-
-          {/* Finish Label - Desktop */}
-          <motion.div
-            className="hidden md:block absolute z-20"
-            style={{
-              left: 'calc(50% + 12px)',
-              bottom: '-2rem',
-              transform: 'translateX(-50%)'
-            }}
-          >
-            <span className="bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-lg border border-white/20 block whitespace-nowrap">
-              Finish
-            </span>
-          </motion.div>
+          {/* Finish Label at bottom */}
 
           {/* Progress Line - simplified */}
           <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-white/10 overflow-hidden">
@@ -183,6 +129,20 @@ const Journey = () => {
               }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             />
+          </div>
+
+          {/* Finish Label - Mobile */}
+          <div className="absolute left-5 md:hidden bottom-0 z-20 -translate-y-8">
+            <span className="bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold text-white shadow-lg border border-white/20 block whitespace-nowrap">
+              Finish
+            </span>
+          </div>
+
+          {/* Finish Label - Desktop */}
+          <div className="hidden md:block absolute left-1/2 bottom-0 z-20 -translate-y-8 -translate-x-1/2">
+            <span className="bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-white shadow-lg border border-white/20 block whitespace-nowrap">
+              Finish
+            </span>
           </div>
 
           {/* Timeline Items */}
