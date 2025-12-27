@@ -155,44 +155,16 @@ const Projects = () => {
     <section 
       id="projects" 
       ref={sectionRef} 
-      className="relative min-h-screen py-14 sm:py-18 md:py-22 px-4 sm:px-6 md:px-8 lg:px-12 overflow-hidden bg-gradient-to-br from-[#050607] via-[#0b0f15] to-[#0c1118] touch-manipulation"
+      className="relative min-h-screen py-14 sm:py-18 md:py-22 px-4 sm:px-6 md:px-8 lg:px-12 overflow-hidden bg-gradient-to-br from-[#040507] via-[#0a0d12] to-[#050608] touch-manipulation"
       style={{ fontFamily: "Sora Variable" }}
     >
-      {/* Animated Grid Background */}
-      <div className="absolute inset-0 opacity-[0.015] z-0">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `
-            linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px',
-          backgroundPosition: 'center center'
-        }} />
-      </div>
+      {/* Elegant Static Background */}
+      <div className="absolute inset-0 z-0">
+        {/* Central light bloom with soft amber halo */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_32%_24%,rgba(255,255,255,0.26)_0%,rgba(255,255,255,0.12)_16%,rgba(255,255,255,0)_42%),radial-gradient(circle_at_68%_66%,rgba(255,214,170,0.12)_0%,rgba(255,214,170,0)_55%)]" />
 
-      {/* Pulsing Orb Effect */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] z-0">
-        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-white/8 to-white/4 animate-pulse-slow" 
-             style={{ filter: 'blur(28px)' }} />
-      </div>
-
-      {/* Floating Particles (reduced for mobile) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-5">
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="floating-particle absolute rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${Math.random() * 2 + 1.5}px`,
-              height: `${Math.random() * 2 + 1.5}px`,
-              background: 'linear-gradient(45deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3))',
-              boxShadow: '0 0 6px rgba(255,255,255,0.35)',
-              opacity: 0.6
-            }}
-          />
-        ))}
+        {/* Luxe vignette to deepen blacks */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_35%,rgba(0,0,0,0.6)_100%)]" />
       </div>
 
       <motion.div 
