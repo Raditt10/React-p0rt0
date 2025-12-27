@@ -251,7 +251,7 @@ const navlinks = [
 
   {
     id: 6,
-    "text" : "Contact me",
+    "text" : "Contact Me",
     "link" : "#contact"
   },
 ]
