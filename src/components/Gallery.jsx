@@ -14,10 +14,10 @@ const Gallery = () => {
   const images = [
     { src: "/img/geler-1.png", title: "Interior View", description: "Masjid Interior" },
     { src: "/img/galer-4.png", title: "Mountain View", description: "Beautiful landscape" },
-    { src: "/img/galer-5.png", title: "Sigma Cat", description: "Cute cat shot" },
-    { src: "/img/galor1.jpg", title: "Sigma Cat", description: "Cute cat shot" },
+    { src: "/img/galer-5.png", title: "Sigma Cat", description: "Gatau males pengen beli trek" },
+    { src: "/img/galor1.jpg", title: "Sigma Cat", description: "Gatau males pengen beli trek" },
     { src: "/img/galer-3.png", title: "Festival View", description: "Vibrant atmosphere" },
-    { src: "/img/galor2.jpg", title: "Sigma Cat", description: "Cute cat shot" },
+    { src: "/img/galor2.jpg", title: "Sigma Cat", description: "Gatau males pengen beli trek" },
   ];
 
   useEffect(() => {
