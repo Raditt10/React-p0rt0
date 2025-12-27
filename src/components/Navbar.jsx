@@ -174,18 +174,6 @@ const Navbar = () => {
           R'e
         </h1>
       </div>
-
-      <div
-        className={`flex items-center gap-2 px-3 py-1 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 ${
-          isLight
-            ? 'bg-white/90 text-slate-700 border border-slate-200'
-            : 'bg-white/10 text-white border border-white/15'
-        }`}
-        aria-label={`Current theme: ${isLight ? 'Light' : 'Dark'}`}
-      >
-        <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-        <span>{isLight ? 'Terang' : 'Malam'}</span>
-      </div>
       
       <button
         type="button"
