@@ -5,6 +5,7 @@ const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
 
   // Deteksi mobile
   useEffect(() => {
@@ -17,6 +18,14 @@ const Navbar = () => {
     
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
+
+  // Animasi masuk navbar mobile
+  useEffect(() => {
+    if (isMobile) {
+      const timer = setTimeout(() => setIsVisible(true), 100)
+      return () => clearTimeout(timer)
+    }
+  }, [isMobile])
 
   // Scroll handler untuk mobile saja
   useEffect(() => {
@@ -84,13 +93,21 @@ const Navbar = () => {
     </nav>
   )
 
-  // Mobile Header - diubah menjadi floating dan tidak menghalangi
+  // Mobile Header - dengan animasi slide down
   const MobileHeader = () => (
-    <header className={`md:hidden flex justify-between items-center transition-all duration-300 fixed top-4 left-4 right-4 z-50 px-4 py-3 rounded-2xl ${
-      scrolled 
-        ? 'bg-black/80 backdrop-blur-lg border border-white/10 shadow-lg' 
-        : 'bg-black/70 backdrop-blur-md'
-    }`} style={{ marginTop: 'env(safe-area-inset-top, 0)' }}>
+    <header 
+      className={`md:hidden flex justify-between items-center transition-all duration-500 fixed top-4 left-4 right-4 z-50 px-4 py-3 rounded-2xl ${
+        scrolled 
+          ? 'bg-black/80 backdrop-blur-lg border border-white/10 shadow-lg' 
+          : 'bg-black/70 backdrop-blur-md'
+      }`} 
+      style={{ 
+        marginTop: 'env(safe-area-inset-top, 0)',
+        transform: isVisible ? 'translateY(0)' : 'translateY(-120%)',
+        opacity: isVisible ? 1 : 0,
+        transition: 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease-out'
+      }}
+    >
       <div className="relative z-10">
         <h1 className='text-xl font-semibold text-white logo-minecraft drop-shadow-[0_0_8px_rgba(248,236,222,0.4)]'>
           R'e
