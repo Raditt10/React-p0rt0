@@ -110,51 +110,19 @@ const Journey = () => {
     <section
       id="journey"
       ref={sectionRef}
-      className="relative min-h-screen py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 lg:px-12 overflow-hidden bg-gradient-to-br from-[#050607] via-[#0b0f15] to-[#0c1118]"
+      className="relative min-h-screen py-14 sm:py-20 md:py-24 px-3 sm:px-6 md:px-8 lg:px-12 overflow-hidden bg-[#050607]"
       style={{ fontFamily: "Sora Variable" }}
     >
-      {/* Animated Grid Background */}
-      <div className="absolute inset-0 opacity-[0.015] z-0">
+      {/* Static luxe background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `
-            linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
-          `,
-            backgroundSize: "50px 50px",
-            backgroundPosition: "center center",
+            background: `radial-gradient(circle at 32% 24%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.12) 18%, rgba(255,255,255,0) 48%),
+              radial-gradient(circle at 68% 66%, rgba(255,214,170,0.14) 0%, rgba(255,214,170,0) 55%),
+              radial-gradient(ellipse at center, rgba(0,0,0,0) 38%, rgba(0,0,0,0.62) 100%)`
           }}
         />
-      </div>
-
-      {/* Pulsing Orb Effect */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] z-0">
-        <div
-          className="absolute inset-0 rounded-full bg-gradient-to-r from-white/8 to-white/4 animate-pulse-slow"
-          style={{ filter: "blur(28px)" }}
-        />
-      </div>
-
-      {/* Floating Particles (reduced) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-5">
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="floating-particle absolute rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${Math.random() * 2 + 1.5}px`,
-              height: `${Math.random() * 2 + 1.5}px`,
-              background: "linear-gradient(45deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3))",
-              boxShadow: "0 0 6px rgba(255,255,255,0.35)",
-              opacity: 0.6,
-              animation: `float ${Math.random() * 8 + 10}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 4}s`,
-            }}
-          />
-        ))}
       </div>
 
       <div className="max-w-6xl mx-auto relative z-20">
@@ -192,17 +160,17 @@ const Journey = () => {
                     <motion.div
                       className="flex md:hidden absolute z-20"
                       style={{
-                        left: 'calc(50% + 20px)',
+                        left: '1.25rem',
                         top: `calc(${(activeIndex + 1) / timelineData.length * 100}% - 32px)`,
                         transition: 'top 0.5s cubic-bezier(0.4,0,0.2,1)'
                       }}
                     >
-                      <span className="bg-black/80 px-3 py-1 rounded-full text-xs font-bold text-cyan-300 shadow-lg border border-cyan-400">
+                      <span className="bg-black/80 px-2.5 py-1 rounded-full text-[11px] font-semibold text-white shadow-lg border border-white/20">
                         {Math.round(((activeIndex + 1) / timelineData.length) * 100)}%
                       </span>
                     </motion.div>
           {/* Progress Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-white/10 rounded-full overflow-hidden">
+          <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-1 bg-white/10 rounded-full overflow-hidden">
             {/* Progress bar: tinggi proporsional dengan activeIndex */}
             <motion.div
               className="absolute left-0 top-0 w-full bg-gradient-to-b from-purple-500 via-cyan-400 to-purple-500 rounded-full"
@@ -243,18 +211,18 @@ const Journey = () => {
                             </div>
                           )}
                           {/* Glow Effect */}
-                          <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl bg-gradient-to-br ${item.color} blur-xl`} />
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.28),rgba(255,255,255,0)),radial-gradient(circle_at_70%_70%,rgba(248,236,214,0.26),rgba(248,236,214,0))] blur-xl" />
                           {/* Card */}
                           <div className={`relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl border rounded-2xl p-6 md:p-8 transition-all duration-400 ${isActive ? 'border-white/25 shadow-[0_0_18px_rgba(255,255,255,0.18)]' : 'border-white/10'}`}>
                             {/* Year Badge */}
-                            <div className={`inline-block px-4 py-2 rounded-full bg-gradient-to-r ${item.color} text-white font-bold text-sm mb-4 shadow-lg`}>
+                            <div className="inline-block px-4 py-2 rounded-full bg-[radial-gradient(circle_at_25%_25%,rgba(255,255,255,0.45),rgba(255,255,255,0.2)),radial-gradient(circle_at_75%_75%,rgba(248,236,214,0.38),rgba(248,236,214,0.16))] text-white font-semibold text-sm mb-4 shadow-[0_0_18px_rgba(255,255,255,0.28)]">
                               {item.year}
                               {item.current && (<span className="ml-2 inline-flex h-2 w-2 rounded-full bg-white animate-pulse" />)}
                             </div>
                             {/* Title with Logo (mobile) */}
                             <div className="flex items-start gap-4 mb-4">
                               {item.logo && (
-                                <div className="md:hidden relative w-16 h-16 rounded-xl overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 p-2 flex-shrink-0 group-hover:border-white/40 transition-all duration-300">
+                                <div className="md:hidden relative w-16 h-16 rounded-xl overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 p-2 flex-shrink-0 group-hover:border-white/60 transition-all duration-300">
                                   <img src={item.logo} alt={`${item.title} logo`} className="w-full h-full object-contain" />
                                 </div>
                               )}
@@ -272,7 +240,7 @@ const Journey = () => {
                                         transform: 'rotate(-8deg)',
                                       }}
                                     >
-                                      <div className="rounded-xl overflow-hidden shadow-2xl border-2 border-white/30 bg-gradient-to-br from-purple-400/30 to-pink-400/30 animate-float-bocil1 transition-transform duration-300 group-hover/bocil:scale-150 group-hover/bocil:z-50">
+                                      <div className="rounded-xl overflow-hidden shadow-2xl border-2 border-white/30 bg-gradient-to-br from-white/18 via-white/10 to-amber-100/14 animate-float-bocil1 transition-transform duration-300 group-hover/bocil:scale-150 group-hover/bocil:z-50">
                                         <img
                                           src={item.childhoodPhotos[0]}
                                           alt="Bocil 1"
@@ -289,7 +257,7 @@ const Journey = () => {
                                         transform: 'rotate(10deg) scale(0.95)',
                                       }}
                                     >
-                                      <div className="rounded-xl overflow-hidden shadow-2xl border-2 border-white/30 bg-gradient-to-br from-pink-400/30 to-purple-400/30 animate-float-bocil2 transition-transform duration-300 group-hover/bocil:scale-150 group-hover/bocil:z-50">
+                                      <div className="rounded-xl overflow-hidden shadow-2xl border-2 border-white/30 bg-gradient-to-br from-white/18 via-white/10 to-amber-100/14 animate-float-bocil2 transition-transform duration-300 group-hover/bocil:scale-150 group-hover/bocil:z-50">
                                         <img
                                           src={item.childhoodPhotos[1]}
                                           alt="Bocil 2"
@@ -306,7 +274,7 @@ const Journey = () => {
                                         transform: 'rotate(-16deg) scale(1.08)',
                                       }}
                                     >
-                                      <div className="rounded-xl overflow-hidden shadow-2xl border-2 border-white/30 bg-gradient-to-br from-purple-400/30 to-pink-400/30 animate-float-bocil3 transition-transform duration-300 group-hover/bocil:scale-150 group-hover/bocil:z-50">
+                                      <div className="rounded-xl overflow-hidden shadow-2xl border-2 border-white/30 bg-gradient-to-br from-white/18 via-white/10 to-amber-100/14 animate-float-bocil3 transition-transform duration-300 group-hover/bocil:scale-150 group-hover/bocil:z-50">
                                         <img
                                           src={item.childhoodPhotos[2]}
                                           alt="Bocil 3"
@@ -392,11 +360,11 @@ const Journey = () => {
                             </div>
                           )}
                           {/* Glow Effect */}
-                          <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl bg-gradient-to-br ${item.color} blur-xl`} />
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.28),rgba(255,255,255,0)),radial-gradient(circle_at_70%_70%,rgba(248,236,214,0.26),rgba(248,236,214,0))] blur-xl" />
                           {/* Card */}
                           <div className={`relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl border rounded-2xl p-6 md:p-8 transition-all duration-500 ${isActive ? 'border-white/30 shadow-[0_0_30px_rgba(139,92,246,0.3)]' : 'border-white/10'}`}>
                             {/* Year Badge */}
-                            <div className={`inline-block px-4 py-2 rounded-full bg-gradient-to-r ${item.color} text-white font-bold text-sm mb-4 shadow-lg`}>
+                            <div className="inline-block px-4 py-2 rounded-full bg-[radial-gradient(circle_at_25%_25%,rgba(255,255,255,0.45),rgba(255,255,255,0.2)),radial-gradient(circle_at_75%_75%,rgba(248,236,214,0.38),rgba(248,236,214,0.16))] text-white font-semibold text-sm mb-4 shadow-[0_0_18px_rgba(255,255,255,0.28)]">
                               {item.year}
                               {item.current && (<span className="ml-2 inline-flex h-2 w-2 rounded-full bg-white animate-pulse" />)}
                             </div>
@@ -430,10 +398,10 @@ const Journey = () => {
                               </div>
                             )}
                             {/* Decorative Corners */}
-                            <div className="absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-cyan-400 opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
-                            <div className="absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-purple-400 opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
-                            <div className="absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-purple-400 opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
-                            <div className="absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-cyan-400 opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+                            <div className="absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-white/60 opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+                            <div className="absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-white/60 opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+                            <div className="absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-white/60 opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+                            <div className="absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-white/60 opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
                           </div>
                         </div>
                       </motion.div>
@@ -455,39 +423,7 @@ const Journey = () => {
         </motion.div>
       </div>
 
-      <style jsx>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0) translateX(0) rotate(0deg);
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(-100vh) translateX(100px) rotate(180deg);
-            opacity: 0;
-          }
-        }
-
-        .animate-pulse-slow {
-          animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        @keyframes pulse {
-          0%,
-          100% {
-            opacity: 0.3;
-          }
-          50% {
-            opacity: 0.6;
-          }
-        }
-      `}</style>
+      <style jsx>{``}</style>
     </section>
   );
 };
