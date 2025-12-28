@@ -27,6 +27,8 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
           src={`/img/${gambar}`} 
           alt={judul}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          width="400" height="256"
+          loading="lazy"
         />
         <div
           className={`absolute inset-0 bg-gradient-to-t ${

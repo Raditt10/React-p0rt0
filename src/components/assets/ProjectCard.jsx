@@ -16,6 +16,7 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
               src="/img/coming-soon.png"
               alt="Aplikasi sedang di perbaiki"
               className="w-full h-full object-cover"
+              width="400" height="256"
               loading="lazy"
             />
             {/* Fallback text if image doesn't exist */}
@@ -32,7 +33,8 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
             <img 
               className="rounded-t-2xl w-full h-56 sm:h-64 md:h-72 lg:h-80 object-cover object-center transition-all duration-500" 
               src={`/img/${gambar}`} 
-              alt="Projects Image"
+              alt={judul ? `Project ${judul}` : "Projects Image"}
+              width="400" height="256"
               loading="lazy"
               style={{ minHeight: '100%', minWidth: '100%' }}
             />
@@ -51,11 +53,12 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
       <div className="flex items-center justify-start w-full gap-2 mt-4 md:mt-7 px-4 md:px-6">
         <div className="w-[10px] h-[10px] flex-shrink-0">
                     <img
-            src="/img/Tahun.png"
-            className="w-full h-full object-cover"
-            alt="Year Icon"
-            loading="lazy"
-          />
+                      src="/img/Tahun.png"
+                      className="w-full h-full object-cover"
+                      alt="Year Icon"
+                      width="10" height="10"
+                      loading="lazy"
+                    />
         </div>
         <span className="font-light text-sm text-white">2025</span>
       </div>
@@ -74,7 +77,8 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
           <img
             className="w-full h-full object-cover"
             src="/img/tag.png"
-            alt=""
+            alt="Tag Icon"
+            width="10" height="10"
           />
         </div>
         <div className="flex flex-wrap items-center gap-2 my-2 md:my-3 flex-1">
@@ -99,7 +103,7 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
         <a href={linkDemo} target='_blank' rel="noopener noreferrer" className="flex-1">
           <button className="flex items-center justify-center gap-2 w-full px-4 py-3 text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300 border border-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-white/10 min-h-[44px] touch-manipulation">
             <div className="w-auto h-[12px] flex-shrink-0">
-              <img src="/img/Demo.png" className="w-full h-full object-cover" alt="" />
+              <img src="/img/Demo.png" className="w-full h-full object-cover" alt="Demo" width="12" height="12" />
             </div>
             <span className="font-light">
               View Demo

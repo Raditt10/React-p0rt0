@@ -30,6 +30,7 @@ function CompetitionCard({ isLight = false }) {
               alt="ISSC Competition Certificate" 
               loading="lazy"
               className='w-full h-auto object-contain rounded'
+              width="320" height="220"
             />
           </div>
 

@@ -191,7 +191,7 @@ const Journey = () => {
                         {item.logo && (
                           <div className={`absolute top-1/2 -translate-y-1/2 hidden lg:block z-20 ${isLeft ? '-left-16 xl:-left-20' : '-right-16 xl:-right-20'}`}>
                             <div className="relative w-12 h-12 xl:w-14 xl:h-14 rounded-lg overflow-hidden bg-white/5 backdrop-blur-sm border border-white/20 p-1.5">
-                              <img src={item.logo} alt={item.title} className="w-full h-full object-contain" />
+                              <img src={item.logo} alt={item.title} className="w-full h-full object-contain" width="48" height="48" loading="lazy" />
                             </div>
                           </div>
                         )}
@@ -210,7 +210,7 @@ const Journey = () => {
                           <div className="flex items-start gap-3 mb-3">
                             {item.logo && (
                               <div className="lg:hidden relative w-12 h-12 sm:w-14 sm:h-14 rounded-lg overflow-hidden bg-white/5 backdrop-blur-sm border border-white/15 p-1.5 flex-shrink-0">
-                                <img src={item.logo} alt={item.title} className="w-full h-full object-contain" />
+                                <img src={item.logo} alt={item.title} className="w-full h-full object-contain" width="48" height="48" loading="lazy" />
                               </div>
                             )}
                             <div className="flex-1 min-w-0">

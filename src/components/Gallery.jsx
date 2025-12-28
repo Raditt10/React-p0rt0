@@ -247,7 +247,7 @@ const Gallery = () => {
                     <h2 className={`text-xl font-bold mb-1 tracking-tight ${isLight ? 'text-amber-600' : 'text-amber-200'}`}>MORE</h2>
                     <div className={`text-xl font-bold mb-2 tracking-tight flex items-center ${isLight ? 'text-slate-900' : 'text-white'}`}>
                       ON
-                      <img src="/img/instagram.png" className="w-5 h-5 ml-1" alt="Instagram" />
+                      <img src="/img/instagram.png" className="w-5 h-5 ml-1" alt="Instagram" width="20" height="20" loading="lazy" />
                     </div>
                   </div>
                   <div className={`text-xs relative z-10 ${isLight ? 'text-slate-700' : 'text-gray-300'}`}>@radittt_xxyu</div>
@@ -284,7 +284,7 @@ const Gallery = () => {
                   <h2 className={`text-3xl xl:text-4xl font-bold mb-1 tracking-tight ${isLight ? 'text-amber-600' : 'text-amber-200'}`}>MORE</h2>
                   <div className={`text-3xl xl:text-4xl font-bold mb-2 tracking-tight flex items-center ${isLight ? 'text-slate-900' : 'text-white'}`}>
                     ON
-                    <img src="/img/instagram.png" className="w-7 h-7 xl:w-8 xl:h-8 ml-2" alt="Instagram" loading="lazy" />
+                    <img src="/img/instagram.png" className="w-7 h-7 xl:w-8 xl:h-8 ml-2" alt="Instagram" width="32" height="32" loading="lazy" />
                   </div>
                 </div>
                 <div className={`text-sm relative z-10 ${isLight ? 'text-slate-700' : 'text-gray-300'}`}>@radittt_xxyu</div>

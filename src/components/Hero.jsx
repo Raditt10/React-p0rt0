@@ -331,6 +331,8 @@ const Hero = () => {
                     src="/img/cover.jpg" 
                     alt="Album Cover"
                     className="w-full h-full object-cover object-center"
+                    width="256" height="160"
+                    loading="lazy"
                     onError={(e) => {
                       e.target.style.display = 'none';
                       e.target.nextSibling.style.display = 'flex';

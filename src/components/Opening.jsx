@@ -71,7 +71,7 @@ const Opening = ({ onComplete }) => {
         >
           <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40">
             <div className="relative w-full h-full rounded-full shadow-xl overflow-hidden border-2 sm:border-4 border-white/20 bg-[#0f1116]">
-              <img src="/img/meow.jpg" alt="Profile" className="w-full h-full object-cover" />
+              <img src="/img/meow.jpg" alt="Profile" className="w-full h-full object-cover" width="128" height="128" loading="eager" />
               <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-white/15" />
             </div>
           </div>
