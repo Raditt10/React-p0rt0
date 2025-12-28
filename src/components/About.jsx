@@ -238,19 +238,16 @@ const About = () => {
               {/* Description */}
               <div className={`space-y-4 text-base ${isLight ? 'text-slate-700' : 'text-slate-300'} leading-relaxed`}>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
-                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  Hao! Saya Rafaditya Syahputra, seorang Full Stack Developer dengan passion dalam 
+                  menciptakan solusi digital yang inovatif dan efisien. Dengan pengalaman lebih dari
+                  2 tahun di industri teknologi, saya telah mengembangkan berbagai aplikasi web dan 
+                  mobile yang tidak hanya fungsional tetapi juga memberikan pengalaman pengguna yang 
+                  luar biasa.
                 </p>
                 <p>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
-                  fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-                  culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <p>
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
-                  doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore 
-                  veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                  Sekarang Saya berusia 17 tahun dan sedang menempuh pendidikan SMK di SMKN 13 Bandung,
+                  jurusan Rekayasa Perangkat Lunak. Kelas 11. Selain itu, saya juga aktif berkontribusi
+                  pada proyek open-source dan terus memperbarui keterampilan saya dengan teknologi terbaru.
                 </p>
               </div>
               {/* Call to Action */}
@@ -284,19 +281,16 @@ const About = () => {
               {/* Description */}
               <div className={`space-y-4 text-base lg:text-lg ${isLight ? 'text-slate-700' : 'text-slate-300'} leading-relaxed`}>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
-                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  Hao! Saya Rafaditya Syahputra, seorang Full Stack Developer dengan passion dalam 
+                  menciptakan solusi digital yang inovatif dan efisien. Dengan pengalaman lebih dari
+                  2 tahun di industri teknologi, saya telah mengembangkan berbagai aplikasi web dan 
+                  mobile yang tidak hanya fungsional tetapi juga memberikan pengalaman pengguna yang 
+                  luar biasa.
                 </p>
                 <p>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
-                  fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-                  culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <p>
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
-                  doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore 
-                  veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                  Sekarang Saya berusia 17 tahun dan sedang menempuh pendidikan SMK di SMKN 13 Bandung,
+                  jurusan Rekayasa Perangkat Lunak. Kelas 11. Selain itu, saya juga aktif berkontribusi
+                  pada proyek open-source dan terus memperbarui keterampilan saya dengan teknologi terbaru.
                 </p>
               </div>
               {/* Call to Action - dengan styling card seperti TechStack */}
