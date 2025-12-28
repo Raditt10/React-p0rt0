@@ -366,7 +366,7 @@ const projectsData = [
     judul: "Kultilas",
     parag: "Kultilas is a web-based application designed to facilitate the management of student extracurricular activities in schools.",
     tech: ["Laravel 12","Alpine.js", "MySQL", "Tailwind CSS"],
-    linkDemo : "https://kultilas.vercel.app/",
+    linkDemo : "#",
     linkCode : "https://github.com/Raditt10/Kultilas"
   },
 
@@ -376,6 +376,7 @@ const projectsData = [
     judul: "Kul-kul",
     parag: "Kul-kul is an application for managing finances in schools, especially for extracurricular activities.",
     tech: ["Laravel 12", "MySQL", "Tailwind CSS"],
+    linkDemo : "#",
     linkCode : "https://github.com/Raditt10/kulkul",
     isComingSoon: true
   },
