@@ -320,16 +320,16 @@ const Hero = () => {
               <div className="absolute -top-2 left-6 w-4 h-4 bg-white/95 backdrop-blur-sm border-l border-t border-amber-200/30 transform rotate-45" />
               
               {/* Card */}
-              <div className="relative bg-gradient-to-br from-white/95 to-amber-50/95 backdrop-blur-xl rounded-xl border border-white/40 overflow-hidden shadow-2xl w-64">
+              <div className="relative bg-gradient-to-br from-white/95 to-amber-50/95 backdrop-blur-xl rounded-xl border border-white/40 shadow-2xl w-64 overflow-hidden">
                 {/* Elegant Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-amber-100/20 to-white/20 opacity-50" />
                 
                 {/* Album Art */}
-                <div className="relative h-40 overflow-hidden">
+                <div className="relative w-full h-40 overflow-hidden rounded-t-xl">
                   <img 
                     src="/img/cover.jpg" 
                     alt="Album Cover"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center"
                     onError={(e) => {
                       e.target.style.display = 'none';
                       e.target.nextSibling.style.display = 'flex';
