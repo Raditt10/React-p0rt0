@@ -61,7 +61,7 @@ const Footer = () => {
 
     if (!footer || !line || !logoSection || !contactSection || !socialSection || !form) return;
 
-    gsap.set([line, logoSection, contactSection, socialSection, form], { y: 40 });
+    gsap.set([line, logoSection, contactSection, socialSection, form], { y: 24 });
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -72,11 +72,11 @@ const Footer = () => {
       }
     });
 
-    tl.to(line, { y: 0, duration: 0.6, ease: "power2.out" })
-    .to(logoSection, { y: 0, duration: 0.6, ease: "back.out(1.2)" }, "-=0.3")
-    .to(contactSection, { y: 0, duration: 0.6, ease: "power2.out" }, "-=0.4")
-    .to(socialSection, { y: 0, duration: 0.6, ease: "back.out(1.2)" }, "-=0.3")
-    .to(form, { y: 0, duration: 0.6, ease: "power2.out" }, "-=0.6");
+    tl.to(line, { y: 0, duration: 0.3, ease: "power1.out" })
+      .to(logoSection, { y: 0, duration: 0.3, ease: "power1.out" }, "-=0.15")
+      .to(contactSection, { y: 0, duration: 0.3, ease: "power1.out" }, "-=0.2")
+      .to(socialSection, { y: 0, duration: 0.3, ease: "power1.out" }, "-=0.15")
+      .to(form, { y: 0, duration: 0.3, ease: "power1.out" }, "-=0.3");
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());

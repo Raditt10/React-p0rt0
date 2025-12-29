@@ -1,16 +1,14 @@
 import { useRef, useEffect, useState } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 
 const Journey = () => {
   const sectionRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [themeMode, setThemeMode] = useState(() => {
-    // Initial theme from html[data-theme] or localStorage; default to 'dark'
     try {
       const root = document.documentElement;
-      return (
-        root.getAttribute("data-theme") || localStorage.getItem("theme") || "dark"
-      );
+      return root.getAttribute("data-theme") || "dark";
     } catch {
       return "dark";
     }
@@ -27,40 +25,31 @@ const Journey = () => {
       year: "2008",
       title: "Kelahiran",
       description: "Awal perjalanan hidup saya dimulai",
-      color: "from-purple-500 to-pink-500",
-      childhoodPhotos: [
-        "/img/bocil1.jpg",
-        "/img/bocil2.jpg",
-        "/img/bocil3.jpg"
-      ]
+      childhoodPhotos: ["/img/bocil1.jpg", "/img/bocil2.jpg", "/img/bocil3.jpg"]
     },
     {
       year: "2014",
       title: "TK Darul Fikri",
       description: "Memulai pendidikan di Taman Kanak-kanak Darul Fikri",
       logo: "/img/tk.jpg",
-      color: "from-blue-500 to-cyan-500",
     },
     {
       year: "2015",
       title: "SD 090 Cibiru",
       description: "Melanjutkan pendidikan dasar di SD 090 Cibiru",
       logo: "/img/sd.png",
-      color: "from-green-500 to-emerald-500",
     },
     {
       year: "2020",
       title: "SMPN 1 Cileunyi",
       description: "Menempuh pendidikan menengah pertama di SMPN 1 Cileunyi",
       logo: "/img/smp.png",
-      color: "from-orange-500 to-red-500",
     },
     {
       year: "2024 - Sekarang",
       title: "SMKN 13 Bandung",
       description: "Siswa kelas 11 SMKN 13 Bandung",
       logo: "/img/logo13.png",
-      color: "from-violet-500 to-purple-500",
       current: true,
       organizations: [
         { name: "MPK" },
@@ -72,25 +61,22 @@ const Journey = () => {
     },
   ];
 
-  // Update active timeline item based on scroll
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (latest) => {
+      setScrollProgress(latest);
       const index = Math.min(
         Math.floor(latest * timelineData.length),
         timelineData.length - 1
       );
       setActiveIndex(index);
     });
-
     return () => unsubscribe();
   }, [scrollYProgress, timelineData.length]);
 
-  // Sync theme from html[data-theme]
   useEffect(() => {
     try {
       const root = document.documentElement;
-      const initial =
-        root.getAttribute("data-theme") || localStorage.getItem("theme") || "dark";
+      const initial = root.getAttribute("data-theme") || "dark";
       setThemeMode(initial);
       const observer = new MutationObserver((mutations) => {
         for (const m of mutations) {
@@ -102,28 +88,24 @@ const Journey = () => {
       });
       observer.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
       return () => observer.disconnect();
-    } catch {
-      // ignore
-    }
+    } catch {}
   }, []);
 
   return (
     <section
       id="journey"
       ref={sectionRef}
-      className="relative min-h-screen pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-20 sm:pb-24 md:pb-28 px-4 sm:px-6 md:px-8 overflow-hidden scroll-mt-28"
+      className="relative min-h-screen pt-20 pb-20 px-4 sm:px-6 overflow-hidden"
       style={{ fontFamily: "Sora Variable, system-ui, sans-serif" }}
     >
-      {/* Section uses app-level background; remove per-section vignette to avoid dividers */}
-
-      <div className="max-w-5xl mx-auto relative z-10">
-        {/* Title - lebih ringan */}
+      <div className="max-w-4xl mx-auto relative z-10">
+        {/* Title */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl md:text-5xl bg-clip-text text-transparent font-semibold text-center mb-8 sm:mb-12 md:mb-16"
+          transition={{ duration: 0.5 }}
+          className="text-3xl sm:text-4xl md:text-5xl bg-clip-text text-transparent font-semibold text-center mb-12"
           style={{
             backgroundImage: isLight
               ? "linear-gradient(135deg, #1f2937 0%, #334155 50%, #b45309 100%)"
@@ -137,151 +119,215 @@ const Journey = () => {
 
         {/* Timeline Container */}
         <div className="relative">
-          {/* Progress fills the line - no percentage text */}
-
-          {/* Finish Label at bottom */}
-
-          {/* Progress Line - simplified */}
-          <div className={`absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 ${isLight ? "bg-black/10" : "bg-white/10"} overflow-hidden`}>
+          {/* Progress Line */}
+          <div className={`absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 ${isLight ? "bg-black/10" : "bg-white/10"}`}>
             <motion.div
-              className={`absolute left-0 top-0 w-full bg-gradient-to-b ${isLight ? "from-black/30 via-black/25 to-black/20" : "from-white/30 via-white/25 to-white/20"}`}
+              className={`absolute left-0 top-0 w-full ${isLight ? "bg-black/30" : "bg-white/30"}`}
               style={{
-                height: `${(activeIndex + 1) / timelineData.length * 100}%`,
-                boxShadow: isLight
-                  ? "0 0 10px rgba(0,0,0,0.15)"
-                  : "0 0 12px rgba(255,255,255,0.25)",
+                height: scrollYProgress,
+                scaleY: scrollYProgress,
+                transformOrigin: "top",
               }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
             />
           </div>
 
-          {/* Finish Label - Mobile */}
-          <div className="absolute left-0 md:hidden bottom-0 z-20 -translate-y-8">
-            <span className={`${isLight ? "bg-black/10 text-black border-black/20" : "bg-white/10 text-white border-white/20"} backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold shadow-lg border block whitespace-nowrap`}>
-              Finish
-            </span>
+          {/* Paper Plane Icon - follows scroll smoothly with dynamic movement */}
+          <div
+            className="absolute left-4 sm:left-6 z-40 pointer-events-none transition-all duration-75 ease-linear"
+            style={{
+              top: `calc(${scrollProgress * 100}% - 14px)`,
+            }}
+          >
+            <motion.div
+              animate={{
+                rotate: [0, -8, 8, -5, 5, 0],
+                x: [-50, -48, -52, -49, -51, -50],
+                y: [-50, -53, -47, -52, -48, -50],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                times: [0, 0.2, 0.4, 0.6, 0.8, 1],
+              }}
+            >
+              {/* Trailing effect */}
+              <motion.div
+                className="absolute left-0 top-1/2 -translate-y-1/2 -z-10"
+                style={{
+                  width: '50px',
+                  height: '2px',
+                  background: isLight 
+                    ? 'linear-gradient(to right, rgba(245, 158, 11, 0.5), transparent)' 
+                    : 'linear-gradient(to right, rgba(255, 255, 255, 0.4), transparent)',
+                  transformOrigin: 'left center',
+                }}
+                animate={{
+                  scaleX: [0.6, 1.2, 0.6],
+                  opacity: [0.4, 0.7, 0.4],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              
+              {/* Multiple particles */}
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1 h-1 rounded-full"
+                  style={{
+                    background: isLight ? 'rgba(245, 158, 11, 0.6)' : 'rgba(255, 255, 255, 0.5)',
+                    left: `-${10 + i * 8}px`,
+                    top: '50%',
+                  }}
+                  animate={{
+                    x: [-5, -15],
+                    y: [0, (i - 1) * 3],
+                    opacity: [0.6, 0],
+                    scale: [1, 0.3],
+                  }}
+                  transition={{
+                    duration: 0.8,
+                    repeat: Infinity,
+                    delay: i * 0.15,
+                    ease: "easeOut",
+                  }}
+                />
+              ))}
+              
+              <svg 
+                width="28" 
+                height="28" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                className={`drop-shadow-lg ${isLight ? 'text-amber-500' : 'text-white'}`}
+                style={{
+                  filter: isLight 
+                    ? 'drop-shadow(0 0 14px rgba(245, 158, 11, 0.8))' 
+                    : 'drop-shadow(0 0 18px rgba(255, 255, 255, 0.9))',
+                }}
+              >
+                <path 
+                  d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" 
+                  fill="currentColor"
+                  stroke="currentColor"
+                  strokeWidth="0.5"
+                />
+              </svg>
+            </motion.div>
           </div>
 
-          {/* Finish Label - Desktop */}
-          <div className="hidden md:block absolute left-1/2 bottom-0 z-20 -translate-y-8 -translate-x-1/2">
-            <span className={`${isLight ? "bg-black/10 text-black border-black/20" : "bg-white/10 text-white border-white/20"} backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold shadow-lg border block whitespace-nowrap`}>
+          {/* Finish Label */}
+          <div className="absolute left-0 bottom-0 z-20 -translate-y-6">
+            <span className={`${isLight ? "bg-amber-100/80 text-black border-amber-200" : "bg-white/10 text-white border-white/20"} backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold shadow-lg border`}>
               Finish
             </span>
           </div>
 
           {/* Timeline Items */}
-          <div className="space-y-8 sm:space-y-12 md:space-y-16 lg:space-y-20 relative">
+          <div className="space-y-12 relative pl-12 sm:pl-16">
             {timelineData.map((item, index) => {
-              const isLeft = index % 2 === 0;
               const isActive = index <= activeIndex;
 
               return (
-                <div key={index} className="relative flex flex-col md:flex-row md:items-start">
-                  {/* Content wrapper untuk mobile dan desktop */}
-                  <div className={`w-full md:w-1/2 ${isLeft ? 'md:pr-6 lg:pr-8' : 'md:pl-6 lg:pl-8 md:order-2'}`}>
-                    <motion.div
-                      initial={{ opacity: 0, x: isLeft ? -30 : 30 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.05 }}
-                      viewport={{ once: true, amount: 0.2 }}
-                      className={`relative ${isLeft ? 'md:ml-auto' : ''} md:w-full`}
-                    >
-                      <div className="relative group ml-12 md:ml-0">
-                        {/* School Logo - desktop only, lebih kecil */}
-                        {item.logo && (
-                          <div className={`absolute top-1/2 -translate-y-1/2 hidden lg:block z-20 ${isLeft ? '-left-16 xl:-left-20' : '-right-16 xl:-right-20'}`}>
-                            <div className="relative w-12 h-12 xl:w-14 xl:h-14 rounded-lg overflow-hidden bg-white/5 backdrop-blur-sm border border-white/20 p-1.5">
-                              <img src={item.logo} alt={item.title} className="w-full h-full object-contain" width="48" height="48" loading="lazy" />
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Card - optimized */}
-                        <div className={`relative bg-gradient-to-br ${isLight ? 'from-amber-50/80 to-white/80' : 'from-white/5 to-white/[0.02]'} backdrop-blur-md border rounded-xl p-4 sm:p-5 md:p-6 transition-all duration-300 ${isActive ? (isLight ? 'border-amber-300 shadow-lg shadow-amber-100/40' : 'border-white/20 shadow-lg shadow-white/10') : (isLight ? 'border-amber-200' : 'border-white/10')} ${isLight ? 'hover:border-amber-400/70 hover:shadow-xl hover:shadow-amber-200/50' : 'hover:border-white/30 hover:shadow-xl hover:shadow-white/15'}`}>
-                          {/* Year Badge */}
-                          <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r ${isLight ? 'from-black/10 to-black/5' : 'from-white/20 to-white/10'} backdrop-blur-sm ${isLight ? 'text-black' : 'text-white'} font-semibold text-xs sm:text-sm mb-3 border ${isLight ? 'border-black/15' : 'border-white/20'}`}>
-                            {item.year}
-                            {item.current && (
-                              <span className={`inline-flex h-1.5 w-1.5 rounded-full ${isLight ? 'bg-black/70' : 'bg-white/80'} animate-pulse`} />
-                            )}
-                          </div>
-
-                          {/* Title with Logo (mobile only) */}
-                          <div className="flex items-start gap-3 mb-3">
-                            {item.logo && (
-                              <div className="lg:hidden relative w-12 h-12 sm:w-14 sm:h-14 rounded-lg overflow-hidden bg-white/5 backdrop-blur-sm border border-white/15 p-1.5 flex-shrink-0">
-                                <img src={item.logo} alt={item.title} className="w-full h-full object-contain" width="48" height="48" loading="lazy" />
-                              </div>
-                            )}
-                            <div className="flex-1 min-w-0">
-                              <h3 className={`text-base sm:text-lg md:text-xl font-bold ${isLight ? 'text-black' : 'text-white'} mb-1.5 break-words`}>{item.title}</h3>
-                              <p className={`${isLight ? 'text-gray-700' : 'text-gray-300/90'} text-xs sm:text-sm leading-relaxed`}>{item.description}</p>
-                              
-                              {/* Childhood Photos - lebih kecil dan efisien */}
-                              {item.childhoodPhotos && (
-                                <div className="relative mt-4 h-16 sm:h-20 md:h-24">
-                                  {item.childhoodPhotos.map((photo, i) => (
-                                    <div
-                                      key={i}
-                                      className="absolute"
-                                      style={{
-                                        left: `${i * 35}px`,
-                                        top: `${i * 8}px`,
-                                        transform: `rotate(${(i - 1) * 8}deg)`,
-                                        zIndex: 10 + i,
-                                      }}
-                                    >
-                                      <div className={`rounded-lg overflow-hidden shadow-xl border-2 ${isLight ? 'border-amber-200 bg-gradient-to-br from-amber-50/60 to-white/70' : 'border-white/30 bg-gradient-to-br from-white/10 to-white/5'}`}>
-                                        <img
-                                          src={photo}
-                                          alt={`Bocil ${i + 1}`}
-                                          className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-cover"
-                                        />
-                                      </div>
-                                    </div>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-
-                          {/* Organizations */}
-                          {item.organizations && (
-                            <div className="mt-4 pt-4 border-t border-white/10">
-                              <h4 className={`text-xs font-semibold ${isLight ? 'text-black/70' : 'text-white/70'} mb-2`}>Organisasi & Ekstrakurikuler:</h4>
-                              <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                                {item.organizations.map((org, orgIndex) => (
-                                  <div key={orgIndex} className="relative">
-                                    <div className={`px-2.5 py-1.5 ${isLight ? 'bg-black/5 border-black/15 hover:bg-black/10 hover:border-black/25' : 'bg-white/10 border-white/20 hover:bg-white/15 hover:border-white/40'} backdrop-blur-sm border rounded-md transition-all duration-200`}>
-                                      <span className={`text-xs font-medium ${isLight ? 'text-black' : 'text-white'}`}>{org.name}</span>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Simplified corner decorations */}
-                          <div className={`absolute top-1.5 left-1.5 w-3 h-3 border-l-2 border-t-2 ${isLight ? 'border-black/30 group-hover:border-black/50' : 'border-white/40 group-hover:border-white/70'} transition-colors`} />
-                          <div className={`absolute bottom-1.5 right-1.5 w-3 h-3 border-r-2 border-b-2 ${isLight ? 'border-black/30 group-hover:border-black/50' : 'border-white/40 group-hover:border-white/70'} transition-colors`} />
-                        </div>
-                      </div>
-                    </motion.div>
-                  </div>
-
-                  {/* Timeline Dot - dengan Minecraft ladakan effect */}
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  className="relative"
+                >
+                  {/* Timeline Dot */}
                   <div
-                    className={`absolute left-[18px] md:left-1/2 w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 sm:border-3 border-black z-30 transform -translate-x-1/2 transition-all duration-300 md:order-1 ${
+                    className={`absolute -left-[34px] sm:-left-[42px] top-2 w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 z-30 transition-all duration-300 ${
                       isActive 
-                        ? `bg-gradient-to-br from-white to-amber-100 shadow-[0_0_20px_rgba(255,255,255,0.6)]` 
-                        : 'bg-gray-700'
+                        ? `${isLight ? 'bg-amber-400 border-amber-600 shadow-[0_0_12px_rgba(251,191,36,0.6)]' : 'bg-white border-white shadow-[0_0_15px_rgba(255,255,255,0.6)]'}` 
+                        : `${isLight ? 'bg-gray-300 border-gray-400' : 'bg-gray-700 border-gray-600'}`
                     }`}
                   />
 
+                  {/* Card */}
+                  <div className={`relative ${isLight ? 'bg-white/80' : 'bg-white/5'} backdrop-blur-sm border rounded-lg p-4 transition-all duration-300 ${
+                    isActive 
+                      ? (isLight ? 'border-amber-300 shadow-lg' : 'border-white/20 shadow-lg') 
+                      : (isLight ? 'border-gray-200' : 'border-white/10')
+                  }`}>
+                    {/* Year Badge */}
+                    <div className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full ${isLight ? 'bg-black/10 text-black' : 'bg-white/15 text-white'} font-semibold text-xs mb-2`}>
+                      {item.year}
+                      {item.current && (
+                        <span className={`inline-flex h-1.5 w-1.5 rounded-full ${isLight ? 'bg-black' : 'bg-white'} animate-pulse`} />
+                      )}
+                    </div>
 
-                  {/* Spacer untuk desktop agar layout seimbang */}
-                  <div className={`hidden md:block md:w-1/2 ${!isLeft ? 'md:order-1' : 'md:order-2'}`} />
-                </div>
+                    {/* Title with Logo */}
+                    <div className="flex items-start gap-3 mb-2">
+                      {item.logo && (
+                        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden ${isLight ? 'bg-white' : 'bg-white/10'} border ${isLight ? 'border-gray-200' : 'border-white/20'} p-1.5 flex-shrink-0`}>
+                          <img src={item.logo} alt={item.title} className="w-full h-full object-contain" loading="lazy" />
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <h3 className={`text-base sm:text-lg font-bold ${isLight ? 'text-black' : 'text-white'} mb-1`}>
+                          {item.title}
+                        </h3>
+                        <p className={`${isLight ? 'text-gray-700' : 'text-gray-300'} text-sm`}>
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Childhood Photos */}
+                    {item.childhoodPhotos && (
+                      <div className="relative mt-3 h-16 sm:h-20">
+                        {item.childhoodPhotos.map((photo, i) => (
+                          <div
+                            key={i}
+                            className="absolute"
+                            style={{
+                              left: `${i * 30}px`,
+                              top: `${i * 6}px`,
+                              transform: `rotate(${(i - 1) * 6}deg)`,
+                              zIndex: 10 + i,
+                            }}
+                          >
+                            <div className={`rounded-lg overflow-hidden shadow-lg border-2 ${isLight ? 'border-amber-200 bg-white' : 'border-white/30 bg-white/10'}`}>
+                              <img
+                                src={photo}
+                                alt={`Bocil ${i + 1}`}
+                                className="w-12 h-12 sm:w-14 sm:h-14 object-cover"
+                                loading="lazy"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Organizations */}
+                    {item.organizations && (
+                      <div className={`mt-3 pt-3 border-t ${isLight ? 'border-gray-200' : 'border-white/10'}`}>
+                        <h4 className={`text-xs font-semibold ${isLight ? 'text-gray-600' : 'text-white/70'} mb-2`}>
+                          Organisasi & Ekstrakurikuler:
+                        </h4>
+                        <div className="flex flex-wrap gap-1.5">
+                          {item.organizations.map((org, orgIndex) => (
+                            <div
+                              key={orgIndex}
+                              className={`px-2 py-1 ${isLight ? 'bg-amber-100/50 border-amber-200 text-black' : 'bg-white/10 border-white/20 text-white'} backdrop-blur-sm border rounded text-xs font-medium`}
+                            >
+                              {org.name}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
               );
             })}
           </div>
