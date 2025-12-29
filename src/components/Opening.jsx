@@ -44,44 +44,18 @@ const Opening = ({ onComplete }) => {
     <motion.div
       className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-black/85 backdrop-blur-sm pointer-events-auto text-white"
       initial={{ opacity: 1 }}
-      animate={{ opacity: stage === "complete" ? 0 : 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      animate={{ opacity: stage === "complete" ? 0 : 1, scale: stage === "complete" ? 0.98 : 1, filter: stage === "complete" ? 'blur(8px)' : 'blur(0px)' }}
+      transition={{ duration: 1.1, ease: [0.4, 0, 0.2, 1] }}
       style={{ pointerEvents: stage === "complete" ? "none" : "auto" }}
     >
       <div className="relative z-10 flex flex-col items-center gap-8 sm:gap-12 px-4">
-        <motion.div
-          className="relative"
-          initial={{ scale: 0.85, opacity: 0, y: 30, rotate: 8, filter: "blur(8px)" }}
-          animate={
-            stage === "complete"
-              ? { scale: 0.92, opacity: 0, y: -20, rotate: -5, filter: "blur(3px)" }
-              : {
-                  scale: [0.85, 1.03, 1],
-                  opacity: [0, 1, 1],
-                  y: [30, -6, 0],
-                  rotate: [8, -2, 0],
-                  filter: ["blur(8px)", "blur(2px)", "blur(0px)"],
-                }
-          }
-          transition={{ 
-            duration: 1.5, 
-            ease: [0.25, 0.75, 0.35, 1], 
-            times: [0, 0.6, 1]
-          }}
-        >
-          <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40">
-            <div className="relative w-full h-full rounded-full shadow-xl overflow-hidden border-2 sm:border-4 border-white/20 bg-[#0f1116]">
-              <img src="/img/meow.jpg" alt="Profile" className="w-full h-full object-cover" width="128" height="128" loading="eager" />
-              <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-white/15" />
-            </div>
-          </div>
-        </motion.div>
+        {/* Profile image removed as requested */}
 
         <motion.div
           className="text-center px-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
+          initial={{ opacity: 0, y: 40, scale: 0.96 }}
+          animate={{ opacity: stage === "complete" ? 0 : 1, y: stage === "complete" ? -30 : 0, scale: stage === "complete" ? 0.98 : 1 }}
+          transition={{ duration: 1.1, ease: [0.4, 0, 0.2, 1] }}
         >
           <h1
             className="text-4xl md:text-5xl font-black text-white mb-3 tracking-tight drop-shadow-sm"
@@ -93,7 +67,14 @@ const Opening = ({ onComplete }) => {
             className="text-white/90 text-lg sm:text-xl md:text-2xl font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase h-9 sm:h-10 flex items-center justify-center"
             style={{ fontFamily: "monospace" }}
           >
-            <span className="text-white">{typedText}</span>
+            <motion.span
+              className="text-white"
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: stage === "complete" ? 0 : 1, x: stage === "complete" ? -24 : 0 }}
+              transition={{ duration: 1.1, ease: [0.4, 0, 0.2, 1] }}
+            >
+              {typedText}
+            </motion.span>
             <motion.span
               className="inline-block w-1 h-6 bg-white ml-1.5 rounded-sm"
               animate={{ opacity: [1, 0, 1] }}
@@ -109,7 +90,12 @@ const Opening = ({ onComplete }) => {
           transition={{ delay: 0.8 }}
         >
           <div className="flex items-center justify-between gap-4 mb-4 text-base w-full">
-            <span className="flex-1 text-left text-white/80 text-sm sm:text-base font-semibold">Tunggu bentar yaa..</span>
+            <span 
+              className="flex-1 text-left text-white/80 text-sm sm:text-base font-semibold"
+              style={{ fontFamily: 'Comic Sans MS, Comic Sans, cursive' }}
+            >
+              Tunggu bentar yaa..
+            </span>
             <span
               className="min-w-[64px] text-right text-white font-black text-2xl sm:text-3xl tracking-tighter tabular-nums"
               style={{ fontWeight: 900 }}
@@ -159,11 +145,11 @@ const Opening = ({ onComplete }) => {
   );
 };
 
-export default Opening;
-
 <style jsx>{`
   @keyframes shimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
   }
 `}</style>
+
+export default Opening;
