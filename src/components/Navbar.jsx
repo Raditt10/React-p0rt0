@@ -176,8 +176,8 @@ const Navbar = () => {
           <img
             src="/img/logo2.png"
             alt="Logo"
-            className="h-24 w-24 object-contain drop-shadow-lg"
-            style={{ maxHeight: '6rem', filter: 'drop-shadow(0 2px 14px rgba(0,0,0,0.20))' }}
+              className="h-14 w-14 object-contain drop-shadow-lg"
+              style={{ maxHeight: '3.5rem', filter: 'drop-shadow(0 2px 14px rgba(0,0,0,0.20))' }}
           />
         </a>
       </div>
