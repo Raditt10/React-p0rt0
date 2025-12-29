@@ -376,7 +376,7 @@ const Footer = () => {
               <img
                 src="/img/email.png"
                 alt="Email icon"
-                className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 filter brightness-0 invert"
+                className={`w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 ${isLight ? 'drop-shadow-[0_1px_2px_rgba(0,0,0,0.18)]' : 'filter brightness-0 invert'}`}
               />
               <h3 className={`${isLight ? 'text-slate-900' : 'text-white'} text-sm sm:text-base md:text-lg font-mono`}>
                 iniakuraditt@gmail.com

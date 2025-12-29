@@ -88,22 +88,17 @@ const Navbar = () => {
         }`}>
           {/* Elegant glow on hover */}
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-amber-100/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          
           <div className="flex items-center gap-8">
             {/* Logo */}
-            <div className="relative px-4 py-2 group/logo">
+            <div className="relative px-4 py-2 group/logo flex items-center">
               <span className="sr-only">Home</span>
-              <a href="#home" aria-label="Home" tabIndex={0}>
-                <span
-                  className={`text-2xl logo-minecraft transition-all duration-300 group-hover/logo:scale-105 ${
-                    isLight ? 'text-slate-900' : 'text-white group-hover/logo:drop-shadow-[0_0_12px_rgba(248,236,222,0.6)]'
-                  }`}
-                  style={isLight ? { textShadow: 'none', WebkitTextStroke: '0px transparent' } : undefined}
-                  role="heading"
-                  aria-level="1"
-                >
-                  Ra'e
-                </span>
+              <a href="#home" aria-label="Home" tabIndex={0} className="flex items-center">
+                <img
+                  src="/img/logo.png"
+                  alt="Logo"
+                  className="h-20 w-20 object-contain drop-shadow-lg transition-all duration-300 group-hover/logo:scale-110"
+                  style={{ maxHeight: '5rem', filter: 'drop-shadow(0 2px 16px rgba(0,0,0,0.22))' }}
+                />
               </a>
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-8 bg-gradient-to-b from-transparent via-white/30 to-transparent" />
             </div>
@@ -176,9 +171,14 @@ const Navbar = () => {
         transition: 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease-out'
       }}
     >
-      <div className="relative z-10">
-        <a href="#home" aria-label="Home" tabIndex={0}>
-          <span className={`text-xl font-semibold logo-minecraft ${isLight ? 'text-slate-700 drop-shadow-[0_0_6px_rgba(255,255,255,0.6)]' : 'text-white drop-shadow-[0_0_8px_rgba(248,236,222,0.4)]'}`} role="heading" aria-level="1">Ra'e</span>
+      <div className="relative z-10 flex items-center">
+        <a href="#home" aria-label="Home" tabIndex={0} className="flex items-center">
+          <img
+            src="/img/logo.png"
+            alt="Logo"
+            className="h-16 w-16 object-contain drop-shadow-lg"
+            style={{ maxHeight: '4rem', filter: 'drop-shadow(0 2px 14px rgba(0,0,0,0.20))' }}
+          />
         </a>
       </div>
 
