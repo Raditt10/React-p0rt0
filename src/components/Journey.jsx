@@ -102,29 +102,23 @@ const Journey = () => {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
 
         {/* Floating Clouds */}
-        {[...Array(4)].map((_, i) => (
+        {[...Array(2)].map((_, i) => (
           <motion.div
             key={`cloud-${i}`}
             className="absolute"
             style={{
-              top: `${15 + i * 20}%`,
+              top: `${20 + i * 30}%`,
               left: '-10%',
-              opacity: 0.08,
+              opacity: 0.06,
             }}
             animate={{
               x: ['0vw', '110vw'],
-              y: [0, -10, 0],
             }}
             transition={{
               x: {
-                duration: 40 + i * 10,
+                duration: 60 + i * 20,
                 repeat: Infinity,
                 ease: 'linear',
-              },
-              y: {
-                duration: 5 + i * 2,
-                repeat: Infinity,
-                ease: 'easeInOut',
               },
             }}
           >
@@ -137,68 +131,40 @@ const Journey = () => {
         ))}
 
         {/* Flying Birds */}
-        {[...Array(3)].map((_, i) => (
+        {[...Array(2)].map((_, i) => (
           <motion.div
             key={`bird-${i}`}
             className="absolute"
             style={{
-              top: `${10 + i * 15}%`,
+              top: `${15 + i * 20}%`,
               left: '-5%',
             }}
             animate={{
               x: ['0vw', '105vw'],
-              y: [0, -20, 0, 20, 0],
             }}
             transition={{
               x: {
-                duration: 25 + i * 8,
+                duration: 40 + i * 10,
                 repeat: Infinity,
                 ease: 'linear',
-                delay: i * 5,
-              },
-              y: {
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut',
+                delay: i * 8,
               },
             }}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <motion.path
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
                 d="M12 2C10 4 8 6 8 8C8 6 6 4 4 2"
                 stroke="#ffffff"
                 strokeWidth="1.5"
                 strokeLinecap="round"
-                opacity="0.2"
-                animate={{
-                  d: [
-                    "M12 2C10 4 8 6 8 8C8 6 6 4 4 2",
-                    "M12 2C10 3 8 4 8 8C8 4 6 3 4 2",
-                  ],
-                }}
-                transition={{
-                  duration: 0.3,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                }}
+                opacity="0.15"
               />
-              <motion.path
+              <path
                 d="M12 2C14 4 16 6 16 8C16 6 18 4 20 2"
                 stroke="#ffffff"
                 strokeWidth="1.5"
                 strokeLinecap="round"
-                opacity="0.2"
-                animate={{
-                  d: [
-                    "M12 2C14 4 16 6 16 8C16 6 18 4 20 2",
-                    "M12 2C14 3 16 4 16 8C16 4 18 3 20 2",
-                  ],
-                }}
-                transition={{
-                  duration: 0.3,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                }}
+                opacity="0.15"
               />
             </svg>
           </motion.div>
@@ -227,7 +193,7 @@ const Journey = () => {
         </div>
 
         {/* Sparkle Stars */}
-        {[...Array(15)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={`star-${i}`}
             className="absolute w-1 h-1 bg-white rounded-full"
@@ -236,11 +202,10 @@ const Journey = () => {
               left: `${Math.random() * 100}%`,
             }}
             animate={{
-              opacity: [0.1, 0.4, 0.1],
-              scale: [0.5, 1, 0.5],
+              opacity: [0.1, 0.3, 0.1],
             }}
             transition={{
-              duration: 2 + Math.random() * 2,
+              duration: 3 + Math.random() * 2,
               repeat: Infinity,
               delay: Math.random() * 2,
             }}
@@ -252,20 +217,12 @@ const Journey = () => {
           className="absolute right-[10%]"
           style={{
             top: `${10 + scrollProgress * 40}%`,
-            opacity: 0.3,
-          }}
-          animate={{
-            scale: [1, 1.05, 1],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
+            opacity: 0.25,
           }}
         >
-          <div className="w-14 h-14 bg-white rounded-full shadow-[0_0_30px_rgba(255,255,255,0.2)] relative">
-            <div className="absolute top-2 right-1 w-3 h-3 bg-gray-100 rounded-full opacity-50" />
-            <div className="absolute bottom-3 left-2 w-2 h-2 bg-gray-100 rounded-full opacity-40" />
+          <div className="w-12 h-12 bg-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.15)] relative">
+            <div className="absolute top-2 right-1 w-2 h-2 bg-gray-100 rounded-full opacity-40" />
+            <div className="absolute bottom-2 left-1.5 w-1.5 h-1.5 bg-gray-100 rounded-full opacity-30" />
           </div>
         </motion.div>
       </div>
