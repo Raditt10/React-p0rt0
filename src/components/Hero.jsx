@@ -460,7 +460,7 @@ const Hero = () => {
                   color: 'transparent'
                 }}
               >
-                Full Stack Developer & Artist  
+                Front End Developer - UI/UX & Graphic Designer - Artist  
               </span>
             </h2>
           </div>
