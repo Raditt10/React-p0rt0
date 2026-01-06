@@ -71,7 +71,7 @@ const techstack = [
     name: "AWS",
     category: "Cloud",
     level: "Intermediate",
-    src: "https://cdn.simpleicons.org/amazonaws/FF9900",
+    src: "https://logo.svgcdn.com/logos/aws.svg",
     color: "#FF9900",
   },
   {
@@ -397,7 +397,6 @@ const TechStack = () => {
         </div>
 
         {/* CTA */}
-
       </div>
     </section>
   );
