@@ -122,6 +122,22 @@ const techstack = [
     src: "https://cdn.simpleicons.org/vuedotjs/4FC08D",
     color: "#4FC08D",
   },
+  {
+    id: 16,
+    name: "PHP",
+    category: "Language",
+    level: "Intermediate",
+    src: "https://cdn.simpleicons.org/php/777BB4",
+    color: "#777BB4",
+  },
+  {
+    id: 17,
+    name: "Laravel",
+    category: "Backend",
+    level: "Advanced",
+    src: "https://cdn.simpleicons.org/laravel/FF2D20",
+    color: "#FF2D20",
+  },
 ];
 
 const FALLBACK_PLACEHOLDER =
@@ -370,8 +386,8 @@ const TechStack = () => {
             {[
               { label: "Total Tech", value: techstack.length },
               { label: "Categories", value: categories.length - 1 },
-              { label: "Years Experience", value: "4+" },
-              { label: "Projects Built", value: "50+" },
+              { label: "Years Experience", value: "2+" },
+              { label: "Projects Built", value: "7+" },
             ].map((stat, index) => (
               <div
                 key={index}
