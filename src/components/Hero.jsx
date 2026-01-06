@@ -106,83 +106,12 @@ const Hero = () => {
 
   useGSAP(() => {
     gsap.set("#nama", { overflow: "hidden" });
-    // Keep hero text visible by default; animations will still run when gsap timelines play
     gsap.set([".hero-subtitle", ".hero-role", ".hero-description", ".scroll-text", ".scroll-arrow", ".github-container"], {
       opacity: 1,
       y: 0
     });
 
     let mm = gsap.matchMedia();
-
-    const createTypewriterLoop = (chars, speed) => {
-      const tl = gsap.timeline({ repeat: -1, repeatDelay: 2.5 });
-      
-      gsap.set(chars, { 
-        opacity: 0, 
-        y: 12, 
-        scale: 0.3, 
-        rotateX: -90,
-        rotateY: -45,
-        rotateZ: -30,
-        transformOrigin: "50% 50%",
-        filter: "blur(8px)"
-      });
-      
-      // Enter animation - Minecraft Explosion Effect
-      tl.to(chars, {
-        opacity: 1,
-        y: 0,
-        scale: 1.3,
-        rotateX: 15,
-        rotateY: 0,
-        rotateZ: 0,
-        filter: "blur(0px)",
-        duration: speed * 0.6,
-        ease: "back.out(1.8)",
-        stagger: {
-          each: speed,
-          from: "start"
-        }
-      })
-      .to(chars, {
-        scale: 1,
-        rotateX: 0,
-        duration: speed * 0.3,
-        ease: "power2.inOut",
-        stagger: {
-          each: speed,
-          from: "start"
-        }
-      }, 0)
-      // Bounce effect (soft)
-      .to(chars, {
-        y: -6,
-        duration: 0.4,
-        ease: "sine.inOut",
-        stagger: {
-          each: 0.03,
-          from: "start",
-          yoyo: true,
-          repeat: 1
-        }
-      })
-      .to({}, { duration: 1.5 })
-      // Exit animation
-      .to(chars, {
-        opacity: 0,
-        y: -25,
-        scale: 0.7,
-        rotateX: 70,
-        duration: speed * 0.35,
-        ease: "power2.in",
-        stagger: {
-          each: speed * 0.4,
-          from: "end"
-        },
-      });
-      
-      return tl;
-    };
 
     mm.add("(min-width: 768px)", () => {
       const mainTl = gsap.timeline();
@@ -193,82 +122,12 @@ const Hero = () => {
         duration: 1.5,
         ease: "power3.out",
       })
-      .add(() => {
-        // Role text with Minecraft explosion animation
-        let currentIndex = 0;
-        
-        const cycleRole = () => {
-          const roleTl = gsap.timeline({
-            onComplete: () => {
-              currentIndex = (currentIndex + 1) % roleTexts.length;
-              cycleRole();
-            }
-          });
-          
-          // Update text
-          setCurrentRoleIndex(currentIndex);
-          
-          // Set initial explosion state
-          gsap.set(".hero-role", {
-            opacity: 0,
-            scale: 0.3,
-            rotateX: -90,
-            rotateY: -45,
-            rotateZ: -30,
-            y: 20,
-            filter: "blur(10px)"
-          });
-          
-          // Minecraft explosion entrance
-          roleTl.to(".hero-role", {
-            opacity: 1,
-            scale: 1.3,
-            rotateX: 15,
-            rotateY: 0,
-            rotateZ: 0,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 0.6,
-            ease: "back.out(2)",
-          })
-          // Settle down
-          .to(".hero-role", {
-            scale: 1,
-            rotateX: 0,
-            duration: 0.4,
-            ease: "power2.inOut",
-          })
-          // Bounce effect
-          .to(".hero-role", {
-            y: -8,
-            duration: 0.3,
-            ease: "sine.inOut",
-            yoyo: true,
-            repeat: 1
-          })
-          // Hold
-          .to({}, { duration: 2 })
-          // Exit explosion
-          .to(".hero-role", {
-            opacity: 0,
-            scale: 0.7,
-            rotateX: 70,
-            rotateZ: 30,
-            y: -30,
-            filter: "blur(8px)",
-            duration: 0.5,
-            ease: "power2.in",
-          });
-        };
-        
-        cycleRole();
-      }, "-=1")
       .to(".hero-description", {
         opacity: 1,
         y: 0,
         duration: 1.5,
         ease: "power3.out",
-      }, "-=0.8")
+      }, "-=0.6")
       .to(".github-container", {
         opacity: 1,
         y: 0,
@@ -276,10 +135,6 @@ const Hero = () => {
         duration: 1,
         ease: "back.out(1.7)",
       }, "-=0.8")
-      .add(() => {
-        const chars = gsap.utils.toArray("#nama .char");
-        const typewriterTl = createTypewriterLoop(chars, 0.09);
-      }, "-=0.5")
       .to(".scroll-text", {
         opacity: 1,
         y: 0,
@@ -298,87 +153,12 @@ const Hero = () => {
       const mainTl = gsap.timeline();
 
       mainTl.to(".hero-subtitle", { opacity: 1, y: 0, duration: 1 })
-        .add(() => {
-          const chars = gsap.utils.toArray("#nama .char");
-          const typewriterTl = createTypewriterLoop(chars, 0.07);
-        }, "-=0.4")
-        .add(() => {
-          // Role text with Minecraft explosion animation for mobile
-          let currentIndex = 0;
-          
-          const cycleRole = () => {
-            const roleTl = gsap.timeline({
-              onComplete: () => {
-                currentIndex = (currentIndex + 1) % roleTexts.length;
-                cycleRole();
-              }
-            });
-            
-            // Update text
-            setCurrentRoleIndex(currentIndex);
-            
-            // Set initial explosion state
-            gsap.set(".hero-role", {
-              opacity: 0,
-              scale: 0.3,
-              rotateX: -90,
-              rotateY: -45,
-              rotateZ: -30,
-              y: 15,
-              filter: "blur(8px)"
-            });
-            
-            // Minecraft explosion entrance
-            roleTl.to(".hero-role", {
-              opacity: 1,
-              scale: 1.3,
-              rotateX: 15,
-              rotateY: 0,
-              rotateZ: 0,
-              y: 0,
-              filter: "blur(0px)",
-              duration: 0.5,
-              ease: "back.out(2)",
-            })
-            // Settle down
-            .to(".hero-role", {
-              scale: 1,
-              rotateX: 0,
-              duration: 0.3,
-              ease: "power2.inOut",
-            })
-            // Bounce effect
-            .to(".hero-role", {
-              y: -6,
-              duration: 0.25,
-              ease: "sine.inOut",
-              yoyo: true,
-              repeat: 1
-            })
-            // Hold
-            .to({}, { duration: 1.8 })
-            // Exit explosion
-            .to(".hero-role", {
-              opacity: 0,
-              scale: 0.7,
-              rotateX: 70,
-              rotateZ: 30,
-              y: -25,
-              filter: "blur(6px)",
-              duration: 0.4,
-              ease: "power2.in",
-            });
-          };
-          
-          cycleRole();
-        }, "-=0.3")
         .to(".hero-description", { opacity: 1, y: 0, duration: 1 }, "-=0.6")
         .to(".github-container", { opacity: 1, y: 0, scale: 1, duration: 0.8 }, "-=0.4")
         .to(".scroll-text", { opacity: 1, y: 0, duration: 0.8 }, "-=0.4")
         .to(".scroll-arrow", { opacity: 1, y: 0, duration: 0.8 }, "-=0.4");
     });
 
-    // Enhanced scroll arrow animation
     gsap.to(".scroll-arrow", {
       y: -15,
       duration: 2,
@@ -393,6 +173,14 @@ const Hero = () => {
   const renderNameWithSpans = () => {
     const name = "Rafaditya Syahputra";
     return name.split('').map((char, index) => (
+      <span key={index} className="char">
+        {char === ' ' ? '\u00A0' : char}
+      </span>
+    ));
+  };
+
+  const renderRoleWithSpans = (text) => {
+    return text.split('').map((char, index) => (
       <span key={index} className="char">
         {char === ' ' ? '\u00A0' : char}
       </span>
@@ -609,7 +397,7 @@ const Hero = () => {
                   color: 'transparent'
                 }}
               >
-                {roleTexts[currentRoleIndex]}
+                {renderRoleWithSpans(roleTexts[currentRoleIndex])}
               </span>
             </h2>
           </div>
