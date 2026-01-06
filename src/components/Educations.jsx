@@ -15,8 +15,6 @@ const Educations = () => {
     }
   });
   const isLight = themeMode === "light";
-  // Set to false to aggressively lighten the section (disable background + plane animations)
-  const shouldAnimate = !prefersReducedMotion && false;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -80,12 +78,11 @@ const Educations = () => {
     return () => unsubscribe();
   }, [scrollYProgress, timelineData.length]);
 
-  // Honor prefers-reduced-motion to avoid heavy animations on low-power devices
   useEffect(() => {
     if (typeof window === "undefined") return;
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReducedMotion(mq.matches);
-    const handler = (event) => setPrefersReducedMotion(event.matches);
+    const handler = (e) => setPrefersReducedMotion(e.matches);
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
@@ -108,6 +105,8 @@ const Educations = () => {
     } catch {}
   }, []);
 
+  const shouldAnimate = !prefersReducedMotion;
+
   return (
     <section
       id="educations"
@@ -115,225 +114,24 @@ const Educations = () => {
       className="relative min-h-screen pt-20 pb-20 px-4 sm:px-6 overflow-hidden"
       style={{ fontFamily: "Sora Variable, system-ui, sans-serif" }}
     >
-      {/* Animated Sky Background - Overlay Only (disabled when reduced motion) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-
-        {/* Floating Clouds */}
-        {shouldAnimate && [...Array(2)].map((_, i) => (
-          <motion.div
-            key={`cloud-${i}`}
-            className="absolute"
-            style={{
-              top: `${20 + i * 30}%`,
-              left: '-10%',
-              opacity: 0.06,
-            }}
-            animate={{
-              x: ['0vw', '110vw'],
-            }}
-            transition={{
-              x: {
-                duration: 60 + i * 20,
-                repeat: Infinity,
-                ease: 'linear',
-              },
-            }}
-          >
-            <svg width={80 + i * 20} height={40 + i * 10} viewBox="0 0 100 50" fill="none">
-              <ellipse cx="25" cy="30" rx="20" ry="15" fill="#ffffff" opacity="0.3" />
-              <ellipse cx="45" cy="25" rx="25" ry="18" fill="#ffffff" opacity="0.3" />
-              <ellipse cx="70" cy="30" rx="20" ry="15" fill="#ffffff" opacity="0.3" />
-            </svg>
-          </motion.div>
-        ))}
-
-        {/* Flying Birds */}
-        {shouldAnimate && [...Array(2)].map((_, i) => (
-          <motion.div
-            key={`bird-${i}`}
-            className="absolute"
-            style={{
-              top: `${15 + i * 20}%`,
-              left: '-5%',
-            }}
-            animate={{
-              x: ['0vw', '105vw'],
-            }}
-            transition={{
-              x: {
-                duration: 40 + i * 10,
-                repeat: Infinity,
-                ease: 'linear',
-                delay: i * 8,
-              },
-            }}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M12 2C10 4 8 6 8 8C8 6 6 4 4 2"
-                stroke="#ffffff"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                opacity="0.15"
-              />
-              <path
-                d="M12 2C14 4 16 6 16 8C16 6 18 4 20 2"
-                stroke="#ffffff"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                opacity="0.15"
-              />
-            </svg>
-          </motion.div>
-        ))}
-
-        {/* Desert Dunes / Mountains */}
-        <div className="absolute bottom-0 left-0 right-0" style={{ opacity: 0.12 }}>
-          {isLight ? (
-            // Desert with Pyramids (Light Mode)
-            <svg
-              width="100%"
-              height="180"
-              viewBox="0 0 1200 180"
-              preserveAspectRatio="none"
-              fill="none"
-            >
-              {/* Sand Dunes */}
-              <path
-                d="M0 180 L0 100 Q150 60 300 100 T600 100 T900 100 T1200 100 L1200 180 Z"
-                fill="#d4a574"
-                opacity="0.4"
-              />
-              <path
-                d="M0 180 L0 120 Q200 80 400 120 T800 120 T1200 120 L1200 180 Z"
-                fill="#c9955c"
-                opacity="0.5"
-              />
-              <path
-                d="M0 180 L0 140 Q250 110 500 140 T1000 140 T1200 140 L1200 180 Z"
-                fill="#b8864a"
-                opacity="0.6"
-              />
-              
-              {/* Pyramids */}
-              <g opacity="0.5">
-                {/* Large Pyramid */}
-                <path d="M 250 180 L 250 70 L 380 180 Z" fill="#d4a574" />
-                <path d="M 250 70 L 380 180 L 400 180 Z" fill="#c9955c" />
-                
-                {/* Medium Pyramid */}
-                <path d="M 600 180 L 600 90 L 700 180 Z" fill="#d4a574" />
-                <path d="M 600 90 L 700 180 L 715 180 Z" fill="#c9955c" />
-                
-                {/* Small Pyramid */}
-                <path d="M 900 180 L 900 110 L 970 180 Z" fill="#d4a574" />
-                <path d="M 900 110 L 970 180 L 982 180 Z" fill="#c9955c" />
-              </g>
-            </svg>
-          ) : (
-            // Snowy Mountains (Dark Mode)
-            <svg
-              width="100%"
-              height="180"
-              viewBox="0 0 1200 180"
-              preserveAspectRatio="none"
-              fill="none"
-            >
-              {/* Mountain Ranges */}
-              <g opacity="0.6">
-                {/* Back mountains */}
-                <path d="M0 180 L200 80 L400 140 L600 60 L800 120 L1000 70 L1200 150 L1200 180 Z" fill="#e5e7eb" />
-                
-                {/* Front mountains */}
-                <path d="M0 180 L150 100 L350 160 L550 80 L750 140 L950 90 L1200 170 L1200 180 Z" fill="#f3f4f6" />
-                
-                {/* Snow caps */}
-                <path d="M200 80 L180 95 L220 95 Z" fill="#ffffff" />
-                <path d="M600 60 L580 80 L620 80 Z" fill="#ffffff" />
-                <path d="M1000 70 L980 90 L1020 90 Z" fill="#ffffff" />
-                <path d="M550 80 L530 100 L570 100 Z" fill="#ffffff" />
-                <path d="M950 90 L930 110 L970 110 Z" fill="#ffffff" />
-              </g>
-            </svg>
-          )}
-          
-          {isLight && (
-            <>
-              {/* Cacti (Light Mode Only) */}
-              {[...Array(5)].map((_, i) => (
-                <div
-                  key={`cactus-${i}`}
-                  className="absolute"
-                  style={{
-                    bottom: '30px',
-                    left: `${15 + i * 18}%`,
-                    opacity: 0.3,
-                  }}
-                >
-                  <svg width={20 + i * 3} height={30 + i * 5} viewBox="0 0 20 40" fill="none">
-                    {/* Main body */}
-                    <rect x="8" y="10" width="4" height="30" rx="2" fill="#4a7c59" />
-                    {/* Left arm */}
-                    <path d="M8 20 Q5 20 5 17 L5 15 Q5 12 7 12" stroke="#4a7c59" strokeWidth="3" fill="none" strokeLinecap="round" />
-                    {/* Right arm */}
-                    <path d="M12 25 Q15 25 15 22 L15 20 Q15 17 13 17" stroke="#4a7c59" strokeWidth="3" fill="none" strokeLinecap="round" />
-                  </svg>
-                </div>
-              ))}
-              
-              {/* Rocks (Light Mode Only) */}
-              {[...Array(6)].map((_, i) => (
-                <div
-                  key={`rock-${i}`}
-                  className="absolute"
-                  style={{
-                    bottom: '10px',
-                    left: `${10 + i * 15}%`,
-                    opacity: 0.25,
-                  }}
-                >
-                  <svg width={12 + i * 2} height={8 + i} viewBox="0 0 15 10" fill="none">
-                    <ellipse cx="7.5" cy="7" rx="7" ry="5" fill="#8b7355" />
-                  </svg>
-                </div>
-              ))}
-            </>
-          )}
-        </div>
-
-        {/* Sun/Moon */}
-        {shouldAnimate && (
-          <motion.div
-            className="absolute right-[10%]"
-            style={{
-              top: `${10 + scrollProgress * 40}%`,
-              opacity: 0.25,
-            }}
-          >
-            {isLight ? (
-              // Sun
-              <div className="relative w-12 h-12">
-                <div className="w-12 h-12 bg-yellow-400 rounded-full shadow-[0_0_25px_rgba(251,191,36,0.3)]" />
-                {[...Array(8)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute top-1/2 left-1/2 w-0.5 h-4 bg-yellow-400 opacity-40"
-                    style={{
-                      transformOrigin: 'center',
-                      transform: `translate(-50%, -50%) rotate(${i * 45}deg) translateY(-16px)`,
-                    }}
-                  />
-                ))}
-              </div>
-            ) : (
-              // Moon
-              <div className="w-12 h-12 bg-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.15)] relative">
-                <div className="absolute top-2 right-1 w-2 h-2 bg-gray-100 rounded-full opacity-40" />
-                <div className="absolute bottom-2 left-1.5 w-1.5 h-1.5 bg-gray-100 rounded-full opacity-30" />
-              </div>
-            )}
-          </motion.div>
-        )}
+      {/* Minimal background aligned with global theme */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: isLight
+              ? 'linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #e0e7ff 100%)'
+              : 'linear-gradient(135deg, #040507 0%, #0a0d12 50%, #050608 100%)',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: isLight
+              ? 'radial-gradient(circle at 20% 25%, rgba(255,255,255,0.35), transparent 40%), radial-gradient(circle at 80% 20%, rgba(180,198,252,0.25), transparent 40%)'
+              : 'radial-gradient(circle at 20% 25%, rgba(255,255,255,0.06), transparent 40%), radial-gradient(circle at 80% 20%, rgba(59,130,246,0.12), transparent 40%)',
+          }}
+        />
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
@@ -369,10 +167,10 @@ const Educations = () => {
             />
           </div>
 
-          {/* Paper Plane Icon - follows scroll smoothly with dynamic movement (disabled when reduced motion) */}
+          {/* Paper Plane Icon - Simplified Animation */}
           {shouldAnimate && (
             <div
-              className="absolute left-4 sm:left-6 z-40 pointer-events-none transition-all duration-75 ease-linear"
+              className="absolute left-4 sm:left-6 z-40 pointer-events-none transition-all duration-100 ease-linear"
               style={{
                 top: `calc(${scrollProgress * 100}%)`,
                 transform: 'translateY(-14px)',
@@ -384,34 +182,21 @@ const Educations = () => {
                   y: -14,
                 }}
                 animate={{
-                  rotate: [0, -8, 8, -5, 5, 0],
+                  rotate: [0, -5, 5, 0],
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 2.5,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  times: [0, 0.2, 0.4, 0.6, 0.8, 1],
                 }}
               >
-                {/* Trailing effect */}
-                <motion.div
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -z-10"
+                {/* Simplified Trail */}
+                <div
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -z-10 h-0.5 w-8 rounded-full"
                   style={{
-                    width: '40px',
-                    height: '2px',
                     background: isLight 
-                      ? 'linear-gradient(to right, rgba(245, 158, 11, 0.6), transparent)' 
-                      : 'linear-gradient(to right, rgba(255, 255, 255, 0.5), transparent)',
-                    transformOrigin: 'left center',
-                  }}
-                  animate={{
-                    scaleX: [0.6, 1.2, 0.6],
-                    opacity: [0.5, 0.8, 0.5],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
+                      ? 'linear-gradient(to right, rgba(245, 158, 11, 0.5), transparent)' 
+                      : 'linear-gradient(to right, rgba(255, 255, 255, 0.4), transparent)',
                   }}
                 />
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={isLight ? '#111827' : 'white'} strokeWidth="1.5">
@@ -453,11 +238,17 @@ const Educations = () => {
                   />
 
                   {/* Card */}
-                  <div className={`relative ${isLight ? 'bg-white/80' : 'bg-white/5'} backdrop-blur-sm border rounded-lg p-4 transition-all duration-300 ${
-                    isActive 
-                      ? (isLight ? 'border-amber-300 shadow-lg' : 'border-white/20 shadow-lg') 
-                      : (isLight ? 'border-gray-200' : 'border-white/10')
-                  }`}>
+                  <motion.div 
+                    className={`relative ${isLight ? 'bg-white/80' : 'bg-white/5'} backdrop-blur-sm border rounded-lg p-4 transition-all duration-300 ${
+                      isActive 
+                        ? (isLight ? 'border-amber-300 shadow-lg' : 'border-white/20 shadow-lg') 
+                        : (isLight ? 'border-gray-200' : 'border-white/10')
+                    }`}
+                    whileHover={shouldAnimate ? { 
+                      y: -4,
+                      transition: { duration: 0.2 }
+                    } : {}}
+                  >
                     {/* Year Badge */}
                     <div className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full ${isLight ? 'bg-black/10 text-black' : 'bg-white/15 text-white'} font-semibold text-xs mb-2`}>
                       {item.year}
@@ -487,15 +278,26 @@ const Educations = () => {
                     {item.childhoodPhotos && (
                       <div className="relative mt-3 h-16 sm:h-20">
                         {item.childhoodPhotos.map((photo, i) => (
-                          <div
+                          <motion.div
                             key={i}
                             className="absolute"
                             style={{
                               left: `${i * 30}px`,
                               top: `${i * 6}px`,
-                              transform: `rotate(${(i - 1) * 6}deg)`,
                               zIndex: 10 + i,
                             }}
+                            initial={{ opacity: 0, rotate: 0 }}
+                            whileInView={{ 
+                              opacity: 1, 
+                              rotate: (i - 1) * 6 
+                            }}
+                            transition={{ delay: 0.2 + i * 0.1 }}
+                            whileHover={shouldAnimate ? { 
+                              scale: 1.05, 
+                              rotate: 0,
+                              zIndex: 50,
+                              transition: { duration: 0.2 }
+                            } : {}}
                           >
                             <div className={`rounded-lg overflow-hidden shadow-lg border-2 ${isLight ? 'border-amber-200 bg-white' : 'border-white/30 bg-white/10'}`}>
                               <img
@@ -505,7 +307,7 @@ const Educations = () => {
                                 loading="lazy"
                               />
                             </div>
-                          </div>
+                          </motion.div>
                         ))}
                       </div>
                     )}
@@ -518,17 +320,24 @@ const Educations = () => {
                         </h4>
                         <div className="flex flex-wrap gap-1.5">
                           {item.organizations.map((org, orgIndex) => (
-                            <div
+                            <motion.div
                               key={orgIndex}
                               className={`px-2 py-1 ${isLight ? 'bg-amber-100/50 border-amber-200 text-black' : 'bg-white/10 border-white/20 text-white'} backdrop-blur-sm border rounded text-xs font-medium`}
+                              initial={{ opacity: 0, scale: 0.9 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.3 + orgIndex * 0.05 }}
+                              whileHover={shouldAnimate ? { 
+                                scale: 1.05,
+                                transition: { duration: 0.2 }
+                              } : {}}
                             >
                               {org.name}
-                            </div>
+                            </motion.div>
                           ))}
                         </div>
                       </div>
                     )}
-                  </div>
+                  </motion.div>
                 </motion.div>
               );
             })}
