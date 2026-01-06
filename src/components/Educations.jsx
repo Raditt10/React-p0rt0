@@ -5,6 +5,7 @@ const Educations = () => {
   const sectionRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [themeMode, setThemeMode] = useState(() => {
     try {
       const root = document.documentElement;
@@ -14,6 +15,7 @@ const Educations = () => {
     }
   });
   const isLight = themeMode === "light";
+  const shouldAnimate = !prefersReducedMotion;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -77,6 +79,16 @@ const Educations = () => {
     return () => unsubscribe();
   }, [scrollYProgress, timelineData.length]);
 
+  // Honor prefers-reduced-motion to avoid heavy animations on low-power devices
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mq.matches);
+    const handler = (event) => setPrefersReducedMotion(event.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
   useEffect(() => {
     try {
       const root = document.documentElement;
@@ -102,11 +114,11 @@ const Educations = () => {
       className="relative min-h-screen pt-20 pb-20 px-4 sm:px-6 overflow-hidden"
       style={{ fontFamily: "Sora Variable, system-ui, sans-serif" }}
     >
-      {/* Animated Sky Background - Overlay Only */}
+      {/* Animated Sky Background - Overlay Only (disabled when reduced motion) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
 
         {/* Floating Clouds */}
-        {[...Array(2)].map((_, i) => (
+        {shouldAnimate && [...Array(2)].map((_, i) => (
           <motion.div
             key={`cloud-${i}`}
             className="absolute"
@@ -135,7 +147,7 @@ const Educations = () => {
         ))}
 
         {/* Flying Birds */}
-        {[...Array(2)].map((_, i) => (
+        {shouldAnimate && [...Array(2)].map((_, i) => (
           <motion.div
             key={`bird-${i}`}
             className="absolute"
@@ -289,36 +301,38 @@ const Educations = () => {
         </div>
 
         {/* Sun/Moon */}
-        <motion.div
-          className="absolute right-[10%]"
-          style={{
-            top: `${10 + scrollProgress * 40}%`,
-            opacity: 0.25,
-          }}
-        >
-          {isLight ? (
-            // Sun
-            <div className="relative w-12 h-12">
-              <div className="w-12 h-12 bg-yellow-400 rounded-full shadow-[0_0_25px_rgba(251,191,36,0.3)]" />
-              {[...Array(8)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute top-1/2 left-1/2 w-0.5 h-4 bg-yellow-400 opacity-40"
-                  style={{
-                    transformOrigin: 'center',
-                    transform: `translate(-50%, -50%) rotate(${i * 45}deg) translateY(-16px)`,
-                  }}
-                />
-              ))}
-            </div>
-          ) : (
-            // Moon
-            <div className="w-12 h-12 bg-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.15)] relative">
-              <div className="absolute top-2 right-1 w-2 h-2 bg-gray-100 rounded-full opacity-40" />
-              <div className="absolute bottom-2 left-1.5 w-1.5 h-1.5 bg-gray-100 rounded-full opacity-30" />
-            </div>
-          )}
-        </motion.div>
+        {shouldAnimate && (
+          <motion.div
+            className="absolute right-[10%]"
+            style={{
+              top: `${10 + scrollProgress * 40}%`,
+              opacity: 0.25,
+            }}
+          >
+            {isLight ? (
+              // Sun
+              <div className="relative w-12 h-12">
+                <div className="w-12 h-12 bg-yellow-400 rounded-full shadow-[0_0_25px_rgba(251,191,36,0.3)]" />
+                {[...Array(8)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute top-1/2 left-1/2 w-0.5 h-4 bg-yellow-400 opacity-40"
+                    style={{
+                      transformOrigin: 'center',
+                      transform: `translate(-50%, -50%) rotate(${i * 45}deg) translateY(-16px)`,
+                    }}
+                  />
+                ))}
+              </div>
+            ) : (
+              // Moon
+              <div className="w-12 h-12 bg-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.15)] relative">
+                <div className="absolute top-2 right-1 w-2 h-2 bg-gray-100 rounded-full opacity-40" />
+                <div className="absolute bottom-2 left-1.5 w-1.5 h-1.5 bg-gray-100 rounded-full opacity-30" />
+              </div>
+            )}
+          </motion.div>
+        )}
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
@@ -354,97 +368,58 @@ const Educations = () => {
             />
           </div>
 
-          {/* Paper Plane Icon - follows scroll smoothly with dynamic movement */}
-          <div
-            className="absolute left-4 sm:left-6 z-40 pointer-events-none transition-all duration-75 ease-linear"
-            style={{
-              top: `calc(${scrollProgress * 100}%)`,
-              transform: 'translateY(-14px)',
-            }}
-          >
-            <motion.div
+          {/* Paper Plane Icon - follows scroll smoothly with dynamic movement (disabled when reduced motion) */}
+          {shouldAnimate && (
+            <div
+              className="absolute left-4 sm:left-6 z-40 pointer-events-none transition-all duration-75 ease-linear"
               style={{
-                x: -14,
-                y: -14,
-              }}
-              animate={{
-                rotate: [0, -8, 8, -5, 5, 0],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-                times: [0, 0.2, 0.4, 0.6, 0.8, 1],
+                top: `calc(${scrollProgress * 100}%)`,
+                transform: 'translateY(-14px)',
               }}
             >
-              {/* Trailing effect */}
               <motion.div
-                className="absolute left-0 top-1/2 -translate-y-1/2 -z-10"
                 style={{
-                  width: '40px',
-                  height: '2px',
-                  background: isLight 
-                    ? 'linear-gradient(to right, rgba(245, 158, 11, 0.6), transparent)' 
-                    : 'linear-gradient(to right, rgba(255, 255, 255, 0.5), transparent)',
-                  transformOrigin: 'left center',
+                  x: -14,
+                  y: -14,
                 }}
                 animate={{
-                  scaleX: [0.6, 1.2, 0.6],
-                  opacity: [0.5, 0.8, 0.5],
+                  rotate: [0, -8, 8, -5, 5, 0],
                 }}
                 transition={{
-                  duration: 1.5,
+                  duration: 3,
                   repeat: Infinity,
                   ease: "easeInOut",
-                }}
-              />
-              
-              {/* Multiple particles */}
-              {[...Array(3)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-1.5 h-1.5 sm:w-1 sm:h-1 rounded-full"
-                  style={{
-                    background: isLight ? 'rgba(245, 158, 11, 0.7)' : 'rgba(255, 255, 255, 0.6)',
-                    left: `-${8 + i * 6}px`,
-                    top: '50%',
-                  }}
-                  animate={{
-                    x: [-5, -12],
-                    y: [0, (i - 1) * 2],
-                    opacity: [0.7, 0],
-                    scale: [1, 0.3],
-                  }}
-                  transition={{
-                    duration: 0.7,
-                    repeat: Infinity,
-                    delay: i * 0.12,
-                    ease: "easeOut",
-                  }}
-                />
-              ))}
-              
-              <svg 
-                width="28" 
-                height="28" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                className={`drop-shadow-lg ${isLight ? 'text-amber-500' : 'text-white'}`}
-                style={{
-                  filter: isLight 
-                    ? 'drop-shadow(0 0 16px rgba(245, 158, 11, 0.9))' 
-                    : 'drop-shadow(0 0 20px rgba(255, 255, 255, 1))',
+                  times: [0, 0.2, 0.4, 0.6, 0.8, 1],
                 }}
               >
-                <path 
-                  d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" 
-                  fill="currentColor"
-                  stroke="currentColor"
-                  strokeWidth="0.5"
+                {/* Trailing effect */}
+                <motion.div
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -z-10"
+                  style={{
+                    width: '40px',
+                    height: '2px',
+                    background: isLight 
+                      ? 'linear-gradient(to right, rgba(245, 158, 11, 0.6), transparent)' 
+                      : 'linear-gradient(to right, rgba(255, 255, 255, 0.5), transparent)',
+                    transformOrigin: 'left center',
+                  }}
+                  animate={{
+                    scaleX: [0.6, 1.2, 0.6],
+                    opacity: [0.5, 0.8, 0.5],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                 />
-              </svg>
-            </motion.div>
-          </div>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={isLight ? '#111827' : 'white'} strokeWidth="1.5">
+                  <path d="M3 12 L12 5 L21 12 L12 19 Z" fill={isLight ? '#fcd34d' : '#0ea5e9'} opacity="0.8" />
+                  <path d="M12 5 L12 19" stroke={isLight ? '#92400e' : '#38bdf8'} />
+                </svg>
+              </motion.div>
+            </div>
+          )}
 
           {/* Finish Label */}
           <div className="absolute left-0 bottom-0 z-20 -translate-y-6">
