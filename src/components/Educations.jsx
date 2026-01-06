@@ -15,7 +15,8 @@ const Educations = () => {
     }
   });
   const isLight = themeMode === "light";
-  const shouldAnimate = !prefersReducedMotion;
+  // Set to false to aggressively lighten the section (disable background + plane animations)
+  const shouldAnimate = !prefersReducedMotion && false;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
