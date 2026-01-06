@@ -120,27 +120,15 @@ const Educations = () => {
           className="absolute inset-0"
           style={{
             background: isLight
-              ? 'linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #e0e7ff 100%)'
-              : 'linear-gradient(135deg, #040507 0%, #0a0d12 50%, #050608 100%)',
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: isLight
-              ? 'radial-gradient(circle at 20% 25%, rgba(255,255,255,0.35), transparent 40%), radial-gradient(circle at 80% 20%, rgba(180,198,252,0.25), transparent 40%)'
-              : 'radial-gradient(circle at 20% 25%, rgba(255,255,255,0.06), transparent 40%), radial-gradient(circle at 80% 20%, rgba(59,130,246,0.12), transparent 40%)',
+              ? 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 50%)'
+              : 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%)'
           }}
         />
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <h1
           className="text-3xl sm:text-4xl md:text-5xl bg-clip-text text-transparent font-semibold text-center mb-12"
           style={{
             backgroundImage: isLight
@@ -151,21 +139,12 @@ const Educations = () => {
           }}
         >
           My Educations
-        </motion.h1>
+        </h1>
 
         {/* Timeline Container */}
         <div className="relative">
           {/* Progress Line */}
-          <div className={`absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 ${isLight ? "bg-black/10" : "bg-white/10"}`}>
-            <motion.div
-              className={`absolute left-0 top-0 w-full ${isLight ? "bg-black/30" : "bg-white/30"}`}
-              style={{
-                height: scrollYProgress,
-                scaleY: scrollYProgress,
-                transformOrigin: "top",
-              }}
-            />
-          </div>
+          <div className={`absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 ${isLight ? "bg-black/20" : "bg-white/20"}`} />
 
           {/* Paper Plane Icon - Simplified Animation */}
           {shouldAnimate && (
@@ -185,7 +164,7 @@ const Educations = () => {
                   rotate: [0, -5, 5, 0],
                 }}
                 transition={{
-                  duration: 2.5,
+                  duration: 3,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
@@ -230,24 +209,20 @@ const Educations = () => {
                 >
                   {/* Timeline Dot */}
                   <div
-                    className={`absolute -left-[34px] sm:-left-[42px] top-2 w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 z-30 transition-all duration-300 ${
+                    className={`absolute -left-[34px] sm:-left-[42px] top-2 w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 z-30 transition-colors duration-200 ${
                       isActive 
-                        ? `${isLight ? 'bg-amber-400 border-amber-600 shadow-[0_0_12px_rgba(251,191,36,0.6)]' : 'bg-white border-white shadow-[0_0_15px_rgba(255,255,255,0.6)]'}` 
+                        ? `${isLight ? 'bg-amber-400 border-amber-600' : 'bg-white border-white'}` 
                         : `${isLight ? 'bg-gray-300 border-gray-400' : 'bg-gray-700 border-gray-600'}`
                     }`}
                   />
 
                   {/* Card */}
-                  <motion.div 
-                    className={`relative ${isLight ? 'bg-white/80' : 'bg-white/5'} backdrop-blur-sm border rounded-lg p-4 transition-all duration-300 ${
+                  <div 
+                    className={`relative ${isLight ? 'bg-white/70' : 'bg-white/5'} backdrop-blur-sm border rounded-lg p-4 transition-colors duration-200 ${
                       isActive 
-                        ? (isLight ? 'border-amber-300 shadow-lg' : 'border-white/20 shadow-lg') 
+                        ? (isLight ? 'border-amber-300' : 'border-white/20') 
                         : (isLight ? 'border-gray-200' : 'border-white/10')
                     }`}
-                    whileHover={shouldAnimate ? { 
-                      y: -4,
-                      transition: { duration: 0.2 }
-                    } : {}}
                   >
                     {/* Year Badge */}
                     <div className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full ${isLight ? 'bg-black/10 text-black' : 'bg-white/15 text-white'} font-semibold text-xs mb-2`}>
@@ -337,7 +312,7 @@ const Educations = () => {
                         </div>
                       </div>
                     )}
-                  </motion.div>
+                  </div>
                 </motion.div>
               );
             })}
