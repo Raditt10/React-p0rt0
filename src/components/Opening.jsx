@@ -92,13 +92,13 @@ const Opening = ({ onComplete }) => {
           <div className="flex items-center justify-between gap-4 mb-4 text-base w-full">
             <span 
               className="flex-1 text-left text-white/80 text-lg sm:text-xl md:text-lg font-semibold"
-              style={{ fontFamily: 'Comic Sans MS, Comic Sans, cursive' }}
+              style={{ fontFamily: 'Sora, Inter, system-ui, sans-serif' }}
             >
               Tunggu bentar yaa..
             </span>
             <span
               className="min-w-[64px] text-right text-white font-black text-2xl sm:text-3xl tracking-tighter tabular-nums"
-              style={{ fontFamily: 'Comic Sans MS, Comic Sans, cursive', fontWeight: 900 }}
+              style={{ fontFamily: 'Sora, Inter, system-ui, sans-serif', fontWeight: 900 }}
             >
               {progress}%
             </span>
