@@ -234,8 +234,8 @@ const navlinks = [
   },
   {
     id: 4,
-    text: " Journey",
-    link: "#journey"
+    text: " Educations",
+    link: "#educations"
   },
   {
     id: 5,

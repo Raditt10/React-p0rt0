@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll } from "framer-motion";
 
-const Journey = () => {
+const Educations = () => {
   const sectionRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -31,7 +31,7 @@ const Journey = () => {
       year: "2014",
       title: "TK Darul Fikri",
       description: "Memulai pendidikan di Taman Kanak-kanak Darul Fikri",
-      logo: "/img/tk.jpg",
+      logo: "/img/tk.png",
     },
     {
       year: "2015",
@@ -44,6 +44,10 @@ const Journey = () => {
       title: "SMPN 1 Cileunyi",
       description: "Menempuh pendidikan menengah pertama di SMPN 1 Cileunyi",
       logo: "/img/smp.png",
+      organizations: [
+        { name: "English Club" },
+        { name: "Badminton" },
+      ],
     },
     {
       year: "2024 - Sekarang",
@@ -54,9 +58,9 @@ const Journey = () => {
       organizations: [
         { name: "MPK" },
         { name: "Badminton" },
-        { name: "IRMA" },
-        { name: "Sastrala" },
-        { name: "Programmer Club" },
+        { name: "IRMA (Rohis SMKN 13 Bandung)" },
+        { name: "Sastrala (Jurnalis SMKN 13 Bandung)" },
+        { name: "Musi" },
       ],
     },
   ];
@@ -93,7 +97,7 @@ const Journey = () => {
 
   return (
     <section
-      id="journey"
+      id="educations"
       ref={sectionRef}
       className="relative min-h-screen pt-20 pb-20 px-4 sm:px-6 overflow-hidden"
       style={{ fontFamily: "Sora Variable, system-ui, sans-serif" }}
@@ -333,7 +337,7 @@ const Journey = () => {
             WebkitBackgroundClip: "text",
           }}
         >
-          My Journey
+          My Educations
         </motion.h1>
 
         {/* Timeline Container */}
@@ -559,4 +563,4 @@ const Journey = () => {
   );
 };
 
-export default Journey;
+export default Educations;

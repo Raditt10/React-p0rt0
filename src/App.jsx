@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TechStack from './components/TechStack';
 import Gallery from './components/Gallery';
-import Journey from './components/Journey';
+import Educations from './components/Educations';
 import Projetcs from './components/Projetcs';
 import Achievements from './components/Achievements';
 import Footer from './components/Footer';
@@ -62,7 +62,7 @@ function App() {
             <About />
             <TechStack />
             <Gallery />
-            <Journey />
+            <Educations />
             <Projetcs />
             <Achievements />
             <Footer />
