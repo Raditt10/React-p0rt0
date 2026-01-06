@@ -124,7 +124,7 @@ const About = () => {
       ref={sectionRef}
       id="about" 
       className="relative min-h-screen px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 overflow-hidden"
-      style={{ fontFamily: "Sora Variable" }}
+      style={{ fontFamily: "Baloo 2, Comic Sans MS, cursive" }}
     >
       {/* Background gradient - sama seperti TechStack */}
       <div 
@@ -133,7 +133,7 @@ const About = () => {
           background: isLight
             ? 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 50%)'
             : 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%)'
-        }}
+         style={{ fontFamily: "Baloo 2, Comic Sans MS, cursive" }}
       />
 
       {/* Background Tech Stack Marquee */}
