@@ -296,7 +296,7 @@ const About = () => {
                 </p>
                 <p>
                   Sekarang Saya berusia 17 tahun dan sedang menempuh pendidikan SMK di SMKN 13 Bandung,
-                  jurusan Rekayasa Perangkat Lunak. Kelas 11. Selain itu, saya juga aktif berkontribusi
+                  jurusan Rekayasa Perangkat Lunak, Kelas 11. Selain itu, saya juga aktif berkontribusi
                   pada proyek open-source dan terus memperbarui keterampilan saya dengan teknologi terbaru.
                 </p>
               </div>
