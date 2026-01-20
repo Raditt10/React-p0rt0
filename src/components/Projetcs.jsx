@@ -225,7 +225,7 @@ const Projects = () => {
     <section 
       id="projects" 
       ref={sectionRef} 
-      className="relative min-h-screen py-24 sm:py-32 px-4 sm:px-6 overflow-hidden"
+      className="relative min-h-screen py-24 sm:py-32 px-4 sm:px-6 overflow-hidden scroll-mt-24"
       style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
     >
       {/* --- BACKGROUND (Clean Monochrome) --- */}

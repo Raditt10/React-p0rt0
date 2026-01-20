@@ -89,10 +89,10 @@ const Navbar = () => {
                 <li key={link.id}>
                     <a 
                         href={link.link}
-                        className={`relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-opacity-10 ${
-                            isLight 
-                                ? 'text-gray-600 hover:text-black hover:bg-black' 
-                                : 'text-gray-400 hover:text-white hover:bg-white'
+                        className={`relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                            isLight
+                                ? 'text-gray-600 hover:text-black hover:bg-black'
+                                : 'text-gray-400 hover:text-white hover:bg-gray-700'
                         }`}
                     >
                         {link.text}

@@ -220,19 +220,19 @@ const navlinks = [
     text: "Home",
     link: "#home"
   },
-  {
+  { 
     id: 2,
     text: "About Me",
     link: "#about"
   },
   {
     id: 3,
-    text: "Gallery",
+    text: "My Gallery",
     link: "#gallery"
   },
   {
     id: 4,
-    text: "Educations",
+    text: "My Educations",
     link: "#educations"
   },
   {
