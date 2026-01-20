@@ -37,7 +37,9 @@ const Achievements = () => {
     <section 
       id='achievements'
       ref={containerRef}
-      className="relative min-h-screen py-24 sm:py-32 px-4 sm:px-6 overflow-hidden"
+      // UPDATE 1: overflow-hidden di sini agar halaman tidak scroll horizontal,
+      // tapi kita kasih padding vertikal agar konten swiper aman.
+      className="relative min-h-screen py-24 sm:py-32 px-0 sm:px-6 overflow-hidden" 
       style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
     >
       {/* --- BACKGROUND (Clean Monochrome) --- */}
@@ -55,7 +57,7 @@ const Achievements = () => {
       <div className="max-w-7xl mx-auto relative z-20">
         
         {/* --- HEADER --- */}
-        <div className="text-center mb-16 md:mb-24">
+        <div className="text-center mb-16 md:mb-24 px-4">
             <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -80,12 +82,12 @@ const Achievements = () => {
         </div>
         
         {/* --- COMPETITION SECTION --- */}
-        <div className="mb-24">
+        <div className="mb-24 px-4 sm:px-0">
             <motion.div 
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="flex items-center gap-4 mb-10"
+                className="flex items-center gap-4 mb-10 max-w-4xl mx-auto"
             >
                 <div className={`h-10 w-1 ${isLight ? 'bg-black' : 'bg-white'}`} />
                 <h2 className={`text-2xl md:text-3xl font-bold tracking-wide ${isLight ? 'text-black' : 'text-white'}`}>
@@ -105,12 +107,12 @@ const Achievements = () => {
         </div>
         
         {/* --- CERTIFICATION SECTION --- */}
-        <div>
+        <div className="w-full">
             <motion.div 
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="flex items-center gap-4 mb-12"
+                className="flex items-center gap-4 mb-8 max-w-4xl mx-auto px-4 sm:px-0"
             >
                 <div className={`h-10 w-1 ${isLight ? 'bg-black' : 'bg-white'}`} />
                 <h2 className={`text-2xl md:text-3xl font-bold tracking-wide ${isLight ? 'text-black' : 'text-white'}`}>
@@ -123,22 +125,22 @@ const Achievements = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="relative"
+                className="relative w-full"
             >
                 <Swiper
                     modules={[Navigation, Pagination, EffectCoverflow]}
                     effect="coverflow"
                     grabCursor={true}
                     centeredSlides={true}
-                    slidesPerView="auto"
+                    slidesPerView="auto" // Biarkan auto agar lebar card yang menentukan
                     coverflowEffect={{
                         rotate: 0,
                         stretch: 0,
-                        depth: 150,
+                        depth: 100,
                         modifier: 2.5,
-                        slideShadows: false, // Cleaner look without dark shadows
+                        slideShadows: false, 
                     }}
-                    spaceBetween={40}
+                    spaceBetween={30} // Jarak antar slide
                     navigation={{
                         nextEl: '.swiper-button-next',
                         prevEl: '.swiper-button-prev',
@@ -148,28 +150,27 @@ const Achievements = () => {
                         dynamicBullets: true,
                     }}
                     onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-                    breakpoints={{
-                        320: { slidesPerView: 1, spaceBetween: 20 },
-                        768: { slidesPerView: 2, spaceBetween: 30 },
-                        1024: { slidesPerView: 3, spaceBetween: 40 }
-                    }}
-                    className='py-12 w-full relative'
+                    // UPDATE 2: Padding besar (py-14) agar shadow & scale tidak kepotong
+                    className='!py-14 w-full relative' 
+                    // UPDATE 3: overflow visible agar bayangan keluar dari kotak swiper
+                    style={{ overflow: 'visible' }}
                 >
                     {dataCerti.map((d, index) => (
-                        <SwiperSlide key={index} className="w-[300px] sm:w-[350px]">
-                            <div className={`relative transition-all duration-500 rounded-2xl overflow-hidden group ${
+                        // UPDATE 4: Set lebar spesifik pada SwiperSlide untuk mobile & desktop
+                        <SwiperSlide key={index} className="!w-[280px] sm:!w-[350px]">
+                            <div className={`relative transition-all duration-500 rounded-2xl ${
                                 index === activeIndex 
-                                    ? 'scale-105 opacity-100 z-10' 
-                                    : 'scale-90 opacity-50 blur-[1px]'
+                                    ? 'scale-100 opacity-100 z-10' 
+                                    : 'scale-90 opacity-40 blur-[2px]'
                             }`}>
-                                {/* Card Border Container */}
-                                <div className={`p-1 rounded-2xl transition-all duration-300 ${
+                                {/* Card Frame */}
+                                <div className={`p-2 rounded-2xl transition-all duration-300 ${
                                     isLight 
-                                        ? 'bg-gray-200 group-hover:bg-black' 
-                                        : 'bg-gray-800 group-hover:bg-white'
+                                        ? 'bg-white border-2 border-gray-100 shadow-xl' 
+                                        : 'bg-black border-2 border-gray-800 shadow-2xl shadow-white/5'
                                 }`}>
-                                    <div className={`rounded-xl overflow-hidden bg-clip-border ${
-                                        isLight ? 'bg-white' : 'bg-black'
+                                    <div className={`rounded-xl overflow-hidden ${
+                                        isLight ? 'bg-gray-50' : 'bg-gray-900'
                                     }`}>
                                         <CertificationCard 
                                             gambar={d.gambar} 
@@ -183,9 +184,9 @@ const Achievements = () => {
                         </SwiperSlide>
                     ))}
 
-                    {/* Custom Nav Buttons */}
-                    <div className="swiper-button-prev !hidden md:!flex"></div>
-                    <div className="swiper-button-next !hidden md:!flex"></div>
+                    {/* Navigation Buttons (Outside Container) */}
+                    <div className="swiper-button-prev !hidden md:!flex -ml-4 lg:-ml-12"></div>
+                    <div className="swiper-button-next !hidden md:!flex -mr-4 lg:-mr-12"></div>
                 </Swiper>
             </motion.div>
         </div>
@@ -196,13 +197,15 @@ const Achievements = () => {
         .swiper-button-next,
         .swiper-button-prev {
             color: ${isLight ? '#000' : '#fff'} !important;
-            background: ${isLight ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.8)'} !important;
+            background: ${isLight ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.9)'} !important;
             backdrop-filter: blur(8px);
-            border: 1px solid ${isLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)'} !important;
+            border: 1px solid ${isLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.2)'} !important;
             border-radius: 50% !important;
-            width: 50px !important;
-            height: 50px !important;
+            width: 48px !important;
+            height: 48px !important;
             transition: all 0.3s ease !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 50;
         }
 
         .swiper-button-next:hover,
@@ -222,15 +225,20 @@ const Achievements = () => {
         .swiper-pagination-bullet {
             background: ${isLight ? '#000' : '#fff'} !important;
             opacity: 0.3 !important;
-            width: 10px !important;
-            height: 10px !important;
+            width: 8px !important;
+            height: 8px !important;
             transition: all 0.3s ease !important;
         }
 
         .swiper-pagination-bullet-active {
             opacity: 1 !important;
             width: 24px !important;
-            border-radius: 6px !important;
+            border-radius: 4px !important;
+        }
+        
+        /* Memastikan slide yang tidak aktif tidak menumpuk aneh */
+        .swiper-slide {
+            transition: transform 0.5s;
         }
       `}</style>
     </section>
