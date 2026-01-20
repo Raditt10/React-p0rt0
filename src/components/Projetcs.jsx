@@ -257,7 +257,7 @@ const Projects = () => {
                             ? 'bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500' 
                             : 'bg-gradient-to-r from-white via-gray-200 to-gray-500'
                     }`}>
-                        Featured Work
+                        Featured Projects
                     </span>
                 </motion.h1>
                 <motion.div 
