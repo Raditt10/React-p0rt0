@@ -309,7 +309,7 @@ const Footer = () => {
         {/* --- COPYRIGHT --- */}
         <div className="mt-20 pt-8 border-t border-dashed border-gray-200 dark:border-white/10 text-center">
             <p className={`text-sm font-medium ${isLight ? 'text-gray-500' : 'text-gray-500'}`}>
-                © {new Date().getFullYear()} Ra'e. All rights reserved.
+                © 2025 Ra'e. All rights reserved.
             </p>
         </div>
       </div>
